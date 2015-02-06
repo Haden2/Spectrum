@@ -1,3 +1,4 @@
 # Spectrum
-A horror game under development
-This is an update to the README file.
+A horror game under development.
+
+This is another update to the README, this time with a deletion.
