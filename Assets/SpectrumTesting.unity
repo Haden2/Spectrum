@@ -329,6 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08e828fbbb29a4545ab4cd49c1423046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lightIntensity: 2
 --- !u!1 &635937813
 GameObject:
   m_ObjectHideFlags: 0
