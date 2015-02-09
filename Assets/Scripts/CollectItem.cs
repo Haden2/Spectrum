@@ -20,4 +20,11 @@ public class CollectItem : MonoBehaviour {
 			pressE.color = blank;
 		}
 	}
+	void OnTriggerExit (Collider other)
+	{
+		if (other.gameObject.tag == "PickUp") 
+		{
+			pressE.color = blank;
+		}
+	}
 }
