@@ -4,20 +4,19 @@ using System.Collections;
 
 public class EnemyDamage : MonoBehaviour 
 {
-	GameObject blueLight;
-	public int testing12;
+	public GameObject BlueFlashlight;
+	GameObject player; 
 
 	void Awake()
 	{
-		blueLight = GameObject.FindGameObjectWithTag ("Light");
+		player = GameObject.FindGameObjectWithTag ("Player");
 	}
 
 	void OnTriggerEnter (Collider other) 
 	{
-		if(other.gameObject == blueLight)
+		if(other.gameObject == player)
 		{
-			testing12 = 3;
-			other.gameObject.SetActive(false);
+			BlueFlashlight.gameObject.SetActive(false);
 		}
 
 	}

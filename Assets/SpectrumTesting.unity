@@ -225,7 +225,7 @@ MonoBehaviour:
   pickupText: {r: 1, g: 0, b: 0, a: 1}
   flashSpeed: 5
   blank: {r: 0, g: 0, b: 0, a: 0}
-  CollectingItem: {fileID: 0}
+  CollectingItem: {fileID: 774218081}
 --- !u!1 &123513432
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,7 +311,7 @@ SphereCollider:
   m_GameObject: {fileID: 123513432}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: .5
   m_Center: {x: 0, y: 0, z: 0}
@@ -867,79 +867,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1537820588}
   m_GameObject: {fileID: 1226107559}
   m_Mesh: {fileID: 10205, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1232128197
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1232128201}
-  - 114: {fileID: 1232128200}
-  - 114: {fileID: 1232128199}
-  - 114: {fileID: 1232128198}
-  m_Layer: 0
-  m_Name: EventSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1232128198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1232128197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1997211142, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AllowActivationOnStandalone: 0
---- !u!114 &1232128199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1232128197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1077351063, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_AllowActivationOnMobileDevice: 0
---- !u!114 &1232128200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1232128197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -619905303, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 5
---- !u!4 &1232128201
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1232128197}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
 --- !u!1 &1258570489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1350,10 +1277,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_Radius: 1
   m_Speed: 1
-  m_Acceleration: 5
+  m_Acceleration: 1
   avoidancePriority: 50
   m_AngularSpeed: Infinity
-  m_StoppingDistance: 2.0999999
+  m_StoppingDistance: 2.04999995
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1450,7 +1377,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
 --- !u!114 &1767091208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1462,7 +1389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3780a4b50117a9247a9176a0ca1053f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testing12: 0
+  BlueFlashlight: {fileID: 123513432}
 --- !u!1 &2055290466
 GameObject:
   m_ObjectHideFlags: 0

@@ -40,7 +40,9 @@ public class CollectItem : MonoBehaviour {
 		if (textShown && Input.GetKeyDown ("e"))
 		{
 			//Destroy(CollectingItem.gameObject);
-			//CollectingItem.gameObject.SetActive(false);
+			CollectingItem.gameObject.SetActive(false);
+			pressE.color = blank;
 		}
+
 	}
 }
