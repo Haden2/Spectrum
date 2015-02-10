@@ -225,6 +225,7 @@ MonoBehaviour:
   pickupText: {r: 1, g: 0, b: 0, a: 1}
   flashSpeed: 5
   blank: {r: 0, g: 0, b: 0, a: 0}
+  CollectingItem: {fileID: 0}
 --- !u!1 &123513432
 GameObject:
   m_ObjectHideFlags: 0

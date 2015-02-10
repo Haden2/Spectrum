@@ -8,23 +8,39 @@ public class CollectItem : MonoBehaviour {
 	public Color pickupText = new Color(1f, 0f, 0f, 1f);
 	public float flashSpeed = 5f;
 	public Color blank = new Color (0f, 0f, 0f, 0f);
+	public GameObject CollectingItem;
+
+	bool textShown;
 
 	void OnTriggerEnter(Collider other) 
 	{
 		if (other.gameObject.tag == "PickUp") 
 		{
 			pressE.color = pickupText;
+			textShown = true;
 		} 
-		else //if (other.gameObject.tag (Doesn't equal) "PickUp")
+
+		if (textShown && Input.GetKeyDown ("e"))
 		{
-			pressE.color = blank;
+			other.gameObject.SetActive(false);
 		}
+	
 	}
 	void OnTriggerExit (Collider other)
 	{
 		if (other.gameObject.tag == "PickUp") 
 		{
 			pressE.color = blank;
+			textShown = false;
+		}
+	}
+
+	void Update()
+	{
+		if (textShown && Input.GetKeyDown ("e"))
+		{
+			//Destroy(CollectingItem.gameObject);
+			//CollectingItem.gameObject.SetActive(false);
 		}
 	}
 }
