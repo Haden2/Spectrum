@@ -1,25 +1,25 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class EnemyDamage : MonoBehaviour 
 {
 	GameObject player;
-	ToggleFlashlight lightIntensity;
+	public int testing12;
 
 	void Awake()
 	{
 		player = GameObject.FindGameObjectWithTag ("Player");
-		lightIntensity = GetComponent <ToggleFlashlight>();
 	}
 
 	void OnTriggerEnter (Collider other) 
 	{
 		if(other.gameObject == player)
 		{
-			light.intensity = 0;
+			testing12 = 3;
 		}
 
 	}
-	
+
 
 }
