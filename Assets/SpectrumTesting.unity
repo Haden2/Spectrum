@@ -477,7 +477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightIntensity: .75
   lf: {fileID: 123513437}
-  lensFlare: 2
+  lensBright: 2
 --- !u!108 &123513434
 Light:
   m_ObjectHideFlags: 0
@@ -519,8 +519,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 123513432}
-  m_LocalRotation: {x: -.0697564706, y: 0, z: 0, w: .997564077}
-  m_LocalPosition: {x: .294999987, y: .100000001, z: .310000002}
+  m_LocalRotation: {x: -8.74227766e-08, y: 0, z: 0, w: -1}
+  m_LocalPosition: {x: .340000004, y: .100000001, z: .310000002}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 1477525519}
