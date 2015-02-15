@@ -18,8 +18,10 @@ public class ToggleFlashlight : MonoBehaviour
 			lf.brightness = lensBright; //2
 		}
       else
-      	 	light.intensity = 0; //If the light was on, turn it off.
+      	{	
+			light.intensity = 0; //If the light was on, turn it off.
 			lf.brightness = 0;
+		}
     }
   }
 
