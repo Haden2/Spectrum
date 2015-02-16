@@ -1975,7 +1975,7 @@ GameObject:
   - 65: {fileID: 1340948602}
   - 23: {fileID: 1340948601}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: WallR
   m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2762,6 +2762,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlueFlashlight: {fileID: 123513432}
+  wait: 3
+  readyOrNot: 3
 --- !u!1 &1863653845
 GameObject:
   m_ObjectHideFlags: 0
