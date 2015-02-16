@@ -5,17 +5,18 @@ using System.Collections;
 public class EnemyDamage : MonoBehaviour 
 {
 	public GameObject BlueFlashlight;
+	public float wait;
+	public float readyOrNot;
 	GameObject main; 
 	Transform escapeDestination;
 	NavMeshAgent nav;
 	NavMeshAgent turnUp;
 	Transform player;
-	public float wait;
-	public float readyOrNot;
 
 	bool escape;
 	bool run;
 	bool seek;
+	bool light;
 
 
 	void Awake()
@@ -25,36 +26,28 @@ public class EnemyDamage : MonoBehaviour
 		escapeDestination = GameObject.FindGameObjectWithTag ("Respawn").transform;
 		nav = GetComponent<NavMeshAgent>();
 		turnUp = GetComponent <NavMeshAgent>();
+		seek = true;
+		light = true;
 	}
 
 	void OnTriggerEnter (Collider other) 
 	{
-		if(other.gameObject == main)
+		if(other.gameObject == main && seek == true)
 		{
-			BlueFlashlight.gameObject.SetActive(false);
-			nav.SetDestination (escapeDestination.position);
-			seek = false;
 			StartCoroutine (WaitForLight ());
 		}
 
 		if(other.gameObject == main && escape == true)
 		{
-			BlueFlashlight.gameObject.SetActive(true);
-			//run = false;
 			StartCoroutine (HideAndSeek ());
 		}
 
-	/*	if(other.gameObject == main && seek == true)
-		{
-			BlueFlashlight.gameObject.SetActive(false);
-			nav.SetDestination (escapeDestination.position);
-			seek = false;
-			StartCoroutine (WaitForLight ());
-		}*/
 	}
 
 	IEnumerator WaitForLight()
 	{
+		light = false;
+		seek = false;
 		run = true;
 		yield return new WaitForSeconds (wait);
 		escape = true;
@@ -62,8 +55,11 @@ public class EnemyDamage : MonoBehaviour
 
 	IEnumerator HideAndSeek()
 	{
+		light = true;
+		escape = false;
 		yield return new WaitForSeconds (readyOrNot);
 		seek = true;
+		run = false;
 	}
 
 	void Update()
@@ -77,7 +73,14 @@ public class EnemyDamage : MonoBehaviour
 		{
 			turnUp.speed = 1;
 			nav.SetDestination (player.position);
-			run = false;
+		}
+		if(light == true)
+		{
+			BlueFlashlight.gameObject.SetActive(true);
+		}
+		if (light == false)
+		{
+			BlueFlashlight.gameObject.SetActive(false);
 		}
 	}
 }
