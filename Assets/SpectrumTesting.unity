@@ -456,6 +456,7 @@ GameObject:
   - 108: {fileID: 123513434}
   - 114: {fileID: 123513433}
   - 135: {fileID: 123513436}
+  - 123: {fileID: 123513437}
   m_Layer: 0
   m_Name: BlueFlashlight
   m_TagString: Light
@@ -475,6 +476,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightIntensity: .75
+  lf: {fileID: 123513437}
+  lensBright: 2
 --- !u!108 &123513434
 Light:
   m_ObjectHideFlags: 0
@@ -516,8 +519,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 123513432}
-  m_LocalRotation: {x: .00127592857, y: 3.42286512e-07, z: 4.36733455e-10, w: -.999999225}
-  m_LocalPosition: {x: .180000007, y: 0, z: 0}
+  m_LocalRotation: {x: .074282743, y: 0, z: 0, w: -.997237265}
+  m_LocalPosition: {x: .289999992, y: .100000001, z: .310000002}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 1477525519}
@@ -534,6 +537,21 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: .5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!123 &123513437
+LensFlare:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 123513432}
+  m_Enabled: 0
+  m_Flare: {fileID: 12100000, guid: f3cd23d6d3e3d490cb471c69069c97a1, type: 2}
+  m_Color: {r: .466666669, g: .831372559, b: .996078432, a: 1}
+  m_Brightness: 2
+  m_FadeSpeed: 100
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Directional: 0
 --- !u!1 &128985161
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,82 +896,6 @@ Transform:
   - {fileID: 2055290470}
   m_Father: {fileID: 0}
   m_RootOrder: 3
---- !u!1 &334217881
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 334217882}
-  - 108: {fileID: 334217883}
-  - 114: {fileID: 334217884}
-  m_Layer: 0
-  m_Name: Flashlight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &334217882
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 334217881}
-  m_LocalRotation: {x: -.00127609097, y: 0, z: 0, w: .999999225}
-  m_LocalPosition: {x: .180000007, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_Children: []
-  m_Father: {fileID: 1477525519}
-  m_RootOrder: 1
---- !u!108 &334217883
-Light:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 334217881}
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Type: 0
-  m_Color: {r: 1, g: .992156863, b: .686274529, a: 1}
-  m_Intensity: .75
-  m_Range: 25
-  m_SpotAngle: 65
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_Strength: 1
-    m_Bias: .0500000007
-    m_Softness: 4
-    m_SoftnessFade: 1
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 1
-  m_ActuallyLightmapped: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Lightmapping: 0
-  m_ShadowSamples: 1
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
-  m_IndirectIntensity: 1
-  m_AreaSize: {x: 1, y: 1}
---- !u!114 &334217884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 334217881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08e828fbbb29a4545ab4cd49c1423046, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lightIntensity: .75
 --- !u!1 &463208619
 GameObject:
   m_ObjectHideFlags: 0
@@ -1373,10 +1315,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 774218086}
-  - 33: {fileID: 774218085}
   - 135: {fileID: 774218084}
   - 23: {fileID: 774218083}
-  - 114: {fileID: 774218082}
+  - 33: {fileID: 774218085}
   m_Layer: 0
   m_Name: Collect Item
   m_TagString: PickUp
@@ -1384,17 +1325,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &774218082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 774218081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc169a1925376d14bb614344e35847f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!23 &774218083
 Renderer:
   m_ObjectHideFlags: 0
@@ -2033,7 +1963,7 @@ GameObject:
   - 65: {fileID: 1340948602}
   - 23: {fileID: 1340948601}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: WallR
   m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2260,7 +2190,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 123513435}
-  - {fileID: 334217882}
   m_Father: {fileID: 50584745}
   m_RootOrder: 1
 --- !u!81 &1477525520
@@ -2821,6 +2750,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlueFlashlight: {fileID: 123513432}
+  wait: 3
+  readyOrNot: 10
 --- !u!1 &1863653845
 GameObject:
   m_ObjectHideFlags: 0
