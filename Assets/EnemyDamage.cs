@@ -7,6 +7,7 @@ public class EnemyDamage : MonoBehaviour
 	public GameObject BlueFlashlight;
 	public float wait;
 	public float readyOrNot;
+	public float startingTalk;
 	GameObject main; 
 	Transform escapeDestination;
 	NavMeshAgent nav;
@@ -16,7 +17,8 @@ public class EnemyDamage : MonoBehaviour
 	bool escape;
 	bool run;
 	bool seek;
-	bool light;
+	bool flash;
+	bool start;
 
 
 	void Awake()
@@ -26,27 +28,39 @@ public class EnemyDamage : MonoBehaviour
 		escapeDestination = GameObject.FindGameObjectWithTag ("Respawn").transform;
 		nav = GetComponent<NavMeshAgent>();
 		turnUp = GetComponent <NavMeshAgent>();
-		seek = true;
-		light = true;
+		start = true;
+		seek = false;
+		flash = true;
 	}
 
 	void OnTriggerEnter (Collider other) 
 	{
-		if(other.gameObject == main && seek == true)
+		if(other.gameObject == main && start == true && seek == false)
+		{
+			StartCoroutine (StartGame());
+		}
+		if(other.gameObject == main && seek == true && start == false)
 		{
 			StartCoroutine (WaitForLight ());
 		}
 
-		if(other.gameObject == main && escape == true)
+		if(other.gameObject == main && escape == true && seek == false)
 		{
 			StartCoroutine (HideAndSeek ());
 		}
 
 	}
 
+	IEnumerator StartGame()
+	{
+		start = false;
+		yield return new WaitForSeconds (startingTalk);
+		seek = true;
+	}
+
 	IEnumerator WaitForLight()
 	{
-		light = false;
+		flash = false;
 		seek = false;
 		run = true;
 		yield return new WaitForSeconds (wait);
@@ -55,7 +69,7 @@ public class EnemyDamage : MonoBehaviour
 
 	IEnumerator HideAndSeek()
 	{
-		light = true;
+		flash = true;
 		escape = false;
 		yield return new WaitForSeconds (readyOrNot);
 		seek = true;
@@ -74,13 +88,18 @@ public class EnemyDamage : MonoBehaviour
 			turnUp.speed = 1;
 			nav.SetDestination (player.position);
 		}
-		if(light == true)
+		if(flash == true)
 		{
 			BlueFlashlight.gameObject.SetActive(true);
 		}
-		if (light == false)
+		if (flash == false)
 		{
 			BlueFlashlight.gameObject.SetActive(false);
 		}
+		if(start == true)
+		{
+			turnUp.speed = 0;
+		}
+
 	}
 }
