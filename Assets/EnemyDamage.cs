@@ -8,11 +8,13 @@ public class EnemyDamage : MonoBehaviour
 	public float wait;
 	public float readyOrNot;
 	public float startingTalk;
+	public float radius;
 	GameObject main; 
 	Transform escapeDestination;
 	NavMeshAgent nav;
 	NavMeshAgent turnUp;
 	Transform player;
+	public SphereCollider collide;
 
 	bool escape;
 	bool run;
@@ -54,6 +56,7 @@ public class EnemyDamage : MonoBehaviour
 	IEnumerator StartGame()
 	{
 		start = false;
+		collide.radius = 1.2f;
 		yield return new WaitForSeconds (startingTalk);
 		seek = true;
 	}
@@ -99,6 +102,7 @@ public class EnemyDamage : MonoBehaviour
 		if(start == true)
 		{
 			turnUp.speed = 0;
+			collide.radius = 8;
 		}
 
 	}
