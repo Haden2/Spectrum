@@ -1,0 +1,246 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DirtyLens_v1.0_MAT_Geo
+  m_Shader: {fileID: 4800000, guid: e0c21d061075fe848a5336d9a3decd5e, type: 3}
+  m_ShaderKeywords:
+  - _USESCREENMASK_ON
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BumpMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DecalTex
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Flare
+        second:
+          m_Texture: {fileID: 2800000, guid: 9fe08d9ce57d14fd9af9f0d9006470e1, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DirtTexture
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ScreenMask
+        second:
+          m_Texture: {fileID: 2800000, guid: b6b5fff526ef4425c9125c971195c041, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DirtyLensTexture
+        second:
+          m_Texture: {fileID: 2800000, guid: 616f2e91492344e4f806274ae657b0cb, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _FullScreenMask
+        second:
+          m_Texture: {fileID: 2800000, guid: b6b5fff526ef4425c9125c971195c041, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Diffuse
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Normal
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Specular
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ParallaxMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _LensGlow
+        second:
+          m_Texture: {fileID: 2800000, guid: 9fe08d9ce57d14fd9af9f0d9006470e1, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ScreenTexture
+        second:
+          m_Texture: {fileID: 2800000, guid: e25aa8ca989c84cea80e596134f63ac0, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _LensTexture
+        second:
+          m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _PlanetLights
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Clouds
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _CloudsMask
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Mask
+        second:
+          m_Texture: {fileID: 2800000, guid: 9fe08d9ce57d14fd9af9f0d9006470e1, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DirtyLens
+        second:
+          m_Texture: {fileID: 2800000, guid: 616f2e91492344e4f806274ae657b0cb, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _Cutoff
+        second: .5
+      data:
+        first:
+          name: _Shininess
+        second: .078125
+      data:
+        first:
+          name: _FlareMultiplier
+        second: 5
+      data:
+        first:
+          name: _FlarePower
+        second: 1
+      data:
+        first:
+          name: _ClampFlareColour
+        second: 0
+      data:
+        first:
+          name: _DirtBrightness
+        second: 1
+      data:
+        first:
+          name: _UseScreenMask
+        second: .827450991
+      data:
+        first:
+          name: _Parallax
+        second: .0199999996
+      data:
+        first:
+          name: _Mulitplier
+        second: 10
+      data:
+        first:
+          name: _LensMaskMultiplier
+        second: 30
+      data:
+        first:
+          name: _RimPower
+        second: 1.70777202
+      data:
+        first:
+          name: _Glossiness
+        second: .430051804
+      data:
+        first:
+          name: _CloudOpacity
+        second: .5
+      data:
+        first:
+          name: _MaskPower
+        second: -0
+      data:
+        first:
+          name: _Intensity
+        second: 10
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _SpecColor
+        second: {r: .5, g: .5, b: .5, a: 1}
+      data:
+        first:
+          name: _FlareTint
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _DirtyLensTextureTint
+        second: {r: .5, g: .5, b: .5, a: 1}
+      data:
+        first:
+          name: _RimColor
+        second: {r: 0, g: .118881203, b: 1, a: 1}
+      data:
+        first:
+          name: _node_124
+        second: {r: .241379306, g: 0, b: 1, a: 1}
+      data:
+        first:
+          name: _DirtyLensTextureColour
+        second: {r: 1, g: 1, b: 1, a: 1}

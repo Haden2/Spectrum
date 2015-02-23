@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 458214d78cc5a774184c1cf59ad4feb2
+ShaderImporter:
+  defaultTextures:
+  - _Flare: {fileID: 2800000, guid: 9fe08d9ce57d14fd9af9f0d9006470e1, type: 3}
+  - _DirtTexture: {fileID: 2800000, guid: 616f2e91492344e4f806274ae657b0cb, type: 3}
+  - _ScreenMask: {fileID: 2800000, guid: b6b5fff526ef4425c9125c971195c041, type: 3}
+  userData: 

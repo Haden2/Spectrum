@@ -227,6 +227,7 @@ GameObject:
   - 114: {fileID: 50584746}
   - 208: {fileID: 50584747}
   - 114: {fileID: 50584748}
+  - 114: {fileID: 50584749}
   m_Layer: 0
   m_Name: First Person Controller
   m_TagString: Player
@@ -398,7 +399,43 @@ MonoBehaviour:
   middle: {fileID: 1313711440}
   secondLowest: {fileID: 1862810078}
   lowest: {fileID: 1347030704}
+  enemy1: {fileID: 1767091198}
   isFlashLight: 0
+--- !u!114 &50584749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 50584740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e828fbbb29a4545ab4cd49c1423046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightIntensityOne: 1
+  lightIntensity1: {fileID: 123513434}
+  lightIntensityTwo: 4.38000011
+  lightIntensity2: {fileID: 538748806}
+  lightIntensityThree: 1.33000004
+  lightIntensity3: {fileID: 1341470827}
+  lightIntensityFour: 4.69999981
+  lightIntensity4: {fileID: 1313711442}
+  lightIntensityFive: 1.10000002
+  lightIntensity5: {fileID: 1862810081}
+  lightIntensitySix: 1.87
+  lightIntensity6: {fileID: 1347030706}
+  lf: {fileID: 538748805}
+  lensBright: .5
+  lf1: {fileID: 1341470826}
+  lensBright1: .5
+  lf2: {fileID: 1313711441}
+  lensBright2: .25
+  lf3: {fileID: 1862810080}
+  lensBright3: .340000004
+  lf4: {fileID: 1347030705}
+  lensBright4: .5
+  texture: {fileID: 2800000, guid: c4b1c92f5f425164789a499fd611d10a, type: 3}
+  fAlpha: 0
 --- !u!1 &51881591
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,47 +514,13 @@ GameObject:
   m_Component:
   - 4: {fileID: 123513435}
   - 108: {fileID: 123513434}
-  - 114: {fileID: 123513433}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BlueFlashlight
-  m_TagString: Light
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &123513433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 123513432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08e828fbbb29a4545ab4cd49c1423046, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lightIntensityOne: 1
-  lightIntensity1: {fileID: 123513434}
-  lightIntensityTwo: 4.38000011
-  lightIntensity2: {fileID: 538748806}
-  lightIntensityThree: 1.33000004
-  lightIntensity3: {fileID: 1341470827}
-  lightIntensityFour: 4.69999981
-  lightIntensity4: {fileID: 1313711442}
-  lightIntensityFive: 1.10000002
-  lightIntensity5: {fileID: 1862810081}
-  lightIntensitySix: 1.87
-  lightIntensity6: {fileID: 1347030706}
-  lf: {fileID: 538748805}
-  lensBright: .5
-  lf1: {fileID: 1341470826}
-  lensBright1: .5
-  lf2: {fileID: 1313711441}
-  lensBright2: .25
-  lf3: {fileID: 1862810080}
-  lensBright3: .340000004
-  lf4: {fileID: 1347030705}
-  lensBright4: .5
 --- !u!108 &123513434
 Light:
   m_ObjectHideFlags: 0
