@@ -8,24 +8,27 @@ public class Item {
 	public string itemDesc; //The note on the item
 	public Texture2D itemIcon; //Draw in an icon. Jpg, png. 
 	public int itemReuse; //Stats. Don't need
-	public int itemSpeed; //Don't need
 	public ItemType itemType;
 
 	public enum ItemType{
 		Weapon,
-		Consumable,
+		Vital,
+		Key,
 		Reuse
 	}
 
-	public Item(string name, int id, string desc, int reuse, int speed, ItemType type)
+	public Item(string name, int id, string desc, int reuse, ItemType type)
 	{
 		itemName = name;
 		itemID = id;
 		itemDesc = desc;
 		itemIcon = Resources.Load<Texture2D> ("Icons/" + name);
 		itemReuse = reuse;
-		itemSpeed= speed;
 		itemType = type;
 
+	}
+	public Item()
+	{
+		itemID = -1;
 	}
 }

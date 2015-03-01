@@ -6,7 +6,7 @@ public class CollectItem : MonoBehaviour {
 
 	public Text pressE;
 	public Color pickupText = new Color(1f, 0f, 0f, 1f);
-	public float flashSpeed = 5f;
+	//public float flashSpeed = 5f;
 	public Color blank = new Color (0f, 0f, 0f, 0f);
 	public GameObject CollectingItem;
 
@@ -42,6 +42,7 @@ public class CollectItem : MonoBehaviour {
 			//Destroy(CollectingItem.gameObject);
 			CollectingItem.gameObject.SetActive(false);
 			pressE.color = blank;
+
 		}
 
 	}
