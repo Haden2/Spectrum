@@ -31,14 +31,15 @@ public class ToggleFlashlight : MonoBehaviour
 	public float lensBright3;
 	public LensFlare lf4;
 	public float lensBright4;
-
+	public Texture2D texture;
+	public float fAlpha = 0.35F;
 
   // Update is called once per frame
   void Update ()
   {
-    if (Input.GetKeyDown ("q")) 
+	if (Input.GetKeyDown ("q")) 
 	{
-      if (light.intensity == 0 && lf.brightness == 0) //If the light was off, turn it on.
+      if (lightIntensity1.intensity == 0 && lf.brightness == 0) //If the light was off, turn it on.
        { 
 			lightIntensity1.light.intensity = lightIntensityOne; //.75
 			lightIntensity2.light.intensity = lightIntensityTwo;
@@ -51,7 +52,9 @@ public class ToggleFlashlight : MonoBehaviour
 			lf2.brightness = lensBright2;
 			lf3.brightness = lensBright3;
 			lf4.brightness = lensBright4;
-		}
+
+			}
+
       else
       	{	
 			lightIntensity1.light.intensity = 0; //If the light was on, turn it off.
@@ -65,8 +68,15 @@ public class ToggleFlashlight : MonoBehaviour
 			lf2.brightness = 0;
 			lf3.brightness = 0;
 			lf4.brightness = 0;
+			}
 		}
-    }
-  }
+    
+	}
 
+	void OnGUI()
+	{
+		var colPreviousGUIColor = GUI.color;
+		GUI.color = new Color(colPreviousGUIColor.r, colPreviousGUIColor.g, colPreviousGUIColor.b, fAlpha);
+		GUI.DrawTexture(new Rect(0.0F, 0.0F, Screen.width, Screen.height), texture);
+	}
 }
