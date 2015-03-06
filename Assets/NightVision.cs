@@ -25,6 +25,6 @@ public class NightVision : MonoBehaviour
 		}
 		
 		if( nightvisionShader )
-			transform.camera.SetReplacementShader( nightvisionShader , null );
+			transform.GetComponent<Camera>().SetReplacementShader( nightvisionShader , null );
 	}
 }
