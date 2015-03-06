@@ -59,10 +59,6 @@ public class Inventory : MonoBehaviour
 
 	void OnGUI () 
 	{
-		if (GUI.Button(new Rect(40, 400, 100, 40), "Save"))
-			SaveInventory();
-		if (GUI.Button(new Rect(40,450,100,40), "Load"))
-			LoadInventory();
 		tooltip = "";
 		GUI.skin = skin;
 		if(showInventory)
@@ -75,6 +71,10 @@ public class Inventory : MonoBehaviour
 			{
 				GUI.Box (new Rect(Event.current.mousePosition.x /*+ 5f*/, Event.current.mousePosition.y, 150,50), tooltip, skin.GetStyle("Tooltip"));
 			}
+			if (GUI.Button(new Rect(40, 400, 100, 40), "Save"))
+				SaveInventory();
+			if (GUI.Button(new Rect(40,450,100,40), "Load"))
+				LoadInventory();
 		}
 		if(draggingItem)
 		{
@@ -109,10 +109,16 @@ public class Inventory : MonoBehaviour
 							prevIndex = i;
 							draggedItem = item;
 							inventory[i] = new Item();
-							print ("Dragging Item");
 						}
 						if(e.type == EventType.mouseUp && draggingItem)
 						{
+							inventory [prevIndex] = draggedItem;
+							draggingItem = false;
+							draggedItem = null;
+						}
+						if(e.type == EventType.mouseDrag && !draggingItem && item.itemName == "Head")
+						{
+							print ("Dragging Head");
 							inventory [prevIndex] = item;
 							inventory[i] = draggedItem;
 							draggingItem = false;
@@ -140,14 +146,12 @@ public class Inventory : MonoBehaviour
 					{
 						if(e.type == EventType.mouseUp && draggingItem)
 						{
-							inventory[i] = draggedItem;
+							inventory [prevIndex] = draggedItem;
 							draggingItem = false;
 							draggedItem = null;
 						}
 					}
-
 				}
-
 				i++;
 			}
 		}
