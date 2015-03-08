@@ -9,8 +9,15 @@ public class CollectItem : MonoBehaviour {
 	//public float flashSpeed = 5f;
 	public Color blank = new Color (0f, 0f, 0f, 0f);
 	public GameObject CollectingItem;
-
+	Inventory addingItem;
+	ItemDatabase database;
 	bool textShown;
+
+	void Start () 
+	{
+		addingItem = GetComponent<Inventory>();
+		database = GetComponent<ItemDatabase> ();
+	}
 
 	void OnTriggerEnter(Collider other) 
 	{
@@ -20,11 +27,6 @@ public class CollectItem : MonoBehaviour {
 			textShown = true;
 		} 
 
-		if (textShown && Input.GetKeyDown ("e"))
-		{
-			other.gameObject.SetActive(false);
-		}
-	
 	}
 	void OnTriggerExit (Collider other)
 	{
@@ -39,11 +41,11 @@ public class CollectItem : MonoBehaviour {
 	{
 		if (textShown && Input.GetKeyDown ("e"))
 		{
-			//Destroy(CollectingItem.gameObject);
+			addingItem.AddItem(5);
+			print ("Add Item 1");
 			CollectingItem.gameObject.SetActive(false);
 			pressE.color = blank;
 
 		}
-
 	}
 }

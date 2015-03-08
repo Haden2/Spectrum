@@ -21,7 +21,7 @@ public class TestingNightVision : MonoBehaviour
 	void Start()
 	{
 		NightVisionLight.SetActive(false);
-		blueLight.GetComponent<Light>().intensity = 1;
+		blueLight.GetComponent<Light>().intensity = 2;
 	}
 	
 	void Update()

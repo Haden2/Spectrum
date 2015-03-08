@@ -301,17 +301,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08e828fbbb29a4545ab4cd49c1423046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightIntensityOne: 1
+  lightIntensityOne: 2
   lightIntensity1: {fileID: 123513434}
-  lightIntensityTwo: 4.38000011
+  lightIntensityTwo: .5
   lightIntensity2: {fileID: 538748806}
-  lightIntensityThree: 1.33000004
+  lightIntensityThree: .25
   lightIntensity3: {fileID: 1341470827}
-  lightIntensityFour: 4.69999981
+  lightIntensityFour: 1
   lightIntensity4: {fileID: 1313711442}
-  lightIntensityFive: 1.10000002
+  lightIntensityFive: .349999994
   lightIntensity5: {fileID: 1862810081}
-  lightIntensitySix: 1.87
+  lightIntensitySix: .5
   lightIntensity6: {fileID: 1347030706}
   lf: {fileID: 538748805}
   lensBright: .5
@@ -1005,7 +1005,7 @@ LensFlare:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 538748803}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Flare: {fileID: 12100000, guid: f3cd23d6d3e3d490cb471c69069c97a1, type: 2}
   m_Color: {r: .494377166, g: .933823526, b: .897455513, a: 0}
   m_Brightness: .5
@@ -1020,7 +1020,7 @@ Light:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 538748803}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 6
   m_Type: 0
   m_Color: {r: .523140132, g: .839136124, b: .867647052, a: .376470596}
@@ -1169,7 +1169,7 @@ GameObject:
   - 4: {fileID: 600524947}
   - 108: {fileID: 600524948}
   m_Layer: 0
-  m_Name: Directional light
+  m_Name: NightVision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1196,8 +1196,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 2
-  m_Color: {r: .321568638, g: .690196097, b: .435294122, a: 1}
-  m_Intensity: 2
+  m_Color: {r: .590397954, g: .764705896, b: .644173801, a: 1}
+  m_Intensity: 1
   m_Range: 300
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -1215,7 +1215,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_Lightmapping: 1
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
@@ -2551,31 +2551,10 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1370027810}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1477525518
-GameObject:
-  m_PrefabParentObject: {fileID: 100004, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
-  m_PrefabInternal: {fileID: 1537820588}
 --- !u!4 &1477525519
 Transform:
   m_PrefabParentObject: {fileID: 400004, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
   m_PrefabInternal: {fileID: 1537820588}
---- !u!114 &1477525525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1477525518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4975a6e437fc3b149a8cd508ce5bdd69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  threshold: .25
-  intensity: .75
-  blurSize: 1
-  blurIterations: 1
-  blurType: 0
-  fastBloomShader: {fileID: 4800000, guid: 68a00c837b82e4c6d92e7da765dc5f1d, type: 3}
 --- !u!1 &1499057498
 GameObject:
   m_ObjectHideFlags: 0
@@ -3056,6 +3035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlueFlashlight: {fileID: 123513432}
+  NightVision: {fileID: 600524946}
   wait: 3
   readyOrNot: 10
   startingTalk: 15

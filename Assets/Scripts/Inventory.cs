@@ -29,15 +29,7 @@ public class Inventory : MonoBehaviour
 		}
 		database = GameObject.FindGameObjectWithTag ("Item Database").GetComponent<ItemDatabase> (); //Grab the ItemDatabase script
 		AddItem (0);
-		AddItem (1);
-		AddItem (2);
-		AddItem (3);
-		AddItem (4);
-		AddItem (5);
-		AddItem (6);
-		AddItem (7);
-		AddItem (8);
-		AddItem (9);
+
 		//RemoveItem (0);
 		lastTapTime = 0;
 		
@@ -175,7 +167,7 @@ public class Inventory : MonoBehaviour
 		}
 	}
 
-	void AddItem(int id)
+	public void AddItem(int id)
 	{
 		for(int i =0; i < inventory.Count; i++)
 		{
