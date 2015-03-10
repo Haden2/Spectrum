@@ -10,11 +10,13 @@ public class CollectItem : MonoBehaviour {
 	public Color blank = new Color (0f, 0f, 0f, 0f);
 	public GameObject CollectingItem;
 	public Inventory inventory;
+	//public ItemDatabase database;
 	bool textShown;
 
 	void Awake () 
 	{
 		inventory = GetComponent<Inventory>();
+	//	database = GetComponent<ItemDatabase> ();
 	}
 
 	void OnTriggerEnter(Collider other) 
@@ -24,7 +26,6 @@ public class CollectItem : MonoBehaviour {
 			pressE.color = pickupText;
 			textShown = true;
 		} 
-
 	}
 	void OnTriggerExit (Collider other)
 	{
@@ -41,9 +42,9 @@ public class CollectItem : MonoBehaviour {
 		{
 			inventory.AddItem(1);
 			print ("Add Item 1");
-			CollectingItem.gameObject.SetActive(false);
 			pressE.color = blank;
-
+			textShown = false;
+			CollectingItem.gameObject.SetActive(false);
 		}
 	}
 }
