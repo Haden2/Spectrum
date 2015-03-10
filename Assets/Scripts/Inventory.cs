@@ -11,6 +11,7 @@ public class Inventory : MonoBehaviour
 	public Texture2D backgroundScreen;
 	public float fAlpha;
 	public float tapSpeed = .25f;
+	public GameObject key;
 	private float lastTapTime = 0;
 	private bool showInventory;
 	private ItemDatabase database;
@@ -32,6 +33,7 @@ public class Inventory : MonoBehaviour
 
 		//RemoveItem (0);
 		lastTapTime = 0;
+		key.SetActive (false);
 		
 
 	//	print (InventoryContains(1)); //How many items are in the inventory?
@@ -202,6 +204,7 @@ public class Inventory : MonoBehaviour
 		case 1:
 		{
 			print ("Item in use: " + item.itemName);
+			key.SetActive(true);
 			break;
 		}
 

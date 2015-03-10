@@ -9,7 +9,7 @@ public class CollectItem : MonoBehaviour {
 	//public float flashSpeed = 5f;
 	public Color blank = new Color (0f, 0f, 0f, 0f);
 	public GameObject CollectingItem;
-	public Inventory inventory;
+	private Inventory inventory;
 	//public ItemDatabase database;
 	bool textShown;
 
@@ -17,6 +17,7 @@ public class CollectItem : MonoBehaviour {
 	{
 		inventory = GetComponent<Inventory>();
 	//	database = GetComponent<ItemDatabase> ();
+
 	}
 
 	void OnTriggerEnter(Collider other) 
