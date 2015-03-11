@@ -5,6 +5,7 @@ using System.Collections;
 public class EnemyDamage : MonoBehaviour 
 {
 	public GameObject BlueFlashlight;
+	public GameObject NightVision;
 	public float wait;
 	public float readyOrNot;
 	public float startingTalk;
@@ -98,6 +99,7 @@ public class EnemyDamage : MonoBehaviour
 		if (flash == false)
 		{
 			BlueFlashlight.gameObject.SetActive(false);
+			NightVision.gameObject.SetActive(false);
 		}
 		if(start == true)
 		{

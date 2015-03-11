@@ -41,12 +41,12 @@ public class ToggleFlashlight : MonoBehaviour
 	{
       if (lightIntensity1.intensity == 0 && lf.brightness == 0) //If the light was off, turn it on.
        { 
-			lightIntensity1.light.intensity = lightIntensityOne; //.75
-			lightIntensity2.light.intensity = lightIntensityTwo;
-			lightIntensity3.light.intensity = lightIntensityThree;
-			lightIntensity4.light.intensity = lightIntensityFour;
-			lightIntensity5.light.intensity = lightIntensityFive;
-			lightIntensity6.light.intensity = lightIntensitySix;
+			lightIntensity1.GetComponent<Light>().intensity = lightIntensityOne; //.75
+			lightIntensity2.GetComponent<Light>().intensity = lightIntensityTwo;
+			lightIntensity3.GetComponent<Light>().intensity = lightIntensityThree;
+			lightIntensity4.GetComponent<Light>().intensity = lightIntensityFour;
+			lightIntensity5.GetComponent<Light>().intensity = lightIntensityFive;
+			lightIntensity6.GetComponent<Light>().intensity = lightIntensitySix;
 			lf.brightness = lensBright; //2
 			lf1.brightness = lensBright1;
 			lf2.brightness = lensBright2;
@@ -57,12 +57,12 @@ public class ToggleFlashlight : MonoBehaviour
 
       else
       	{	
-			lightIntensity1.light.intensity = 0; //If the light was on, turn it off.
-			lightIntensity2.light.intensity = 0;
-			lightIntensity3.light.intensity = 0;
-			lightIntensity4.light.intensity = 0;
-			lightIntensity5.light.intensity = 0;
-			lightIntensity6.light.intensity = 0;
+			lightIntensity1.GetComponent<Light>().intensity = 0; //If the light was on, turn it off.
+			lightIntensity2.GetComponent<Light>().intensity = 0;
+			lightIntensity3.GetComponent<Light>().intensity = 0;
+			lightIntensity4.GetComponent<Light>().intensity = 0;
+			lightIntensity5.GetComponent<Light>().intensity = 0;
+			lightIntensity6.GetComponent<Light>().intensity = 0;
 			lf.brightness = 0;
 			lf1.brightness = 0;
 			lf2.brightness = 0;
