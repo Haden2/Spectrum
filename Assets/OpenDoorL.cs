@@ -50,7 +50,7 @@ public class OpenDoorL : MonoBehaviour {
 		}
 		if(rotating)
 		{
-			Vector3 Angle = new Vector3(0,270,0);
+			Vector3 Angle = new Vector3(0,0,0);
 			Vector3 newAngle = new Vector3(0,-90,0);
 			if(Vector3.Distance(transform.eulerAngles, Angle) > .01f)
 			{
@@ -58,7 +58,7 @@ public class OpenDoorL : MonoBehaviour {
 			}
 			else
 			{
-				transform.eulerAngles = newAngle;
+				transform.eulerAngles = Angle;
 				rotating = false;
 			}
 			

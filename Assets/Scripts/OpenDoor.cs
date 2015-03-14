@@ -50,7 +50,7 @@ public class OpenDoor : MonoBehaviour {
 		}
 		if(rotating)
 		{
-			Vector3 Angle = new Vector3(0,270,0);
+			Vector3 Angle = new Vector3(0,359,0);
 			if(Vector3.Distance(transform.eulerAngles, Angle) > .01f)
 			{
 				transform.RotateAround(pivot.position, Vector3.Lerp (transform.rotation.eulerAngles, Angle, Time.deltaTime), .5f);
