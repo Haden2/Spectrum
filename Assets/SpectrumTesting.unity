@@ -79,7 +79,7 @@ NavMeshSettings:
     agentRadius: .5
     agentHeight: 2
     agentSlope: 45
-    agentClimb: .5
+    agentClimb: .449999988
     ledgeDropHeight: 3.04999995
     maxJumpAcrossDistance: 2
     accuratePlacement: 0
@@ -1004,11 +1004,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 140224, guid: aa5e80e99bc3d964eac49d558bb127cf, type: 2}
       propertyPath: m_StaticEditorFlags
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 137412, guid: aa5e80e99bc3d964eac49d558bb127cf, type: 2}
       propertyPath: m_StaticEditorFlags
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aa5e80e99bc3d964eac49d558bb127cf, type: 2}
@@ -1172,12 +1172,13 @@ GameObject:
   - 65: {fileID: 526207299}
   - 23: {fileID: 526207295}
   - 114: {fileID: 526207294}
+  - 208: {fileID: 526207300}
   m_Layer: 0
   m_Name: Door 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &526207294
 MonoBehaviour:
@@ -1263,6 +1264,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &526207300
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 526207293}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: .5, y: .5, z: .5}
+  m_MoveThreshold: .100000001
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: .5
 --- !u!1 &538748803
 GameObject:
   m_ObjectHideFlags: 0
@@ -2489,7 +2505,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1320190777
 Transform:
@@ -3183,6 +3199,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &1673923552
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1673923545}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: .5, y: .5, z: .5}
+  m_MoveThreshold: .100000001
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: .5
 --- !u!1 &1706618284
 GameObject:
   m_ObjectHideFlags: 0
