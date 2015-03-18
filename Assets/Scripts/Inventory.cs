@@ -12,6 +12,8 @@ public class Inventory : MonoBehaviour
 	public float fAlpha;
 	public float tapSpeed = .25f;
 	public GameObject key;
+	public bool pause;
+	public bool unPause;
 	private float lastTapTime = 0;
 	private bool showInventory;
 	private ItemDatabase database;
@@ -30,12 +32,11 @@ public class Inventory : MonoBehaviour
 		}
 		database = GameObject.FindGameObjectWithTag ("Item Database").GetComponent<ItemDatabase> (); //Grab the ItemDatabase script
 		AddItem (0);
-
 		//RemoveItem (0);
 		lastTapTime = 0;
 		key.SetActive (false);
-		
-
+		pause = false;
+		unPause = true;
 	//	print (InventoryContains(1)); //How many items are in the inventory?
 	}
 
@@ -48,6 +49,14 @@ public class Inventory : MonoBehaviour
 		if(Input.GetKeyDown (KeyCode.Mouse0))
 		{
 			lastTapTime = Time.time;
+		}
+		if(pause)
+		{
+			StartCoroutine(PauseGame());
+		}
+		if(unPause)
+		{
+			StartCoroutine(UnPauseGame());
 		}
 	}
 
@@ -68,7 +77,10 @@ public class Inventory : MonoBehaviour
 			if (GUI.Button(new Rect(40, 400, 100, 40), "Save"))
 				SaveInventory();
 			if (GUI.Button(new Rect(40,450,100,40), "Load"))
+			{
 				LoadInventory();
+			}
+			pause = true;
 		}
 		if(draggingItem)
 		{
@@ -80,7 +92,6 @@ public class Inventory : MonoBehaviour
 	{
 		Event e = Event.current;
 		int i = 0;
-
 		for(int y = 0; y < slotsY; y++)
 		{
 			for(int x = 0; x < slotsX; x++)
@@ -89,6 +100,7 @@ public class Inventory : MonoBehaviour
 				GUI.Box (slotRect, "", skin.GetStyle("Slot Background"));
 				slots[i] = inventory[i];
 				Item item = slots[i];  
+	
 				if(slots[i].itemName !=null)
 				{
 					GUI.DrawTexture(slotRect, inventory[i].itemIcon);
@@ -134,6 +146,7 @@ public class Inventory : MonoBehaviour
 					if(tooltip == "")
 					{
 						showTooltip = false;
+						unPause = false;
 					}
 				} else{
 					if(slotRect.Contains (e.mousePosition))
@@ -154,6 +167,7 @@ public class Inventory : MonoBehaviour
 	string CreateTooltip(Item item)
 	{
 		tooltip = "<color=#0E4F69>" + item.itemName + "</color>\n\n" /* + "<color=#C4C4C4>" + item.itemDesc + "</color>"*/;
+		pause = true;
 		return tooltip;
 	}
 
@@ -181,7 +195,6 @@ public class Inventory : MonoBehaviour
 					{
 						inventory[i] = database.items[j];
 					}
-
 				}
 				break;
 			}
@@ -225,5 +238,21 @@ public class Inventory : MonoBehaviour
 	{
 		for(int i = 0; i<inventory.Count; i++)
 			inventory[i] = PlayerPrefs.GetInt("Inventory " + i, -1) >=0 ? database.items[PlayerPrefs.GetInt("Inventory " + i)] : new Item();
+	}
+
+	IEnumerator PauseGame()
+	{
+		Time.timeScale = 0.0f;
+		yield return new WaitForSeconds (0);
+		pause = false;
+		unPause = true;
+	}
+
+	IEnumerator UnPauseGame()
+	{
+		unPause = true;
+		pause = false;
+		Time.timeScale = 1f;
+		yield return new WaitForSeconds (0);
 	}
 }
