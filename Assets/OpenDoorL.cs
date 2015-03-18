@@ -13,6 +13,7 @@ public class OpenDoorL : MonoBehaviour {
 	bool closed;
 	bool haveKey;
 	bool rotating;
+	bool closing;
 	
 	void Start () 
 	{
@@ -30,6 +31,16 @@ public class OpenDoorL : MonoBehaviour {
 			StartCoroutine (WantToOpenDoor());
 		}
 	}
+
+	IEnumerator DoorOpens ()
+	{
+		rotating = true;
+		open = true;
+		yield return new WaitForSeconds (5);
+		rotating = false;
+		open = false;
+		closing = true;
+	}
 	
 	IEnumerator WantToOpenDoor()
 	{
@@ -41,8 +52,7 @@ public class OpenDoorL : MonoBehaviour {
 	{
 		if(closed == true && haveKey == true && Input.GetKeyDown ("e")/*Event.current.button == 0 && Event.current.type == EventType.mouseUp*/)
 		{
-			rotating = true;
-			open = true;
+			StartCoroutine(DoorOpens());
 		}
 		if(closed == true && haveKey == false)
 		{
@@ -63,10 +73,21 @@ public class OpenDoorL : MonoBehaviour {
 			}
 			
 		}
-	}
-	void OpenThisDoor()
-	{
-
+		if(open == false && closing == true)
+		{
+			print ("closing door");
+			Vector3 closingAngle = new Vector3(0,90,0);
+			
+			if(Vector3.Distance(transform.eulerAngles, closingAngle) > .01f)
+			{
+				transform.RotateAround(pivot.position, closingAngle, .5f);
+			}
+			else
+			{
+				transform.eulerAngles = closingAngle;
+				rotating = false;
+			}
+		}
 	}
 	
 }

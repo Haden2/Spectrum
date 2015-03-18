@@ -16,6 +16,7 @@ public class OpenDoor : MonoBehaviour {
 
 	void Start () 
 	{
+		//StartCoroutine(DoorOpens());
 		closed = true;
 		closing = false;
 		open = false;
@@ -44,6 +45,7 @@ public class OpenDoor : MonoBehaviour {
 		rotating = true;
 		open = true;
 		yield return new WaitForSeconds (5);
+		rotating = false;
 		open = false;
 		closing = true;
 	}
@@ -73,21 +75,23 @@ public class OpenDoor : MonoBehaviour {
 			else
 			{
 				transform.eulerAngles = Angle;
-				//rotating = false;
+				rotating = false;
 			}
 		}
 		if(open == false && closing == true)
 			{
 				print ("closing door");
 				Vector3 closingAngle = new Vector3(0,270,0);
-				if(Vector3.Distance(transform.eulerAngles, Angle) > .01f)
+				Vector3 reverseAngle = new Vector3(0,-90,0);
+
+				if(Vector3.Distance(transform.eulerAngles, closingAngle) > .01f)
 				{
-					transform.RotateAround(pivot.position, Vector3.Lerp (transform.rotation.eulerAngles, closingAngle, Time.deltaTime), .5f);
+				transform.RotateAround(pivot.position, reverseAngle, .5f);
 				}
 				else
 				{
 					transform.eulerAngles = closingAngle;
-					//rotating = false;
+					rotating = false;
 				}
 			}
 		}
