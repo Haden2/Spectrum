@@ -14,6 +14,7 @@ public class Inventory : MonoBehaviour
 	public GameObject key;
 	public bool pause;
 	public bool unPause;
+	public MouseLook look;
 	private float lastTapTime = 0;
 	private bool showInventory;
 	private ItemDatabase database;
@@ -31,6 +32,7 @@ public class Inventory : MonoBehaviour
 			inventory.Add (new Item());
 		}
 		database = GameObject.FindGameObjectWithTag ("Item Database").GetComponent<ItemDatabase> (); //Grab the ItemDatabase script
+		look = GetComponent<MouseLook> ();
 		AddItem (0);
 		//RemoveItem (0);
 		lastTapTime = 0;

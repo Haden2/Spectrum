@@ -9,7 +9,7 @@ public class OpenDoor : MonoBehaviour {
 	public Transform doorL;
 	public Transform pivotR;
 	public Transform pivotL;
-	public Vector3 AngleR;
+	Vector3 AngleR;
 	Vector3 closingAngleR;
 	bool open;
 	bool closed;
@@ -96,13 +96,13 @@ public class OpenDoor : MonoBehaviour {
 			Vector3 AngleL = new Vector3(0,0,0);
 			Vector3 newAngleL = new Vector3(0,-90,0);
 		//RIGHT DOOR
-			if(Vector3.Distance(transform.eulerAngles, AngleR) > .01f)
+			if(Vector3.Distance(doorR.transform.eulerAngles, AngleR) > .01f)
 			{
-				transform.RotateAround(pivotR.position, Vector3.Lerp (transform.rotation.eulerAngles, AngleR, Time.deltaTime), .5f);
+				doorR.transform.RotateAround(pivotR.position, Vector3.Lerp (doorR.transform.rotation.eulerAngles, AngleR, Time.deltaTime), .5f);
 			}
 			else
 			{
-				transform.eulerAngles = AngleR;
+				doorR.transform.eulerAngles = AngleR;
 				rotating = false;
 			}
 		//LEFT DOOR
@@ -122,13 +122,13 @@ public class OpenDoor : MonoBehaviour {
 				Vector3 closingAngleR = new Vector3(0,270,0);
 				Vector3 reverseAngleR = new Vector3(0,-90,0);
 
-				if(Vector3.Distance(transform.eulerAngles, closingAngleR) > .01f)
+				if(Vector3.Distance(doorR.transform.eulerAngles, closingAngleR) > .01f)
 				{
-				transform.RotateAround(pivotR.position, reverseAngleR, .5f);
+				doorR.transform.RotateAround(pivotR.position, reverseAngleR, .5f);
 				}
 				else
 				{
-					transform.eulerAngles = closingAngleR;
+					doorR.transform.eulerAngles = closingAngleR;
 					rotating = false;
 				}
 			}
