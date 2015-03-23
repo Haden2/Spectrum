@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -39,6 +39,8 @@ public class Inventory : MonoBehaviour
 		key.SetActive (false);
 		pause = false;
 		unPause = true;
+		
+
 	//	print (InventoryContains(1)); //How many items are in the inventory?
 	}
 
@@ -102,7 +104,6 @@ public class Inventory : MonoBehaviour
 				GUI.Box (slotRect, "", skin.GetStyle("Slot Background"));
 				slots[i] = inventory[i];
 				Item item = slots[i];  
-	
 				if(slots[i].itemName !=null)
 				{
 					GUI.DrawTexture(slotRect, inventory[i].itemIcon);
@@ -197,6 +198,7 @@ public class Inventory : MonoBehaviour
 					{
 						inventory[i] = database.items[j];
 					}
+
 				}
 				break;
 			}
@@ -254,7 +256,7 @@ public class Inventory : MonoBehaviour
 	{
 		unPause = true;
 		pause = false;
-		Time.timeScale = 1f;
+		Time.timeScale = 1.0f;
 		yield return new WaitForSeconds (0);
 	}
 }
