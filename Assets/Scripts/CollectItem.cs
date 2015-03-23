@@ -10,14 +10,11 @@ public class CollectItem : MonoBehaviour {
 	public Color blank = new Color (0f, 0f, 0f, 0f);
 	public GameObject CollectingItem;
 	private Inventory inventory;
-	//public ItemDatabase database;
 	bool textShown;
 
 	void Awake () 
 	{
 		inventory = GetComponent<Inventory>();
-	//	database = GetComponent<ItemDatabase> ();
-
 	}
 
 	void OnTriggerEnter(Collider other) 
