@@ -3,9 +3,9 @@ using System.Collections;
 
 public class Elevator : MonoBehaviour {
 
-	public Transform elevator;
-	public Transform downPosition;
-	public Transform upPosition;
+	public Vector3 elevator;
+	public Vector3 downPosition;
+	public Vector3 upPosition;
 	GameObject player;
 	Vector3 directionUp;
 	Vector3 directionDown;
@@ -18,14 +18,15 @@ public class Elevator : MonoBehaviour {
 		Vector3 directionDown = Vector3.down;
 		Vector3 directionUp = Vector3.up;
 		print ("Started");
-		player = GameObject.FindGameObjectWithTag ("Player");
+		StartCoroutine(MoveDown (transform, upPosition, downPosition, 5));
+		//player = GameObject.FindGameObjectWithTag ("Player");
 		//StartCoroutine (MoveUp (transform, down, up, 0f));
 		//StartCoroutine (MoveDown (transform, up, down, 0f));
 	}
 	
 	void Update () 
 	{
-		gameObject.transform.Translate (directionUp * Time.smoothDeltaTime);
+		//gameObject.transform.Translate (directionUp * Time.smoothDeltaTime);
 		if(isDown)
 		{
 			//StartCoroutine(MoveUp (elevator.transform, down, up, 5));
@@ -80,7 +81,7 @@ public class Elevator : MonoBehaviour {
 		}
 	}
 
-	/*IEnumerator MoveDown(Transform thisTransform, Vector3 startPos, Vector3 endPos, float time)
+	IEnumerator MoveDown(Transform thisTransform, Vector3 startPos, Vector3 endPos, float time)
 	{
 		isDown = true;
 		isUp = false;
@@ -90,8 +91,8 @@ public class Elevator : MonoBehaviour {
 		{
 			i += Time.deltaTime * rate;
 			thisTransform.position = Vector3.Lerp (startPos, endPos, i);
-			//yield return StartCoroutine(MoveUp (elevator.transform, down, up, 5));
+			yield return null;
 		}
-	}*/
+	}
 
 }
