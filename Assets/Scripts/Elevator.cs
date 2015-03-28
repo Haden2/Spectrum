@@ -15,10 +15,12 @@ public class Elevator : MonoBehaviour {
 
 	void Start()
 	{
+		isDown = true;
+		isUp = false;
 		Vector3 directionDown = Vector3.down;
 		Vector3 directionUp = Vector3.up;
 		print ("Started");
-		StartCoroutine(MoveDown (transform, upPosition, downPosition, 5));
+		//StartCoroutine(MoveDown (transform, upPosition, downPosition, 5));
 		//player = GameObject.FindGameObjectWithTag ("Player");
 		//StartCoroutine (MoveUp (transform, down, up, 0f));
 		//StartCoroutine (MoveDown (transform, up, down, 0f));
@@ -39,9 +41,13 @@ public class Elevator : MonoBehaviour {
 
 		if(isDown == true && isUp == false && Input.GetKeyDown ("t"))
 		{
-	//		StartCoroutine(CanMoveUp());
+			StartCoroutine(MoveUp (transform, downPosition, upPosition, 5));
 		}
 
+		if(isDown == false && isUp == true && Input.GetKeyDown ("t"))
+		{
+			StartCoroutine(MoveDown (transform, upPosition, downPosition, 5));
+		}
 	}
 
 /*	void OnTriggerEnter (Collider other)
@@ -54,9 +60,8 @@ public class Elevator : MonoBehaviour {
 */
 	IEnumerator CanMoveUp()
 	{
+		yield return new WaitForSeconds (1);
 		print ("Got here");
-
-		yield return null;
 		//yield return StartCoroutine(MoveUp (elevator.transform, down, up, 5));
 	}
 	
@@ -68,8 +73,6 @@ public class Elevator : MonoBehaviour {
 
 	IEnumerator MoveUp(Transform thisTransform, Vector3 startPos, Vector3 endPos, float time)
 	{
-		isDown = false;
-		isUp = true;
 		print ("moving locations");
 		float i = 0.0f;
 		float rate = 1.0f / time;
@@ -78,13 +81,18 @@ public class Elevator : MonoBehaviour {
 			i += Time.deltaTime * rate;
 			thisTransform.position = Vector3.Lerp (startPos, endPos, i);
 			yield return null;
+			isDown = false;
+			isUp = true;
+			//StartCoroutine(CanMoveUp());
+		}
+		while (i>1.0f)
+		{
+			print("What?");
 		}
 	}
 
 	IEnumerator MoveDown(Transform thisTransform, Vector3 startPos, Vector3 endPos, float time)
 	{
-		isDown = true;
-		isUp = false;
 		float i = 0.0f;
 		float rate = 1.0f / time;
 		while(i < 1.0f) 
@@ -92,6 +100,8 @@ public class Elevator : MonoBehaviour {
 			i += Time.deltaTime * rate;
 			thisTransform.position = Vector3.Lerp (startPos, endPos, i);
 			yield return null;
+			isDown = true;
+			isUp = false;
 		}
 	}
 
