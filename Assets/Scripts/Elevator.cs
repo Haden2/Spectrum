@@ -85,20 +85,16 @@ public class Elevator : MonoBehaviour {
 			isUp = true;
 			//StartCoroutine(CanMoveUp());
 		}
-		while (i>1.0f)
-		{
-			print("What?");
-		}
-	}
+}
 
-	IEnumerator MoveDown(Transform thisTransform, Vector3 startPos, Vector3 endPos, float time)
+	IEnumerator MoveDown(Transform thisTransform, Vector3 endPos, Vector3 startPos, float time)
 	{
 		float i = 0.0f;
 		float rate = 1.0f / time;
 		while(i < 1.0f) 
 		{
 			i += Time.deltaTime * rate;
-			thisTransform.position = Vector3.Lerp (startPos, endPos, i);
+			thisTransform.position = Vector3.Lerp (endPos, startPos, i);
 			yield return null;
 			isDown = true;
 			isUp = false;
