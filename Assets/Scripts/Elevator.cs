@@ -9,21 +9,20 @@ public class Elevator : MonoBehaviour {
 	GameObject player;
 	Vector3 directionUp;
 	Vector3 directionDown;
-	bool isDown;
-	bool isUp;
+	public bool isDown;
+	public bool isUp;
+	public bool moving;
 
 
 	void Start()
 	{
 		isDown = true;
 		isUp = false;
+		moving = false;
 		Vector3 directionDown = Vector3.down;
 		Vector3 directionUp = Vector3.up;
 		print ("Started");
-		//StartCoroutine(MoveDown (transform, upPosition, downPosition, 5));
 		//player = GameObject.FindGameObjectWithTag ("Player");
-		//StartCoroutine (MoveUp (transform, down, up, 0f));
-		//StartCoroutine (MoveDown (transform, up, down, 0f));
 	}
 	
 	void Update () 
@@ -39,12 +38,12 @@ public class Elevator : MonoBehaviour {
 
 		}
 
-		if(isDown == true && isUp == false && Input.GetKeyDown ("t"))
+		if(isDown == true && isUp == false && moving == false && Input.GetKeyDown ("t"))
 		{
 			StartCoroutine(MoveUp (transform, downPosition, upPosition, 5));
 		}
 
-		if(isDown == false && isUp == true && Input.GetKeyDown ("t"))
+		if(isDown == false && isUp == true && moving == false && Input.GetKeyDown ("t"))
 		{
 			StartCoroutine(MoveDown (transform, upPosition, downPosition, 5));
 		}
@@ -60,44 +59,48 @@ public class Elevator : MonoBehaviour {
 */
 	IEnumerator CanMoveUp()
 	{
-		yield return new WaitForSeconds (1);
-		print ("Got here");
-		//yield return StartCoroutine(MoveUp (elevator.transform, down, up, 5));
+		moving = true;
+		yield return new WaitForSeconds (5);
+		isDown = false;
+		isUp = true;
+		moving = false;
+	}
+	IEnumerator CanMoveDown()
+	{
+		moving = true;
+		yield return new WaitForSeconds (5);
+		isDown = true;
+		isUp = false;
+		moving = false;
 	}
 	
-		/*if(isDown == false && isUp == true && Input.GetKeyDown ("t"))
-		{
-			yield return StartCoroutine(MoveDown (transform, up, down, 1.0f));
-		}
-*/
 
 	IEnumerator MoveUp(Transform thisTransform, Vector3 startPos, Vector3 endPos, float time)
 	{
 		print ("moving locations");
+		moving = true;
 		float i = 0.0f;
 		float rate = 1.0f / time;
 		while(i < 1.0f) 
 		{
 			i += Time.deltaTime * rate;
 			thisTransform.position = Vector3.Lerp (startPos, endPos, i);
+			StartCoroutine(CanMoveUp());
 			yield return null;
-			isDown = false;
-			isUp = true;
-			//StartCoroutine(CanMoveUp());
 		}
 }
 
 	IEnumerator MoveDown(Transform thisTransform, Vector3 endPos, Vector3 startPos, float time)
 	{
+		moving = true;
 		float i = 0.0f;
 		float rate = 1.0f / time;
 		while(i < 1.0f) 
 		{
 			i += Time.deltaTime * rate;
 			thisTransform.position = Vector3.Lerp (endPos, startPos, i);
+			StartCoroutine(CanMoveDown());
 			yield return null;
-			isDown = true;
-			isUp = false;
 		}
 	}
 
