@@ -19,9 +19,8 @@ public class Elevator : MonoBehaviour {
 		isDown = true;
 		isUp = false;
 		moving = false;
-		Vector3 directionDown = Vector3.down;
-		Vector3 directionUp = Vector3.up;
-		print ("Started");
+	//	Vector3 directionDown = Vector3.down;
+		//Vector3 directionUp = Vector3.up;
 		//player = GameObject.FindGameObjectWithTag ("Player");
 	}
 	
@@ -30,12 +29,18 @@ public class Elevator : MonoBehaviour {
 		//gameObject.transform.Translate (directionUp * Time.smoothDeltaTime);
 		if(isDown)
 		{
-			//StartCoroutine(MoveUp (elevator.transform, down, up, 5));
+		
 		}
 
 		if(isUp)
 		{
+		
+		}
 
+		if(moving)
+		{
+			isUp = false;
+			isDown = false;
 		}
 
 		if(isDown == true && isUp == false && moving == false && Input.GetKeyDown ("t"))
@@ -59,25 +64,29 @@ public class Elevator : MonoBehaviour {
 */
 	IEnumerator CanMoveUp()
 	{
-		moving = true;
-		yield return new WaitForSeconds (5);
-		isDown = false;
-		isUp = true;
-		moving = false;
+		if (moving == true) 
+		{
+			yield return new WaitForSeconds (5);
+			isDown = false;
+			isUp = true;
+			moving = false;
+		}
 	}
 	IEnumerator CanMoveDown()
 	{
-		moving = true;
-		yield return new WaitForSeconds (5);
-		isDown = true;
-		isUp = false;
-		moving = false;
+		if (moving == true) 
+		{
+			yield return new WaitForSeconds (5);
+			isDown = true;
+			isUp = false;
+			moving = false;
+		}
 	}
 	
 
 	IEnumerator MoveUp(Transform thisTransform, Vector3 startPos, Vector3 endPos, float time)
 	{
-		print ("moving locations");
+		print ("moving up");
 		moving = true;
 		float i = 0.0f;
 		float rate = 1.0f / time;
@@ -92,6 +101,7 @@ public class Elevator : MonoBehaviour {
 
 	IEnumerator MoveDown(Transform thisTransform, Vector3 endPos, Vector3 startPos, float time)
 	{
+		print ("moving down");
 		moving = true;
 		float i = 0.0f;
 		float rate = 1.0f / time;
