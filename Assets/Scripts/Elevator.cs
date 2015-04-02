@@ -12,6 +12,7 @@ public class Elevator : MonoBehaviour {
 	public bool isDown;
 	public bool isUp;
 	public bool isMoving;
+	public bool canActivate;
 
 
 	void Start()
@@ -19,6 +20,7 @@ public class Elevator : MonoBehaviour {
 		isDown = true;
 		isUp = false;
 		isMoving = false;
+		canActivate = false;
 		player = GameObject.FindGameObjectWithTag ("Player");
 	}
 	
@@ -36,12 +38,12 @@ public class Elevator : MonoBehaviour {
 
 		}
 
-		if(isDown == true && isUp == false && isMoving == false && Input.GetKeyDown ("t"))
+		if(isDown == true && isUp == false && isMoving == false && canActivate == true && Input.GetKeyDown ("t"))
 		{
 			StartCoroutine(MoveUp (transform, downPosition, upPosition, 5));
 		}
 
-		if(isDown == false && isUp == true && isMoving == false && Input.GetKeyDown ("t"))
+		if(isDown == false && isUp == true && isMoving == false && canActivate == true && Input.GetKeyDown ("t"))
 		{
 			StartCoroutine(MoveDown (transform, upPosition, downPosition, 5));
 		}
@@ -51,9 +53,29 @@ public class Elevator : MonoBehaviour {
 	{
 		if(other.gameObject == player)
 		{
-			StartCoroutine (CanMoveUp());
+			StartCoroutine (Begin());
 		}
-}
+	}
+
+	void OnTriggerExit (Collider other)
+	{
+		if(other.gameObject == player)
+		{
+			StartCoroutine (End());
+		}
+	}
+	
+	IEnumerator Begin()
+	{
+		canActivate = true;
+		yield return null;
+	}
+
+	IEnumerator End()
+	{
+		canActivate = false;
+		yield return null;
+	}
 
 	IEnumerator CanMoveUp()
 	{
