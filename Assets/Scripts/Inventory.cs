@@ -14,7 +14,8 @@ public class Inventory : MonoBehaviour
 	public GameObject key;
 	public bool pause;
 	public bool unPause;
-	public MouseLook look;
+	public MouseLook playerLook;
+	public MouseLook playerCameraLook;
 	private float lastTapTime = 0;
 	private bool showInventory;
 	private ItemDatabase database;
@@ -32,7 +33,8 @@ public class Inventory : MonoBehaviour
 			inventory.Add (new Item());
 		}
 		database = GameObject.FindGameObjectWithTag ("Item Database").GetComponent<ItemDatabase> (); //Grab the ItemDatabase script
-		look = GetComponent<MouseLook> ();
+		playerLook = (MouseLook)GameObject.Find ("First Person Controller").GetComponent ("MouseLook");
+		playerCameraLook = (MouseLook)GameObject.Find ("Main Camera").GetComponent ("MouseLook");
 		AddItem (0);
 		//RemoveItem (0);
 		lastTapTime = 0;
@@ -247,6 +249,10 @@ public class Inventory : MonoBehaviour
 	IEnumerator PauseGame()
 	{
 		Time.timeScale = 0.0f;
+		gameObject.GetComponent<MouseLook>().enabled = false;
+		playerLook.GetComponent<MouseLook>().enabled = false;
+		playerCameraLook.GetComponent<MouseLook>().enabled = false;
+		Cursor.visible = true;
 		yield return new WaitForSeconds (0);
 		pause = false;
 		unPause = true;
@@ -256,6 +262,10 @@ public class Inventory : MonoBehaviour
 	{
 		unPause = true;
 		pause = false;
+		Cursor.visible = false;
+		gameObject.GetComponent<MouseLook>().enabled = true;
+		playerLook.GetComponent<MouseLook>().enabled = true;
+		playerCameraLook.GetComponent<MouseLook>().enabled = true;
 		Time.timeScale = 1.0f;
 		yield return new WaitForSeconds (0);
 	}
