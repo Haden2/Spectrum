@@ -14,8 +14,8 @@ public class Inventory : MonoBehaviour
 	public GameObject key;
 	public bool pause;
 	public bool unPause;
-	public MouseLook playerLook;
-	public MouseLook playerCameraLook;
+	private MouseLook playerLook;
+	private MouseLook playerCameraLook;
 	private float lastTapTime = 0;
 	private bool showInventory;
 	private ItemDatabase database;
@@ -87,6 +87,11 @@ public class Inventory : MonoBehaviour
 				LoadInventory();
 			}
 			pause = true;
+		}
+		else
+		{
+			unPause = true;
+			pause = false;
 		}
 		if(draggingItem)
 		{
@@ -172,7 +177,7 @@ public class Inventory : MonoBehaviour
 	string CreateTooltip(Item item)
 	{
 		tooltip = "<color=#0E4F69>" + item.itemName + "</color>\n\n" /* + "<color=#C4C4C4>" + item.itemDesc + "</color>"*/;
-		pause = true;
+		//pause = true;
 		return tooltip;
 	}
 
@@ -254,8 +259,8 @@ public class Inventory : MonoBehaviour
 		playerCameraLook.GetComponent<MouseLook>().enabled = false;
 		Cursor.visible = true;
 		yield return new WaitForSeconds (0);
-		pause = false;
-		unPause = true;
+		pause = true;
+		unPause = false;
 	}
 
 	IEnumerator UnPauseGame()

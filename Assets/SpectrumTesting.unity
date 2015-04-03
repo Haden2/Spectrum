@@ -351,8 +351,6 @@ MonoBehaviour:
   key: {fileID: 2093065188}
   pause: 0
   unPause: 0
-  playerLook: {fileID: 0}
-  playerCameraLook: {fileID: 0}
 --- !u!1 &51881591
 GameObject:
   m_ObjectHideFlags: 0
