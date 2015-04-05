@@ -9,7 +9,6 @@ public class CollectItem : MonoBehaviour {
 	//public float flashSpeed = 5f;
 	public Color blank = new Color (0f, 0f, 0f, 0f);
 	public GameObject Key;
-	public GameObject HoldingKey;
 	public GameObject Gun;
 	public GameObject Gloves;
 	public Inventory inventory;
@@ -17,12 +16,16 @@ public class CollectItem : MonoBehaviour {
 	bool onGun;
 	bool onGloves;
 	bool holdStill;
+	public bool keyIsGot;
+	public bool gunIsGot;
+	public bool keySwap;
+	public bool gunSwap;
 
 	void Awake () 
 	{
 		inventory = GetComponent<Inventory>();
 	}
-
+	//WHEN YOU STEP ONTO THE OBJECT
 	void OnTriggerEnter(Collider other) 
 	{
 		if (other.gameObject.tag == "Key") 
@@ -41,6 +44,7 @@ public class CollectItem : MonoBehaviour {
 			onGloves = true;
 		}
 	}
+	//WHEN YOU LEAVE THAT OBJECT ON THE GROUND
 	void OnTriggerExit (Collider other)
 	{
 		if (other.gameObject.tag == "Key") 
@@ -60,6 +64,7 @@ public class CollectItem : MonoBehaviour {
 		}
 	}
 
+
 	void Update()
 	{
 		if(inventory.showInventory)
@@ -71,19 +76,51 @@ public class CollectItem : MonoBehaviour {
 		{
 			holdStill = false;
 		}
+		//ALLOWING ONLY ONE ITEM TO BE IN USE AT A TIME
+		if(keyIsGot && inventory.activeKey == false && inventory.activeGun && gunIsGot && (Time.time - inventory.lastTapTime) < inventory.tapSpeed)
+		{
+			inventory.holdingKey.gameObject.SetActive(false);
+			inventory.activeKey = true;
+			inventory.activeGun = false;
+			gunSwap = true;
+		}
+		if(gunIsGot && inventory.activeGun == false && inventory.activeKey && keyIsGot && (Time.time - inventory.lastTapTime) < inventory.tapSpeed)
+		{
+			inventory.holdingGun.gameObject.SetActive(false);
+			inventory.activeGun = false;
+			inventory.activeKey = true;
+			keySwap = true;
+			print("Adding Key");
+		}
+		if(gunSwap)
+		{
+			gunSwap = false;
+			inventory.AddItem(10);
+			print("Adding Gun");
+		}
+		if(keySwap)
+		{
+			keySwap = false;
+			inventory.AddItem(1);
+			print("Adding Key");
+		}
+		//RETURNING THE ITEM IF YOU DIDN'T USE IT PROPERLY AND YOU ARE NOT STANDING ON AN ITEM
 		if(inventory.activeKey == true && Input.GetKeyDown("e") && onGun == false && onGloves == false)
 		{
 			//print("Return Key");
-			HoldingKey.gameObject.SetActive(false);
+			inventory.holdingKey.gameObject.SetActive(false);
 			inventory.AddItem(1);
+			inventory.activeKey = false;
 		}
-
+	
+		//GRABBING THE ITEMS
 		if (onKey && Input.GetKeyDown ("e") && holdStill == false)
 		{
 			inventory.AddItem(1);
 			//print ("Add Item 1");
 			pressE.color = blank;
 			onKey = false;
+			keyIsGot = true;
 			Key.gameObject.SetActive(false);
 		}
 		if (onGun && Input.GetKeyDown ("e") && holdStill == false)
@@ -92,6 +129,7 @@ public class CollectItem : MonoBehaviour {
 			//print ("Add Item 10");
 			pressE.color = blank;
 			onGun = false;
+			gunIsGot = true;
 			Gun.gameObject.SetActive(false);
 		}
 		if (onGloves && Input.GetKeyDown ("e") && holdStill == false)

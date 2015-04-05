@@ -11,13 +11,15 @@ public class Inventory : MonoBehaviour
 	public Texture2D backgroundScreen;
 	public float fAlpha;
 	public float tapSpeed = .25f;
-	public GameObject key;
+	public GameObject holdingKey;
+	public GameObject holdingGun;
 	public bool pause;
 	public bool unPause;
 	public bool activeKey;
+	public bool activeGun;
 	private MouseLook playerLook;
 	private MouseLook playerCameraLook;
-	private float lastTapTime = 0;
+	public float lastTapTime = 0;
 	public bool showInventory;
 	private ItemDatabase database;
 	private bool showTooltip;
@@ -39,10 +41,12 @@ public class Inventory : MonoBehaviour
 		AddItem (0);
 		//RemoveItem (0);
 		lastTapTime = 0;
-		key.SetActive (false);
+		holdingKey.SetActive (false);
+		holdingGun.SetActive (false);
 		pause = false;
 		unPause = true;
 		activeKey = false;
+		activeGun = false;
 		
 
 	//	print (InventoryContains(1)); //How many items are in the inventory?
@@ -154,6 +158,13 @@ public class Inventory : MonoBehaviour
 								UseKey(item, i, true);
 							}
 						}
+						if(e.isMouse && e.type == EventType.mouseDown && e.button == 0 && (Time.time - lastTapTime) < tapSpeed)
+						{
+							if(item.itemType == Item.ItemType.Vital)
+							{
+								UseGun(item, i, true);
+							}
+						}
 					}
 					if(tooltip == "")
 					{
@@ -230,12 +241,32 @@ public class Inventory : MonoBehaviour
 		case 1:
 		{
 			print ("Item in use: " + item.itemName);
-			key.SetActive(true);
+			holdingKey.SetActive(true);
 			activeKey = true;
+			activeGun = false;
 			showInventory = false;
 			break;
 		}
+		}
+		if(deleteItem)
+		{
+			inventory[slot] = new Item();
+		}
+	}
 
+	private void UseGun(Item item, int slot, bool deleteItem)
+	{
+		switch(item.itemID)
+		{
+		case 10:
+		{
+			print ("Item in use: " + item.itemName);
+			holdingGun.SetActive(true);
+			activeGun = true;
+			activeKey = false;
+			showInventory = false;
+			break;
+		}
 		}
 		if(deleteItem)
 		{
