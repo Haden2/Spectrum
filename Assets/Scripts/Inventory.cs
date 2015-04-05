@@ -14,10 +14,11 @@ public class Inventory : MonoBehaviour
 	public GameObject key;
 	public bool pause;
 	public bool unPause;
+	public bool activeKey;
 	private MouseLook playerLook;
 	private MouseLook playerCameraLook;
 	private float lastTapTime = 0;
-	private bool showInventory;
+	public bool showInventory;
 	private ItemDatabase database;
 	private bool showTooltip;
 	private string tooltip;
@@ -41,6 +42,7 @@ public class Inventory : MonoBehaviour
 		key.SetActive (false);
 		pause = false;
 		unPause = true;
+		activeKey = false;
 		
 
 	//	print (InventoryContains(1)); //How many items are in the inventory?
@@ -229,6 +231,7 @@ public class Inventory : MonoBehaviour
 		{
 			print ("Item in use: " + item.itemName);
 			key.SetActive(true);
+			activeKey = true;
 			showInventory = false;
 			break;
 		}

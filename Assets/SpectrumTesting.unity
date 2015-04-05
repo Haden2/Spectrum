@@ -256,8 +256,10 @@ MonoBehaviour:
   pickupText: {r: 1, g: 0, b: 0, a: 1}
   blank: {r: 0, g: 0, b: 0, a: 0}
   Key: {fileID: 774218081}
+  HoldingKey: {fileID: 2093065188}
   Gun: {fileID: 407240841}
   Gloves: {fileID: 1391131148}
+  inventory: {fileID: 0}
 --- !u!208 &50584747
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -353,6 +355,8 @@ MonoBehaviour:
   key: {fileID: 2093065188}
   pause: 0
   unPause: 0
+  activeKey: 0
+  showInventory: 0
 --- !u!1 &51881591
 GameObject:
   m_ObjectHideFlags: 0
@@ -4465,7 +4469,7 @@ GameObject:
   - 23: {fileID: 2093065190}
   - 54: {fileID: 2093065193}
   m_Layer: 0
-  m_Name: Key
+  m_Name: HoldingKey
   m_TagString: Key
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

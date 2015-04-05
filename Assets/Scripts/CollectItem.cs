@@ -9,12 +9,14 @@ public class CollectItem : MonoBehaviour {
 	//public float flashSpeed = 5f;
 	public Color blank = new Color (0f, 0f, 0f, 0f);
 	public GameObject Key;
+	public GameObject HoldingKey;
 	public GameObject Gun;
 	public GameObject Gloves;
-	private Inventory inventory;
+	public Inventory inventory;
 	bool onKey;
 	bool onGun;
 	bool onGloves;
+	bool holdStill;
 
 	void Awake () 
 	{
@@ -60,26 +62,42 @@ public class CollectItem : MonoBehaviour {
 
 	void Update()
 	{
-		if (onKey && Input.GetKeyDown ("e"))
+		if(inventory.showInventory)
+		{
+			holdStill = true;
+			pressE.color = blank;
+		}
+		else
+		{
+			holdStill = false;
+		}
+		if(inventory.activeKey == true && Input.GetKeyDown("e") && onGun == false && onGloves == false)
+		{
+			//print("Return Key");
+			HoldingKey.gameObject.SetActive(false);
+			inventory.AddItem(1);
+		}
+
+		if (onKey && Input.GetKeyDown ("e") && holdStill == false)
 		{
 			inventory.AddItem(1);
-			print ("Add Item 1");
+			//print ("Add Item 1");
 			pressE.color = blank;
 			onKey = false;
 			Key.gameObject.SetActive(false);
 		}
-		if (onGun && Input.GetKeyDown ("e"))
+		if (onGun && Input.GetKeyDown ("e") && holdStill == false)
 		{
 			inventory.AddItem(10);
-			print ("Add Item 10");
+			//print ("Add Item 10");
 			pressE.color = blank;
 			onGun = false;
 			Gun.gameObject.SetActive(false);
 		}
-		if (onGloves && Input.GetKeyDown ("e"))
+		if (onGloves && Input.GetKeyDown ("e") && holdStill == false)
 		{
 			inventory.AddItem(2);
-			print ("Add Item 2");
+			//print ("Add Item 2");
 			pressE.color = blank;
 			onGloves = false;
 			Gloves.gameObject.SetActive(false);
