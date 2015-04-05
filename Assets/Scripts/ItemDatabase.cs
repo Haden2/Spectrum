@@ -18,6 +18,6 @@ public class ItemDatabase : MonoBehaviour
 		items.Add (new Item ("Brain",7,"1/3 items for the Model", 0, Item.ItemType.Vital));
 		items.Add (new Item ("Ticket",8,"Allows access to the Clown", 0, Item.ItemType.Vital));
 		items.Add (new Item ("Poison",9,"Apply to the head to kill the Borrower", 0, Item.ItemType.Vital));
-
+		items.Add (new Item ("Gun",10,"Used to shoot enemies", 0, Item.ItemType.Vital));
 	}
 }

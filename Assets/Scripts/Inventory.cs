@@ -229,6 +229,7 @@ public class Inventory : MonoBehaviour
 		{
 			print ("Item in use: " + item.itemName);
 			key.SetActive(true);
+			showInventory = false;
 			break;
 		}
 

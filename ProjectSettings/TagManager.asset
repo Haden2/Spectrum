@@ -10,6 +10,8 @@ TagManager:
   - Light
   - Item Database
   - Key
+  - Gun
+  - Gloves
   layers:
   - Default
   - TransparentFX
