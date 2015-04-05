@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,7 +14,8 @@ public class Inventory : MonoBehaviour
 	public GameObject key;
 	public bool pause;
 	public bool unPause;
-	public MouseLook look;
+	private MouseLook playerLook;
+	private MouseLook playerCameraLook;
 	private float lastTapTime = 0;
 	private bool showInventory;
 	private ItemDatabase database;
@@ -32,13 +33,16 @@ public class Inventory : MonoBehaviour
 			inventory.Add (new Item());
 		}
 		database = GameObject.FindGameObjectWithTag ("Item Database").GetComponent<ItemDatabase> (); //Grab the ItemDatabase script
-		look = GetComponent<MouseLook> ();
+		playerLook = (MouseLook)GameObject.Find ("First Person Controller").GetComponent ("MouseLook");
+		playerCameraLook = (MouseLook)GameObject.Find ("Main Camera").GetComponent ("MouseLook");
 		AddItem (0);
 		//RemoveItem (0);
 		lastTapTime = 0;
 		key.SetActive (false);
 		pause = false;
 		unPause = true;
+		
+
 	//	print (InventoryContains(1)); //How many items are in the inventory?
 	}
 
@@ -84,6 +88,11 @@ public class Inventory : MonoBehaviour
 			}
 			pause = true;
 		}
+		else
+		{
+			unPause = true;
+			pause = false;
+		}
 		if(draggingItem)
 		{
 			GUI.DrawTexture(new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, 50,50), draggedItem.itemIcon);
@@ -102,7 +111,6 @@ public class Inventory : MonoBehaviour
 				GUI.Box (slotRect, "", skin.GetStyle("Slot Background"));
 				slots[i] = inventory[i];
 				Item item = slots[i];  
-	
 				if(slots[i].itemName !=null)
 				{
 					GUI.DrawTexture(slotRect, inventory[i].itemIcon);
@@ -169,7 +177,7 @@ public class Inventory : MonoBehaviour
 	string CreateTooltip(Item item)
 	{
 		tooltip = "<color=#0E4F69>" + item.itemName + "</color>\n\n" /* + "<color=#C4C4C4>" + item.itemDesc + "</color>"*/;
-		pause = true;
+		//pause = true;
 		return tooltip;
 	}
 
@@ -197,6 +205,7 @@ public class Inventory : MonoBehaviour
 					{
 						inventory[i] = database.items[j];
 					}
+
 				}
 				break;
 			}
@@ -245,16 +254,24 @@ public class Inventory : MonoBehaviour
 	IEnumerator PauseGame()
 	{
 		Time.timeScale = 0.0f;
+		gameObject.GetComponent<MouseLook>().enabled = false;
+		playerLook.GetComponent<MouseLook>().enabled = false;
+		playerCameraLook.GetComponent<MouseLook>().enabled = false;
+		Cursor.visible = true;
 		yield return new WaitForSeconds (0);
-		pause = false;
-		unPause = true;
+		pause = true;
+		unPause = false;
 	}
 
 	IEnumerator UnPauseGame()
 	{
 		unPause = true;
 		pause = false;
-		Time.timeScale = 1f;
+		Cursor.visible = false;
+		gameObject.GetComponent<MouseLook>().enabled = true;
+		playerLook.GetComponent<MouseLook>().enabled = true;
+		playerCameraLook.GetComponent<MouseLook>().enabled = true;
+		Time.timeScale = 1.0f;
 		yield return new WaitForSeconds (0);
 	}
 }
