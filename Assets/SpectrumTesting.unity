@@ -259,10 +259,9 @@ MonoBehaviour:
   Gun: {fileID: 407240841}
   Gloves: {fileID: 1391131148}
   inventory: {fileID: 0}
+  openDoor: {fileID: 0}
   keyIsGot: 0
   gunIsGot: 0
-  keySwap: 0
-  gunSwap: 0
 --- !u!208 &50584747
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -361,8 +360,11 @@ MonoBehaviour:
   unPause: 0
   activeKey: 0
   activeGun: 0
+  keySwap: 0
+  gunSwap: 0
   lastTapTime: 0
   showInventory: 0
+  collect: {fileID: 0}
 --- !u!1 &51881591
 GameObject:
   m_ObjectHideFlags: 0
@@ -1185,7 +1187,7 @@ GameObject:
   - 23: {fileID: 407240842}
   m_Layer: 0
   m_Name: Gun
-  m_TagString: Gun
+  m_TagString: PickUpGun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1984,7 +1986,7 @@ GameObject:
   - 33: {fileID: 774218085}
   m_Layer: 0
   m_Name: Key
-  m_TagString: Key
+  m_TagString: PickUpKey
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3185,7 +3187,7 @@ GameObject:
   - 23: {fileID: 1391131149}
   m_Layer: 0
   m_Name: Gloves
-  m_TagString: Gloves
+  m_TagString: PickUpGloves
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3445,7 +3447,7 @@ GameObject:
   - 114: {fileID: 1554681365}
   m_Layer: 0
   m_Name: Activation Switch
-  m_TagString: PickUp
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3516,10 +3518,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c87baf374498f840b800ae4ec30e8a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  key: {fileID: 0}
   doorR: {fileID: 1673923546}
   doorL: {fileID: 526207298}
   pivotR: {fileID: 1174614218}
   pivotL: {fileID: 1320190777}
+  haveKey: 0
 --- !u!1 &1664272881
 GameObject:
   m_ObjectHideFlags: 0

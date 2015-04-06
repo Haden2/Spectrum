@@ -3,7 +3,7 @@ using System.Collections;
 
 public class OpenDoor : MonoBehaviour {
 
-	GameObject key;
+	public GameObject key;
 	GameObject player;
 	public Transform doorR;
 	public Transform doorL;
@@ -14,7 +14,7 @@ public class OpenDoor : MonoBehaviour {
 	bool open;
 	bool closed;
 	bool closing;
-	bool haveKey;
+	public bool haveKey;
 	bool rotating;
 	bool nothing;
 
@@ -73,6 +73,7 @@ public class OpenDoor : MonoBehaviour {
 	{
 		print ("Nope");
 		nothing = true;
+		haveKey = false;
 		yield return new WaitForSeconds (0);
 	}
 

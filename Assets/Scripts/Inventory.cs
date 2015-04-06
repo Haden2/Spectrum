@@ -17,11 +17,14 @@ public class Inventory : MonoBehaviour
 	public bool unPause;
 	public bool activeKey;
 	public bool activeGun;
+	public bool keySwap;
+	public bool gunSwap;
 	private MouseLook playerLook;
 	private MouseLook playerCameraLook;
 	public float lastTapTime = 0;
 	public bool showInventory;
 	private ItemDatabase database;
+	public CollectItem collect;
 	private bool showTooltip;
 	private string tooltip;
 	private bool draggingItem;
@@ -37,6 +40,7 @@ public class Inventory : MonoBehaviour
 		}
 		database = GameObject.FindGameObjectWithTag ("Item Database").GetComponent<ItemDatabase> (); //Grab the ItemDatabase script
 		playerLook = (MouseLook)GameObject.Find ("First Person Controller").GetComponent ("MouseLook");
+		collect = GetComponent<CollectItem>();
 		playerCameraLook = (MouseLook)GameObject.Find ("Main Camera").GetComponent ("MouseLook");
 		AddItem (0);
 		//RemoveItem (0);
@@ -69,6 +73,14 @@ public class Inventory : MonoBehaviour
 		if(unPause)
 		{
 			StartCoroutine(UnPauseGame());
+		}
+		if(activeKey)
+		{
+			keySwap = true;
+		}
+		if(activeGun)
+		{
+			gunSwap = true;
 		}
 	}
 
@@ -241,10 +253,15 @@ public class Inventory : MonoBehaviour
 		case 1:
 		{
 			print ("Item in use: " + item.itemName);
-			holdingKey.SetActive(true);
 			activeKey = true;
 			activeGun = false;
 			showInventory = false;
+			holdingKey.gameObject.SetActive(true);
+			if(activeKey == true && collect.gunIsGot && gunSwap)
+			{
+				holdingGun.gameObject.SetActive(false);
+				AddItem(10);
+			}
 			break;
 		}
 		}
@@ -261,10 +278,15 @@ public class Inventory : MonoBehaviour
 		case 10:
 		{
 			print ("Item in use: " + item.itemName);
-			holdingGun.SetActive(true);
 			activeGun = true;
 			activeKey = false;
 			showInventory = false;
+			holdingGun.gameObject.SetActive(true);
+			if(activeGun == true && collect.keyIsGot && keySwap)
+			{
+				holdingKey.gameObject.SetActive(false);
+				AddItem(1);
+			}
 			break;
 		}
 		}

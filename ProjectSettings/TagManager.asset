@@ -4,7 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - PickUp
+  - PickUpKey
   - Floor
   - Enemy
   - Light
@@ -12,6 +12,9 @@ TagManager:
   - Key
   - Gun
   - Gloves
+  - Door
+  - PickUpGun
+  - PickUpGloves
   layers:
   - Default
   - TransparentFX
