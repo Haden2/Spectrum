@@ -6,13 +6,18 @@ public class Elevator : MonoBehaviour {
 	public Vector3 elevator;
 	public Vector3 downPosition;
 	public Vector3 upPosition;
+	public Vector3 openPosition;
+	public Vector3 closedPosition;
 	GameObject player;
+	public GameObject bigDoor;
+	public GameObject littleDoor;
 	Vector3 directionUp;
 	Vector3 directionDown;
 	public bool isDown;
 	public bool isUp;
 	public bool isMoving;
 	public bool canActivate;
+	public bool closeDoor;
 
 
 	void Start()
@@ -20,24 +25,17 @@ public class Elevator : MonoBehaviour {
 		isDown = true;
 		isUp = false;
 		isMoving = false;
+		closeDoor = true;
 		canActivate = false;
 		player = GameObject.FindGameObjectWithTag ("Player");
 	}
 	
 	void Update () 
 	{
-		if(isDown == true && isUp == false)
+		if(closeDoor)
 		{
+			StartCoroutine(ElevatorDoor (bigDoor.transform, openPosition, closedPosition, 5));		
 		}
-		if(isDown == false && isUp == true)
-		{
-		}
-		
-		if(isMoving)
-		{
-
-		}
-
 		if(isDown == true && isUp == false && isMoving == false && canActivate == true && Input.GetKeyDown ("t"))
 		{
 			StartCoroutine(MoveUp (transform, downPosition, upPosition, 5));
@@ -123,6 +121,18 @@ public class Elevator : MonoBehaviour {
 		{
 			i += Time.deltaTime * rate;
 			thisTransform.position = Vector3.Lerp (endPos, startPos, i);
+			yield return null;
+		}
+	}
+
+	IEnumerator ElevatorDoor(Transform thatTransform, Vector3 startArea, Vector3 endArea, float timing)
+	{
+		float h = 0.0f;
+		float rot = 1.0f / timing;
+		while(h< 1.0f)
+		{
+			h += Time.deltaTime * rot;
+			thatTransform.position = Vector3.Lerp (startArea, endArea, h);
 			yield return null;
 		}
 	}
