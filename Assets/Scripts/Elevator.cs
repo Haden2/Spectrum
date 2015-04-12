@@ -8,11 +8,11 @@ public class Elevator : MonoBehaviour {
 	public Vector3 upPosition;
 	public Vector3 openPosition;
 	public Vector3 closedPosition;
+	public Vector3 openPosition1;
+	public Vector3 closedPosition1;
 	GameObject player;
 	public GameObject bigDoor;
 	public GameObject littleDoor;
-	Vector3 directionUp;
-	Vector3 directionDown;
 	public bool isDown;
 	public bool isUp;
 	public bool isMoving;
@@ -34,7 +34,8 @@ public class Elevator : MonoBehaviour {
 	{
 		if(closeDoor)
 		{
-			StartCoroutine(ElevatorDoor (bigDoor.transform, openPosition, closedPosition, 5));		
+			StartCoroutine(ElevatorDoor (bigDoor.transform, openPosition, closedPosition, 3));	
+			StartCoroutine(ElevatorDoor (littleDoor.transform, openPosition1, closedPosition1, 3));		
 		}
 		if(isDown == true && isUp == false && isMoving == false && canActivate == true && Input.GetKeyDown ("t"))
 		{
@@ -133,6 +134,7 @@ public class Elevator : MonoBehaviour {
 		{
 			h += Time.deltaTime * rot;
 			thatTransform.position = Vector3.Lerp (startArea, endArea, h);
+			thatTransform.position = Vector3.Lerp(startArea, endArea, h);
 			yield return null;
 		}
 	}
