@@ -136,6 +136,7 @@ public class Elevator : MonoBehaviour {
 			thatTransform.position = Vector3.Lerp (startArea, endArea, h);
 			thatTransform.position = Vector3.Lerp(startArea, endArea, h);
 			yield return null;
+			closeDoor = false;
 		}
 	}
 
