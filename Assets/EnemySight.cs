@@ -13,7 +13,7 @@ public class EnemySight : MonoBehaviour {
 	
 	}
 
-	protected bool CanSeePlayer()
+	/*protected bool CanSeePlayer()
 	{
 		RaycastHit hit;
 		Vector3 rayDirection = Player.transform.position - transform.position;
@@ -28,5 +28,5 @@ public class EnemySight : MonoBehaviour {
 		}
 		
 		return false;
-	}
+	}*/
 }

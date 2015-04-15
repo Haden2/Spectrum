@@ -12,9 +12,16 @@ TagManager:
   - Key
   - Gun
   - Gloves
-  - Door
   - PickUpGun
   - PickUpGloves
+  - NightVisionLight
+  - BlueLight
+  - Flare1
+  - Flare2
+  - Flare3
+  - Flare4
+  - Flare5
+  - Door
   layers:
   - Default
   - TransparentFX

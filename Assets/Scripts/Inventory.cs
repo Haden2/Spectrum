@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour 
 {
-	public int slotsX, slotsY;
+	public int slotsX, slotsY; //5, 2
 	public GUISkin skin;
 	public List<Item> inventory = new List<Item>();
 	public List<Item> slots = new List<Item> ();
@@ -41,10 +41,13 @@ public class Inventory : MonoBehaviour
 		database = GameObject.FindGameObjectWithTag ("Item Database").GetComponent<ItemDatabase> (); //Grab the ItemDatabase script
 		playerLook = (MouseLook)GameObject.Find ("First Person Controller").GetComponent ("MouseLook");
 		collect = GetComponent<CollectItem>();
+		holdingKey = GameObject.FindGameObjectWithTag ("Key");
+		holdingGun = GameObject.FindGameObjectWithTag ("Gun");
 		playerCameraLook = (MouseLook)GameObject.Find ("Main Camera").GetComponent ("MouseLook");
 		AddItem (0);
 		//RemoveItem (0);
 		lastTapTime = 0;
+		tapSpeed = .25f;
 		holdingKey.SetActive (false);
 		holdingGun.SetActive (false);
 		pause = false;
@@ -64,7 +67,7 @@ public class Inventory : MonoBehaviour
 		}
 		if(Input.GetKeyDown (KeyCode.Mouse0))
 		{
-			lastTapTime = Time.time;
+			lastTapTime = Time.realtimeSinceStartup;
 		}
 		if(pause)
 		{
@@ -163,14 +166,14 @@ public class Inventory : MonoBehaviour
 							tooltip = CreateTooltip(inventory[i]);
 							showTooltip = true;
 						}
-						if(e.isMouse && e.type == EventType.mouseDown && e.button == 0 && (Time.time - lastTapTime) < tapSpeed)
+						if(e.isMouse && e.type == EventType.mouseDown && e.button == 0 && (Time.realtimeSinceStartup - lastTapTime) < tapSpeed)
 						{
 							if(item.itemType == Item.ItemType.Key)
 							{
 								UseKey(item, i, true);
 							}
 						}
-						if(e.isMouse && e.type == EventType.mouseDown && e.button == 0 && (Time.time - lastTapTime) < tapSpeed)
+						if(e.isMouse && e.type == EventType.mouseDown && e.button == 0 && (Time.realtimeSinceStartup - lastTapTime) < tapSpeed)
 						{
 							if(item.itemType == Item.ItemType.Vital)
 							{

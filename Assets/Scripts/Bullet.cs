@@ -3,12 +3,13 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 
-	public Rigidbody projectile;
+	public Rigidbody projectile; //Prefab bullet
 	public int shootingPower;
 	// Use this for initialization
 	void Start () 
 	{
 		projectile = projectile.GetComponent<Rigidbody> ();
+		shootingPower = 150;
 	}
 	
 	// Update is called once per frame

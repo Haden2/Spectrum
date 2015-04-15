@@ -27,6 +27,14 @@ public class Elevator : MonoBehaviour {
 		isMoving = false;
 		closeDoor = true;
 		canActivate = false;
+		elevator = transform.localPosition;
+		downPosition = new Vector3(13, 1, -5);
+		upPosition = new Vector3 (13, 15, -5);
+		openPosition = new Vector3 (10, 2.5f, -1);
+		closedPosition = new Vector3 (10, 2.5f, -5);
+		openPosition1 = new Vector3 (9.85f, 2.5f, -1);
+		closedPosition1 = new Vector3 (9.85f, 2.5f, -3);
+
 		player = GameObject.FindGameObjectWithTag ("Player");
 	}
 	

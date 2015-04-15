@@ -24,6 +24,9 @@ public class CollectItem : MonoBehaviour {
 	{
 		inventory = GetComponent<Inventory>();
 		openDoor = GameObject.FindGameObjectWithTag ("Door").GetComponent<OpenDoor> ();
+		Key = GameObject.FindGameObjectWithTag ("PickUpKey");
+		Gun = GameObject.FindGameObjectWithTag ("PickUpGun");
+		Gloves = GameObject.FindGameObjectWithTag ("PickUpGloves");
 	}
 	//WHEN YOU STEP ONTO THE OBJECT
 	void OnTriggerEnter(Collider other) 

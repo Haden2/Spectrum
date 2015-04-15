@@ -10,6 +10,7 @@ public class FlickeringLight : MonoBehaviour {
 	void Start () 
 	{
 		lightBulb = GetComponent<Light> ();
+		smallFlicker = GameObject.Find ("SmallFlicker").GetComponent <Light>();
 	}
 	
 	// Update is called once per frame

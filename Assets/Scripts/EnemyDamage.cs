@@ -5,6 +5,7 @@ using System.Collections;
 public class EnemyDamage : MonoBehaviour 
 {
 	public GameObject BlueFlashlight;
+	//TestingNightVision NightVisionLight;
 	public GameObject NightVision;
 	public float wait;
 	public float readyOrNot;
@@ -26,11 +27,18 @@ public class EnemyDamage : MonoBehaviour
 
 	void Awake()
 	{
+		BlueFlashlight = GameObject.FindGameObjectWithTag ("BlueLight");
+		NightVision = GameObject.FindGameObjectWithTag ("NightVisionLight");
+		collide = GetComponent<SphereCollider> ();
 		main = GameObject.FindGameObjectWithTag ("Player");
 		player = GameObject.FindGameObjectWithTag ("Player").transform;
 		escapeDestination = GameObject.FindGameObjectWithTag ("Respawn").transform;
 		nav = GetComponent<NavMeshAgent>();
 		turnUp = GetComponent <NavMeshAgent>();
+		startingTalk = 15f;
+		wait = 3;
+		readyOrNot = 11;
+		radius = 8;
 		start = true;
 		seek = false;
 		flash = true;
