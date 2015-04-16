@@ -22,6 +22,13 @@ TagManager:
   - Flare4
   - Flare5
   - Door
+  - PickUpRock
+  - PickUpHead
+  - PickUpLung
+  - PickUpHeart
+  - PickUpBrain
+  - PickUpTicket
+  - PickUpPoison
   layers:
   - Default
   - TransparentFX

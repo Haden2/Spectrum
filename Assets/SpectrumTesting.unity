@@ -246,7 +246,7 @@ GameObject:
   - 23: {fileID: 49138642}
   m_Layer: 0
   m_Name: Heart
-  m_TagString: Untagged
+  m_TagString: PickUpHeart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -331,6 +331,13 @@ MonoBehaviour:
   Key: {fileID: 0}
   Gun: {fileID: 0}
   Gloves: {fileID: 0}
+  Rock: {fileID: 0}
+  Head: {fileID: 0}
+  Lung: {fileID: 0}
+  Heart: {fileID: 0}
+  Brain: {fileID: 0}
+  Ticket: {fileID: 0}
+  Poison: {fileID: 0}
   inventory: {fileID: 0}
   openDoor: {fileID: 0}
   keyIsGot: 0
@@ -1485,7 +1492,7 @@ GameObject:
   - 23: {fileID: 431071506}
   m_Layer: 0
   m_Name: Head
-  m_TagString: Untagged
+  m_TagString: PickUpHead
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1985,7 +1992,7 @@ GameObject:
   - 23: {fileID: 593662120}
   m_Layer: 0
   m_Name: Brain
-  m_TagString: Untagged
+  m_TagString: PickUpBrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3304,7 +3311,7 @@ GameObject:
   - 23: {fileID: 665839772}
   m_Layer: 0
   m_Name: Lung
-  m_TagString: Untagged
+  m_TagString: PickUpLung
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3517,7 +3524,7 @@ GameObject:
   - 23: {fileID: 752986604}
   m_Layer: 0
   m_Name: Ticket
-  m_TagString: Untagged
+  m_TagString: PickUpTicket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6197,7 +6204,7 @@ GameObject:
   - 23: {fileID: 1420153290}
   m_Layer: 0
   m_Name: Poison
-  m_TagString: Untagged
+  m_TagString: PickUpPoison
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6403,7 +6410,7 @@ GameObject:
   - 23: {fileID: 1515215789}
   m_Layer: 0
   m_Name: Rock
-  m_TagString: Untagged
+  m_TagString: PickUpRock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

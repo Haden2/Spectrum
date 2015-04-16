@@ -11,14 +11,18 @@ public class Inventory : MonoBehaviour
 	public Texture2D backgroundScreen;
 	public float fAlpha;
 	public float tapSpeed = .25f;
+
 	public GameObject holdingKey;
 	public GameObject holdingGun;
+
 	public bool pause;
 	public bool unPause;
+
 	public bool activeKey;
 	public bool activeGun;
 	public bool keySwap;
 	public bool gunSwap;
+
 	private MouseLook playerLook;
 	private MouseLook playerCameraLook;
 	public float lastTapTime = 0;
