@@ -72,6 +72,10 @@ public class CollectItem : MonoBehaviour {
 		{
 			pressE.color = pickupText;
 			onItem = true;
+			if(other.gameObject.tag == "PickUpRock")
+			{
+				onRock = true;
+			}
 			if(other.gameObject.tag == "PickUpKey")
 			{
 				onKey = true;
@@ -119,6 +123,10 @@ public class CollectItem : MonoBehaviour {
 		{
 			pressE.color = blank;
 			onItem = false;
+			if(other.gameObject.tag == "PickUpRock")
+			{
+				onRock = false;
+			}
 			if(other.gameObject.tag == "PickUpKey")
 			{
 				onKey = false;
@@ -187,6 +195,7 @@ public class CollectItem : MonoBehaviour {
 			//print ("Add Item 1");
 			pressE.color = blank;
 			onKey = false;
+			onItem = false;
 			keyIsGot = true;
 			Key.gameObject.SetActive(false);
 		}
@@ -196,6 +205,7 @@ public class CollectItem : MonoBehaviour {
 			//print ("Add Item 10");
 			pressE.color = blank;
 			onGun = false;
+			onItem = false;
 			gunIsGot = true;
 			Gun.gameObject.SetActive(false);
 		}
@@ -205,7 +215,72 @@ public class CollectItem : MonoBehaviour {
 			//print ("Add Item 2");
 			pressE.color = blank;
 			onGloves = false;
+			onItem = false;
+			glovesIsGot = true;
 			Gloves.gameObject.SetActive(false);
+		}
+		if (onHead && Input.GetKeyDown ("e") && holdStill == false)
+		{
+			inventory.AddItem(4);
+			pressE.color = blank;
+			onHead = false;
+			onItem = false;
+			headIsGot = true;
+			Head.gameObject.SetActive(false);
+		}
+		if (onRock && Input.GetKeyDown ("e") && holdStill == false)
+		{
+			inventory.AddItem(0);
+			pressE.color = blank;
+			onRock = false;
+			onItem = false;
+			rockIsGot = true;
+			Rock.gameObject.SetActive(false);
+		}
+		if (onLung && Input.GetKeyDown ("e") && holdStill == false)
+		{
+			inventory.AddItem(5);
+			pressE.color = blank;
+			onLung = false;
+			onItem = false;
+			lungIsGot = true;
+			Lung.gameObject.SetActive(false);
+		}
+		if (onHeart && Input.GetKeyDown ("e") && holdStill == false)
+		{
+			inventory.AddItem(6);
+			pressE.color = blank;
+			onHeart = false;
+			onItem = false;
+			heartIsGot = true;
+			Heart.gameObject.SetActive(false);
+		}
+		if (onBrain && Input.GetKeyDown ("e") && holdStill == false)
+		{
+			inventory.AddItem(7);
+			pressE.color = blank;
+			onBrain = false;
+			onItem = false;
+			brainIsGot = true;
+			Brain.gameObject.SetActive(false);
+		}
+		if (onTicket && Input.GetKeyDown ("e") && holdStill == false)
+		{
+			inventory.AddItem(8);
+			pressE.color = blank;
+			onTicket = false;
+			onItem = false;
+			ticketIsGot = true;
+			Ticket.gameObject.SetActive(false);
+		}
+		if (onPoison && Input.GetKeyDown ("e") && holdStill == false)
+		{
+			inventory.AddItem(9);
+			pressE.color = blank;
+			onPoison = false;
+			onItem = false;
+			poisonIsGot = true;
+			Poison.gameObject.SetActive(false);
 		}
 	}
 }

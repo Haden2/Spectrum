@@ -48,7 +48,7 @@ public class Inventory : MonoBehaviour
 		holdingKey = GameObject.FindGameObjectWithTag ("Key");
 		holdingGun = GameObject.FindGameObjectWithTag ("Gun");
 		playerCameraLook = (MouseLook)GameObject.Find ("Main Camera").GetComponent ("MouseLook");
-		AddItem (0);
+		//AddItem (0);
 		//RemoveItem (0);
 		lastTapTime = 0;
 		tapSpeed = .25f;
