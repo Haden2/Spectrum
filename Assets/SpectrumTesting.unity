@@ -282,7 +282,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 49138641}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: .5
@@ -340,8 +340,27 @@ MonoBehaviour:
   Poison: {fileID: 0}
   inventory: {fileID: 0}
   openDoor: {fileID: 0}
+  onItem: 0
+  onKey: 0
+  onGun: 0
+  onGloves: 0
+  onRock: 0
+  onHead: 0
+  onLung: 0
+  onBrain: 0
+  onHeart: 0
+  onTicket: 0
+  onPoison: 0
   keyIsGot: 0
   gunIsGot: 0
+  glovesIsGot: 0
+  rockIsGot: 0
+  headIsGot: 0
+  lungIsGot: 0
+  heartIsGot: 0
+  brainIsGot: 0
+  ticketIsGot: 0
+  poisonIsGot: 0
 --- !u!208 &50584747
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1177,7 +1196,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 332067320}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106709}
-  m_LocalPosition: {x: .379999995, y: .550000012, z: .540000021}
+  m_LocalPosition: {x: .379999995, y: .200000003, z: .540000021}
   m_LocalScale: {x: .200000003, y: .300000012, z: .200000003}
   m_Children:
   - {fileID: 217654991}
@@ -1528,7 +1547,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 431071505}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -2028,7 +2047,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 593662119}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -3347,7 +3366,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 665839771}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: .5
   m_Height: 2
@@ -3560,7 +3579,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 752986603}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -6240,7 +6259,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1420153289}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: .5
   m_Height: 2
@@ -6446,10 +6465,10 @@ SphereCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1515215788}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .5
+  m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1515215791
 MeshFilter:

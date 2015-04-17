@@ -22,13 +22,31 @@ public class CollectItem : MonoBehaviour {
 
 	public Inventory inventory;
 	public OpenDoor openDoor;
-	bool onItem;
-	bool onKey;
-	bool onGun;
-	bool onGloves;
+
+	public bool onItem;
+	public bool onKey;
+	public bool onGun;
+	public bool onGloves;
+	public bool onRock;
+	public bool onHead;
+	public bool onLung;
+	public bool onBrain;
+	public bool onHeart;
+	public bool onTicket;
+	public bool onPoison;
+
 	bool holdStill;
 	public bool keyIsGot;
 	public bool gunIsGot;
+	public bool glovesIsGot;
+	public bool rockIsGot;
+	public bool headIsGot;
+	public bool lungIsGot;
+	public bool heartIsGot;
+	public bool brainIsGot;
+	public bool ticketIsGot;
+	public bool poisonIsGot;
+
 
 	void Awake () 
 	{
@@ -66,6 +84,30 @@ public class CollectItem : MonoBehaviour {
 			{
 				onGloves = true;
 			}
+			if(other.gameObject.tag == "PickUpHead")
+			{
+				onHead = true;
+			}
+			if(other.gameObject.tag == "PickUpLung")
+			{
+				onLung = true;
+			}
+			if(other.gameObject.tag == "PickUpHeart")
+			{
+				onHeart = true;
+			}
+			if(other.gameObject.tag == "PickUpBrain")
+			{
+				onBrain = true;
+			}
+			if(other.gameObject.tag == "PickUpTicket")
+			{
+				onTicket = true;
+			}
+			if(other.gameObject.tag == "PickUpPoison")
+			{
+				onPoison = true;
+			}
 		} 
 	}
 	//WHEN YOU LEAVE THAT OBJECT ON THE GROUND
@@ -77,6 +119,42 @@ public class CollectItem : MonoBehaviour {
 		{
 			pressE.color = blank;
 			onItem = false;
+			if(other.gameObject.tag == "PickUpKey")
+			{
+				onKey = false;
+			}
+			if(other.gameObject.tag == "PickUpGun")
+			{
+				onGun = false;
+			}
+			if(other.gameObject.tag == "PickUpGloves")
+			{
+				onGloves = false;
+			}
+			if(other.gameObject.tag == "PickUpHead")
+			{
+				onHead = false;
+			}
+			if(other.gameObject.tag == "PickUpLung")
+			{
+				onLung = false;
+			}
+			if(other.gameObject.tag == "PickUpHeart")
+			{
+				onHeart = false;
+			}
+			if(other.gameObject.tag == "PickUpBrain")
+			{
+				onBrain = false;
+			}
+			if(other.gameObject.tag == "PickUpTicket")
+			{
+				onTicket = false;
+			}
+			if(other.gameObject.tag == "PickUpPoison")
+			{
+				onPoison = false;
+			}
 		}
 	}
 
