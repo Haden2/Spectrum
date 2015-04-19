@@ -14,14 +14,30 @@ public class Inventory : MonoBehaviour
 
 	public GameObject holdingKey;
 	public GameObject holdingGun;
+	public GameObject holdingRock;
+	public GameObject [] holdingGloves;
+	public GameObject holdingPoisonHead;
+	public GameObject holdingAnatomy;
+	public GameObject holdingTicket;
 
 	public bool pause;
 	public bool unPause;
 
 	public bool activeKey;
 	public bool activeGun;
+	public bool activeRock;
+	public bool activeGloves;
+	public bool activePoisonHead;
+	public bool activeAnatomy;
+	public bool activeTicket;
+
 	public bool keySwap;
 	public bool gunSwap;
+	public bool rockSwap;
+	public bool poisonheadSwap;
+	public bool anatomySwap;
+	public bool ticketSwap;
+	public bool glovesSwap;
 
 	private MouseLook playerLook;
 	private MouseLook playerCameraLook;
@@ -47,6 +63,13 @@ public class Inventory : MonoBehaviour
 		collect = GetComponent<CollectItem>();
 		holdingKey = GameObject.FindGameObjectWithTag ("Key");
 		holdingGun = GameObject.FindGameObjectWithTag ("Gun");
+		holdingGloves = GameObject.FindGameObjectsWithTag ("Gloves");
+		holdingRock = GameObject.FindGameObjectWithTag ("Rock");
+		holdingPoisonHead = GameObject.FindGameObjectWithTag ("PoisonHead");
+		holdingAnatomy = GameObject.FindGameObjectWithTag ("Anatomy");
+		holdingTicket = GameObject.FindGameObjectWithTag ("Ticket");
+
+
 		playerCameraLook = (MouseLook)GameObject.Find ("Main Camera").GetComponent ("MouseLook");
 		//AddItem (0);
 		//RemoveItem (0);
@@ -54,6 +77,15 @@ public class Inventory : MonoBehaviour
 		tapSpeed = .25f;
 		holdingKey.SetActive (false);
 		holdingGun.SetActive (false);
+		holdingRock.SetActive (false);
+		foreach(GameObject _obj in holdingGloves)
+		{
+			_obj.SetActive(false);
+		}
+		holdingAnatomy.SetActive (false);
+		holdingPoisonHead.SetActive (false);
+		holdingTicket.SetActive (false);
+
 		pause = false;
 		unPause = true;
 		activeKey = false;
@@ -88,6 +120,26 @@ public class Inventory : MonoBehaviour
 		if(activeGun)
 		{
 			gunSwap = true;
+		}
+		if(activeRock)
+		{
+			rockSwap = true;
+		}
+		if(activeGloves)
+		{
+			glovesSwap = true;
+		}		
+		if(activeAnatomy)
+		{
+			anatomySwap = true;
+		}
+		if(activePoisonHead)
+		{
+			poisonheadSwap = true;
+		}
+		if(activeTicket)
+		{
+			ticketSwap = true;
 		}
 	}
 
@@ -144,48 +196,49 @@ public class Inventory : MonoBehaviour
 					{
 						tooltip = CreateTooltip(slots[i]);
 						showTooltip = true;
-						if(e.button == 0 && e.type == EventType.mouseDrag && !draggingItem)//left mouse button and dragging the mouse
+						if(e.button == 0 && e.type == EventType.mouseDrag && !draggingItem)//left mouse button and dragging the mouse. Drags item
 						{
 							draggingItem = true;
 							prevIndex = i;
 							draggedItem = item;
 							inventory[i] = new Item();
 						}
-						if(e.type == EventType.mouseUp && draggingItem)
+						if(e.type == EventType.mouseUp && draggingItem) //Dropped item on another item
 						{
 							inventory [prevIndex] = draggedItem;
 							draggingItem = false;
 							draggedItem = null;
+							if(item.itemType == Item.ItemType.Combine)
+							{
+								//inventory [prevIndex] = draggedItem;
+							}
 						}
-						if(e.type == EventType.mouseDrag && !draggingItem && item.itemName == "Head")
+						/*if(e.type == EventType.mouseUp && draggingItem && item.itemType == Item.ItemType.Combine)
 						{
 							print ("Dragging Head");
 							inventory [prevIndex] = item;
 							inventory[i] = draggedItem;
 							draggingItem = false;
 							draggedItem = null;
-						}
-						if(!draggingItem)
+						}*/
+						if(!draggingItem) //HOVERING OVER ITEM
 						{
 							tooltip = CreateTooltip(inventory[i]);
 							showTooltip = true;
 						}
 						if(e.isMouse && e.type == EventType.mouseDown && e.button == 0 && (Time.realtimeSinceStartup - lastTapTime) < tapSpeed)
 						{
-							if(item.itemType == Item.ItemType.Key)
+							if(item.itemType == Item.ItemType.Key || item.itemType == Item.ItemType.Vital || item.itemType == Item.ItemType.Reuse || item.itemType == Item.ItemType.Weapon)
 							{
-								UseKey(item, i, true);
+								UseItem(item, i, true);
 							}
-						}
-						if(e.isMouse && e.type == EventType.mouseDown && e.button == 0 && (Time.realtimeSinceStartup - lastTapTime) < tapSpeed)
-						{
-							if(item.itemType == Item.ItemType.Vital)
+							if(item.itemType == Item.ItemType.Combine)
 							{
-								UseGun(item, i, true);
+								CantUseItem(item, i, false);
 							}
 						}
 					}
-					if(tooltip == "")
+					if(tooltip == "") //Inventory is open and has Item
 					{
 						showTooltip = false;
 						unPause = false;
@@ -193,7 +246,7 @@ public class Inventory : MonoBehaviour
 				} else{
 					if(slotRect.Contains (e.mousePosition))
 					{
-						if(e.type == EventType.mouseUp && draggingItem)
+						if(e.type == EventType.mouseUp && draggingItem) //Item was let go in same spot
 						{
 							inventory [prevIndex] = draggedItem;
 							draggingItem = false;
@@ -208,8 +261,7 @@ public class Inventory : MonoBehaviour
 
 	string CreateTooltip(Item item)
 	{
-		tooltip = "<color=#0E4F69>" + item.itemName + "</color>\n\n" /* + "<color=#C4C4C4>" + item.itemDesc + "</color>"*/;
-		//pause = true;
+		tooltip = "<color=#0E4F69>" + item.itemName + "</color>\n\n"  /*+ "<color=#C4C4C4>" + item.itemDesc + "</color>"*/;
 		return tooltip;
 	}
 
@@ -253,47 +305,106 @@ public class Inventory : MonoBehaviour
 		return false;
 	}
 
-	private void UseKey(Item item, int slot, bool deleteItem)
+	private void UseItem(Item item, int slot, bool deleteItem)
 	{
 		switch(item.itemID)
 		{
-		case 1:
+		case 0: //Rock
+		{
+			print ("Item in use: " + item.itemName);
+			activeRock = true;
+			activeGun = false;
+			activeKey = false;
+			showInventory = false;
+			holdingRock.gameObject.SetActive(true);
+			/*if(activeRock == true && collect.gunIsGot && gunSwap)
+			{
+				holdingGun.gameObject.SetActive(false);
+				AddItem(10);
+			}*/
+			break;
+		}
+		case 1: //Key
 		{
 			print ("Item in use: " + item.itemName);
 			activeKey = true;
 			activeGun = false;
 			showInventory = false;
 			holdingKey.gameObject.SetActive(true);
-			if(activeKey == true && collect.gunIsGot && gunSwap)
+			/*if(activeKey == true && collect.gunIsGot && gunSwap)
 			{
 				holdingGun.gameObject.SetActive(false);
 				AddItem(10);
-			}
+			}*/
 			break;
 		}
-		}
-		if(deleteItem)
+		case 2: //Gloves
 		{
-			inventory[slot] = new Item();
+			print ("Item in use: " + item.itemName);
+			activeGloves = true;
+			showInventory = false;
+			foreach(GameObject _obj in holdingGloves)
+			{
+				_obj.SetActive(true);
+			}
+			/*if(activeKey == true && collect.gunIsGot && gunSwap)
+			{
+				holdingGun.gameObject.SetActive(false);
+				AddItem(10);
+			}*/
+			break;
 		}
-	}
-
-	private void UseGun(Item item, int slot, bool deleteItem)
-	{
-		switch(item.itemID)
+		case 8: //Ticket
 		{
-		case 10:
+			print ("Item in use: " + item.itemName);
+			activeTicket = true;
+			showInventory = false;
+			holdingTicket.gameObject.SetActive(true);
+			/*if(activeKey == true && collect.gunIsGot && gunSwap)
+			{
+				holdingGun.gameObject.SetActive(false);
+				AddItem(10);
+			}*/
+			break;
+		}
+		case 10: //Gun
 		{
 			print ("Item in use: " + item.itemName);
 			activeGun = true;
 			activeKey = false;
 			showInventory = false;
 			holdingGun.gameObject.SetActive(true);
-			if(activeGun == true && collect.keyIsGot && keySwap)
+			/*if(activeGun == true && collect.keyIsGot && keySwap)
 			{
 				holdingKey.gameObject.SetActive(false);
 				AddItem(1);
-			}
+			}*/
+			break;
+		}
+		case 11: //Poisoned Head
+		{
+			print ("Item in use: " + item.itemName);
+			activePoisonHead = true;
+			showInventory = false;
+			holdingPoisonHead.gameObject.SetActive(true);
+			/*if(activeKey == true && collect.gunIsGot && gunSwap)
+			{
+				holdingGun.gameObject.SetActive(false);
+				AddItem(10);
+			}*/
+			break;
+		}
+		case 12: //Anatomy
+		{
+			print ("Item in use: " + item.itemName);
+			activeAnatomy = true;
+			showInventory = false;
+			holdingAnatomy.gameObject.SetActive(true);
+			/*if(activeKey == true && collect.gunIsGot && gunSwap)
+			{
+				holdingGun.gameObject.SetActive(false);
+				AddItem(10);
+			}*/
 			break;
 		}
 		}
@@ -303,6 +414,42 @@ public class Inventory : MonoBehaviour
 		}
 	}
 
+	private void CantUseItem(Item item, int slot, bool deleteItem)
+	{
+		switch(item.itemID)
+		{
+		case 4: //Severed Head
+		{
+			print ("Item needs to be combined with Poison ");
+			showInventory = true;
+			break;
+		}
+		case 5: //Lung
+		{
+			print ("Item needs to be combined with Brain and Heart ");
+			showInventory = true;
+			break;
+		}
+		case 6: //Heart
+		{
+			print ("Item needs to be combined with Brain and Lung ");
+			showInventory = true;
+			break;
+		}
+		case 7: //Brain
+		{
+			print ("Item needs to be combined with Heart and Lung ");
+			showInventory = true;
+			break;
+		}
+		case 9: //Poison
+		{
+			print ("Item needs to be combined with Severed Head ");
+			showInventory = true;
+			break;
+		}
+		}
+	}
 	void SaveInventory()
 	{
 		for(int i = 0; i<inventory.Count; i++)

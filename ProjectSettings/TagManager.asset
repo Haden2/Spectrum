@@ -29,6 +29,10 @@ TagManager:
   - PickUpBrain
   - PickUpTicket
   - PickUpPoison
+  - Rock
+  - PoisonHead
+  - Anatomy
+  - Ticket
   layers:
   - Default
   - TransparentFX

@@ -14,7 +14,8 @@ public class Item {
 		Weapon,
 		Vital,
 		Key,
-		Reuse
+		Reuse,
+		Combine
 	}
 
 	public Item(string name, int id, string desc, int reuse, ItemType type)

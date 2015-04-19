@@ -34,8 +34,8 @@ public class CollectItem : MonoBehaviour {
 	public bool onHeart;
 	public bool onTicket;
 	public bool onPoison;
-
 	bool holdStill;
+
 	public bool keyIsGot;
 	public bool gunIsGot;
 	public bool glovesIsGot;
