@@ -141,6 +141,37 @@ public class Inventory : MonoBehaviour
 		{
 			ticketSwap = true;
 		}
+		if (activeAnatomy == false)
+		{
+			holdingAnatomy.SetActive (false);
+		}
+		if(activeGloves == false)
+		{
+			foreach(GameObject _obj in holdingGloves)
+			{
+				_obj.SetActive(false);
+			}
+		}
+		if (activeGun == false)
+		{
+			holdingGun.SetActive (false);
+		}
+		if (activeKey == false)
+		{
+			holdingKey.SetActive (false);
+		}
+		if (activePoisonHead == false)
+		{
+			holdingPoisonHead.SetActive (false);
+		}
+		if (activeRock == false)
+		{
+			holdingRock.SetActive (false);
+		}
+		if (activeTicket == false)
+		{
+			holdingTicket.SetActive (false);
+		}
 	}
 
 	void OnGUI () 
@@ -312,9 +343,14 @@ public class Inventory : MonoBehaviour
 		case 0: //Rock
 		{
 			print ("Item in use: " + item.itemName);
-			activeRock = true;
+			activeAnatomy = false;
+			activeGloves = false;
 			activeGun = false;
 			activeKey = false;
+			activePoisonHead = false;
+			activeRock = true;
+			activeTicket = false;
+
 			showInventory = false;
 			holdingRock.gameObject.SetActive(true);
 			/*if(activeRock == true && collect.gunIsGot && gunSwap)
@@ -327,8 +363,14 @@ public class Inventory : MonoBehaviour
 		case 1: //Key
 		{
 			print ("Item in use: " + item.itemName);
-			activeKey = true;
+			activeAnatomy = false;
+			activeGloves = false;
 			activeGun = false;
+			activeKey = true;
+			activePoisonHead = false;
+			activeRock = false;
+			activeTicket = false;
+
 			showInventory = false;
 			holdingKey.gameObject.SetActive(true);
 			/*if(activeKey == true && collect.gunIsGot && gunSwap)
@@ -341,7 +383,14 @@ public class Inventory : MonoBehaviour
 		case 2: //Gloves
 		{
 			print ("Item in use: " + item.itemName);
+			activeAnatomy = false;
 			activeGloves = true;
+			activeGun = false;
+			activeKey = false;
+			activePoisonHead = false;
+			activeRock = false;
+			activeTicket = false;
+
 			showInventory = false;
 			foreach(GameObject _obj in holdingGloves)
 			{
@@ -357,7 +406,14 @@ public class Inventory : MonoBehaviour
 		case 8: //Ticket
 		{
 			print ("Item in use: " + item.itemName);
+			activeAnatomy = false;
+			activeGloves = false;
+			activeGun = false;
+			activeKey = false;
+			activePoisonHead = false;
+			activeRock = false;
 			activeTicket = true;
+
 			showInventory = false;
 			holdingTicket.gameObject.SetActive(true);
 			/*if(activeKey == true && collect.gunIsGot && gunSwap)
@@ -370,8 +426,14 @@ public class Inventory : MonoBehaviour
 		case 10: //Gun
 		{
 			print ("Item in use: " + item.itemName);
+			activeAnatomy = false;
+			activeGloves = false;
 			activeGun = true;
 			activeKey = false;
+			activePoisonHead = false;
+			activeRock = false;
+			activeTicket = false;
+
 			showInventory = false;
 			holdingGun.gameObject.SetActive(true);
 			/*if(activeGun == true && collect.keyIsGot && keySwap)
@@ -384,7 +446,14 @@ public class Inventory : MonoBehaviour
 		case 11: //Poisoned Head
 		{
 			print ("Item in use: " + item.itemName);
+			activeAnatomy = false;
+			activeGloves = false;
+			activeGun = false;
+			activeKey = false;
 			activePoisonHead = true;
+			activeRock = false;
+			activeTicket = false;
+
 			showInventory = false;
 			holdingPoisonHead.gameObject.SetActive(true);
 			/*if(activeKey == true && collect.gunIsGot && gunSwap)
@@ -398,6 +467,13 @@ public class Inventory : MonoBehaviour
 		{
 			print ("Item in use: " + item.itemName);
 			activeAnatomy = true;
+			activeGloves = false;
+			activeGun = false;
+			activeKey = false;
+			activePoisonHead = false;
+			activeRock = false;
+			activeTicket = false;
+
 			showInventory = false;
 			holdingAnatomy.gameObject.SetActive(true);
 			/*if(activeKey == true && collect.gunIsGot && gunSwap)
