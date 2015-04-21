@@ -474,6 +474,10 @@ MonoBehaviour:
   lastTapTime: 0
   showInventory: 0
   collect: {fileID: 0}
+  draggingLung: 0
+  draggingHeart: 0
+  draggingBrain: 0
+  draggingCombine: 0
 --- !u!1 &51881591
 GameObject:
   m_ObjectHideFlags: 0

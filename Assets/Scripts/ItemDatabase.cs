@@ -21,5 +21,9 @@ public class ItemDatabase : MonoBehaviour
 		items.Add (new Item ("Gun", 10, "Used to shoot enemies", 0, Item.ItemType.Vital));
 		items.Add (new Item ("PoisonHead", 11, "Finished combo for the Surgeon", 0, Item.ItemType.Vital));
 		items.Add (new Item ("Anatomy", 12, "Combo that finishes off Model", 0, Item.ItemType.Vital));
+		items.Add (new Item ("BrainHeart", 13, "2/3", 0, Item.ItemType.Vital));
+		items.Add (new Item ("BrainLung", 14, "2/3", 0, Item.ItemType.Vital));
+		items.Add (new Item ("HeartLung", 15, "2/3", 0, Item.ItemType.Vital));
+
 	}
 }
