@@ -353,11 +353,11 @@ public class Inventory : MonoBehaviour
 
 			showInventory = false;
 			holdingRock.gameObject.SetActive(true);
-			/*if(activeRock == true && collect.gunIsGot && gunSwap)
+			if(activeRock == true && collect.gunIsGot && gunSwap)
 			{
 				holdingGun.gameObject.SetActive(false);
 				AddItem(10);
-			}*/
+			}
 			break;
 		}
 		case 1: //Key
@@ -373,10 +373,38 @@ public class Inventory : MonoBehaviour
 
 			showInventory = false;
 			holdingKey.gameObject.SetActive(true);
-			/*if(activeKey == true && collect.gunIsGot && gunSwap)
+			if(activeKey == true && collect.gunIsGot && gunSwap)
 			{
+				gunSwap = false;
 				holdingGun.gameObject.SetActive(false);
 				AddItem(10);
+			}
+			if(activeKey == true && collect.ticketIsGot && ticketSwap)
+			{
+				ticketSwap = false;
+				holdingTicket.gameObject.SetActive(false);
+				AddItem(8);
+			}
+			if(activeKey == true && collect.rockIsGot && rockSwap)
+			{
+				rockSwap = false;
+				holdingRock.gameObject.SetActive(false);
+				AddItem(0);
+			}
+			if(activeKey == true && collect.glovesIsGot && glovesSwap)
+			{
+				glovesSwap = false;
+				foreach(GameObject _obj in holdingGloves)
+				{
+					_obj.SetActive(false);
+				}
+				AddItem(2);
+			}
+			/*if(activeKey == true && collect.IsGot && rockSwap)
+			{
+				rockSwap = false;
+				holdingRock.gameObject.SetActive(false);
+				AddItem(0);
 			}*/
 			break;
 		}
@@ -436,7 +464,7 @@ public class Inventory : MonoBehaviour
 
 			showInventory = false;
 			holdingGun.gameObject.SetActive(true);
-			/*if(activeGun == true && collect.keyIsGot && keySwap)
+		/*	if(activeGun == true && collect.keyIsGot && keySwap)
 			{
 				holdingKey.gameObject.SetActive(false);
 				AddItem(1);
@@ -526,6 +554,7 @@ public class Inventory : MonoBehaviour
 		}
 		}
 	}
+	
 	void SaveInventory()
 	{
 		for(int i = 0; i<inventory.Count; i++)
