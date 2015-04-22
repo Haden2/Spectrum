@@ -51,6 +51,11 @@ public class Inventory : MonoBehaviour
 	public bool draggingLung;
 	public bool draggingHeart;
 	public bool draggingBrain;
+	public bool draggingHead;
+	public bool draggingPoison;
+	public bool draggingBrainHeart;
+	public bool draggingBrainLung;
+	public bool draggingHeartLung;
 	public bool draggingCombine;
 	private Item draggedItem;
 	private int prevIndex;
@@ -241,28 +246,106 @@ public class Inventory : MonoBehaviour
 							{
 								draggingCombine = true;
 								print ("Dragging Combine");
+								if(item.itemID == 4)
+								{
+									draggingHead = true;
+									draggingPoison = false;
+									draggingLung = false;
+									draggingHeart = false;
+									draggingBrain = false;
+									draggingHeartLung = false;
+									draggingBrainLung = false;
+									draggingBrainHeart = false;
+								}
+								if(item.itemID == 9)
+								{
+									draggingHead = false;
+									draggingPoison = true;
+									draggingLung = false;
+									draggingHeart = false;
+									draggingBrain = false;
+									draggingHeartLung = false;
+									draggingBrainLung = false;
+									draggingBrainHeart = false;
+								}
 								if(item.itemID == 5)
 								{
 									draggingLung = true;
 									draggingHeart = false;
 									draggingBrain = false;
+									draggingHead = false;
+									draggingPoison = false;
+									draggingHeartLung = false;
+									draggingBrainLung = false;
+									draggingBrainHeart = false;
 								}
 								if(item.itemID == 6)
 								{
 									draggingLung = false;
 									draggingHeart = true;
 									draggingBrain = false;
+									draggingHead = false;
+									draggingPoison = false;
+									draggingHeartLung = false;
+									draggingBrainLung = false;
+									draggingBrainHeart = false;
 								}
 								if(item.itemID == 7)
 								{
 									draggingLung = false;
 									draggingHeart = false;
 									draggingBrain = true;
+									draggingHead = false;
+									draggingPoison = false;
+									draggingHeartLung = false;
+									draggingBrainLung = false;
+									draggingBrainHeart = false;
+								}
+								if(item.itemID == 13)
+								{
+									draggingHeartLung = false;
+									draggingBrainLung = false;
+									draggingBrainHeart = true;
+									draggingLung = false;
+									draggingHeart = false;
+									draggingBrain = false;
+									draggingHead = false;
+									draggingPoison = false;
+								}
+								if(item.itemID == 14)
+								{
+									draggingBrainLung = true;
+									draggingLung = false;
+									draggingHeart = false;
+									draggingBrain = false;
+									draggingHead = false;
+									draggingPoison = false;
+									draggingHeartLung = false;
+									draggingBrainHeart = false;
+								}
+								if(item.itemID == 15)
+								{
+									draggingHeartLung = true;
+									draggingLung = false;
+									draggingHeart = false;
+									draggingBrain = false;
+									draggingHead = false;
+									draggingPoison = false;
+									draggingBrainLung = false;
+									draggingBrainHeart = false;
 								}
 							}
 							if(item.itemType == Item.ItemType.Key || item.itemType == Item.ItemType.Reuse || item.itemType == Item.ItemType.Vital || item.itemType == Item.ItemType.Weapon)
 							{
 								draggingCombine = false;
+								draggingLung = false;
+								draggingHeart = false;
+								draggingBrain = false;
+								draggingHead = false;
+								draggingPoison = false;
+								draggingHeartLung = false;
+								draggingBrainLung = false;
+								draggingBrainHeart = false;
 							}
 						}
 						if(e.type == EventType.mouseUp && draggingItem) //Dropped item on another item
@@ -272,48 +355,54 @@ public class Inventory : MonoBehaviour
 							draggedItem = null;
 							if(draggingCombine && item.itemType == Item.ItemType.Combine)
 							{
-								if(draggingBrain == false && draggingHeart == false && draggingLung == false && item.itemID == 4 || item.itemID == 9)
+								if((draggingHead || draggingPoison) && (item.itemID == 4 || item.itemID == 9))
 								{
 									RemoveItem(4);
 									RemoveItem(9);
 									AddItem(11);
 									print ("Combine");
 								}
-								if(draggingCombine && draggingLung == true && item.itemID ==  6)
+								if(draggingCombine && (draggingLung || draggingHeart) && (item.itemID ==  6 || item.itemID == 5))
 								{
 									print ("Combined Heart and Lung");
+									RemoveItem(6);
+									RemoveItem(5);
+									AddItem(15);
 								}
-								if(draggingCombine && draggingLung == true && item.itemID ==  7)
+								if(draggingCombine && (draggingLung || draggingBrain) && (item.itemID ==  7 || item.itemID == 5))
 								{
 									print ("Combined Lung and Brain");
+									RemoveItem(7);
+									RemoveItem(5);
+									AddItem(14);
 								}
-								if(draggingCombine && draggingHeart == true && item.itemID ==  5)
-								{
-									print ("Combined Heart and Lung");
-								}
-								if(draggingCombine && draggingHeart == true && item.itemID ==  7)
-								{
-									print ("Combined Brain and Heart");
-								}
-								if(draggingCombine && draggingBrain == true && item.itemID ==  5)
-								{
-									print ("Combined Lung and Brain");
-								}
-								if(draggingCombine && draggingBrain == true && item.itemID ==  6)
+								if(draggingCombine && (draggingHeart || draggingBrain) && (item.itemID ==  7 || item.itemID == 6))
 								{
 									print ("Combined Brain and Heart");
+									RemoveItem(7);
+									RemoveItem(6);
+									AddItem(13);
 								}
-								//inventory [prevIndex] = draggedItem;
+								if(draggingCombine && (draggingBrainHeart || draggingLung) && (item.itemID == 13 || item.itemID == 5))
+								{
+									RemoveItem(13);
+									RemoveItem(5);
+									AddItem(12);
+								}
+								if(draggingCombine && (draggingBrainLung || draggingHeart) && (item.itemID == 14 || item.itemID == 6))
+								{
+									RemoveItem(14);
+									RemoveItem(6);
+									AddItem(12);
+								}
+								if(draggingCombine && (draggingHeartLung || draggingBrain) && (item.itemID == 15 || item.itemID == 7))
+								{
+									RemoveItem(15);
+									RemoveItem(7);
+									AddItem(12);
+								}
 							}
 						}
-						/*if(e.type == EventType.mouseUp && draggingItem && item.itemType == Item.ItemType.Combine)
-						{
-							print ("Dragging Head");
-							inventory [prevIndex] = item;
-							inventory[i] = draggedItem;
-							draggingItem = false;
-							draggedItem = null;
-						}*/
 						if(!draggingItem) //HOVERING OVER ITEM
 						{
 							tooltip = CreateTooltip(inventory[i]);
