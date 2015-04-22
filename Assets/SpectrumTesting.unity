@@ -477,6 +477,11 @@ MonoBehaviour:
   draggingLung: 0
   draggingHeart: 0
   draggingBrain: 0
+  draggingHead: 0
+  draggingPoison: 0
+  draggingBrainHeart: 0
+  draggingBrainLung: 0
+  draggingHeartLung: 0
   draggingCombine: 0
 --- !u!1 &51881591
 GameObject:
