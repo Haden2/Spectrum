@@ -361,6 +361,8 @@ MonoBehaviour:
   brainIsGot: 0
   ticketIsGot: 0
   poisonIsGot: 0
+  poisonheadIsGot: 0
+  anatomyIsGot: 0
 --- !u!208 &50584747
 NavMeshObstacle:
   m_ObjectHideFlags: 0

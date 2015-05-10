@@ -46,6 +46,9 @@ public class CollectItem : MonoBehaviour {
 	public bool brainIsGot;
 	public bool ticketIsGot;
 	public bool poisonIsGot;
+	public bool poisonheadIsGot;
+	public bool anatomyIsGot;
+
 
 
 	void Awake () 

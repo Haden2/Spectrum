@@ -360,6 +360,7 @@ public class Inventory : MonoBehaviour
 									RemoveItem(4);
 									RemoveItem(9);
 									AddItem(11);
+									collect.poisonheadIsGot = true;
 									print ("Combine");
 								}
 								if(draggingCombine && (draggingLung || draggingHeart) && (item.itemID ==  6 || item.itemID == 5))
@@ -388,18 +389,21 @@ public class Inventory : MonoBehaviour
 									RemoveItem(13);
 									RemoveItem(5);
 									AddItem(12);
+									collect.anatomyIsGot = true;
 								}
 								if(draggingCombine && (draggingBrainLung || draggingHeart) && (item.itemID == 14 || item.itemID == 6))
 								{
 									RemoveItem(14);
 									RemoveItem(6);
 									AddItem(12);
+									collect.anatomyIsGot = true;
 								}
 								if(draggingCombine && (draggingHeartLung || draggingBrain) && (item.itemID == 15 || item.itemID == 7))
 								{
 									RemoveItem(15);
 									RemoveItem(7);
 									AddItem(12);
+									collect.anatomyIsGot = true;
 								}
 							}
 						}
@@ -505,10 +509,44 @@ public class Inventory : MonoBehaviour
 
 			showInventory = false;
 			holdingRock.gameObject.SetActive(true);
+			if(activeRock == true && collect.keyIsGot && keySwap)
+			{
+				keySwap = false;
+				holdingKey.gameObject.SetActive(false);
+				AddItem(1);
+			}
+			if(activeRock == true && collect.glovesIsGot && glovesSwap)
+			{
+				glovesSwap = false;
+				foreach(GameObject _obj in holdingGloves)
+				{
+					_obj.SetActive(false);
+				}
+				AddItem(2);
+			}
+			if(activeRock == true && collect.ticketIsGot && ticketSwap)
+			{
+				ticketSwap = false;
+				holdingTicket.gameObject.SetActive(false);
+				AddItem(8);
+			}
 			if(activeRock == true && collect.gunIsGot && gunSwap)
 			{
+				gunSwap = false;
 				holdingGun.gameObject.SetActive(false);
 				AddItem(10);
+			}
+			if(activeRock == true && collect.poisonheadIsGot && poisonheadSwap)
+			{
+				poisonheadSwap = false;
+				holdingPoisonHead.gameObject.SetActive(false);
+				AddItem(11);
+			}
+			if(activeRock == true && collect.anatomyIsGot && anatomySwap)
+			{
+				anatomySwap = false;
+				holdingAnatomy.gameObject.SetActive(false);
+				AddItem(12);
 			}
 			break;
 		}
@@ -552,12 +590,18 @@ public class Inventory : MonoBehaviour
 				}
 				AddItem(2);
 			}
-			/*if(activeKey == true && collect.IsGot && rockSwap)
+			if(activeKey == true && collect.poisonheadIsGot && poisonheadSwap)
 			{
-				rockSwap = false;
-				holdingRock.gameObject.SetActive(false);
-				AddItem(0);
-			}*/
+				poisonheadSwap = false;
+				holdingPoisonHead.gameObject.SetActive(false);
+				AddItem(11);
+			}
+			if(activeKey == true && collect.anatomyIsGot && anatomySwap)
+			{
+				anatomySwap = false;
+				holdingAnatomy.gameObject.SetActive(false);
+				AddItem(12);
+			}
 			break;
 		}
 		case 2: //Gloves
@@ -576,11 +620,42 @@ public class Inventory : MonoBehaviour
 			{
 				_obj.SetActive(true);
 			}
-			/*if(activeKey == true && collect.gunIsGot && gunSwap)
+			if(activeGloves == true && collect.rockIsGot && rockSwap)
 			{
+				rockSwap = false;
+				holdingRock.gameObject.SetActive(false);
+				AddItem(0);
+			}
+			if(activeGloves == true && collect.keyIsGot && keySwap)
+			{
+				keySwap = false;
+				holdingKey.gameObject.SetActive(false);
+				AddItem(1);
+			}
+			if(activeGloves == true && collect.ticketIsGot && ticketSwap)
+			{
+				ticketSwap = false;
+				holdingTicket.gameObject.SetActive(false);
+				AddItem(8);
+			}
+			if(activeGloves == true && collect.gunIsGot && gunSwap)
+			{
+				gunSwap = false;
 				holdingGun.gameObject.SetActive(false);
 				AddItem(10);
-			}*/
+			}
+			if(activeGloves == true && collect.poisonheadIsGot && poisonheadSwap)
+			{
+				poisonheadSwap = false;
+				holdingPoisonHead.gameObject.SetActive(false);
+				AddItem(11);
+			}
+			if(activeGloves == true && collect.anatomyIsGot && anatomySwap)
+			{
+				anatomySwap = false;
+				holdingAnatomy.gameObject.SetActive(false);
+				AddItem(12);
+			}
 			break;
 		}
 		case 8: //Ticket
@@ -596,11 +671,45 @@ public class Inventory : MonoBehaviour
 
 			showInventory = false;
 			holdingTicket.gameObject.SetActive(true);
-			/*if(activeKey == true && collect.gunIsGot && gunSwap)
+			if(activeTicket == true && collect.rockIsGot && rockSwap)
 			{
+				rockSwap = false;
+				holdingRock.gameObject.SetActive(false);
+				AddItem(0);
+			}
+			if(activeTicket == true && collect.keyIsGot && keySwap)
+			{
+				keySwap = false;
+				holdingKey.gameObject.SetActive(false);
+				AddItem(1);
+			}
+			if(activeTicket == true && collect.glovesIsGot && glovesSwap)
+			{
+				glovesSwap = false;
+				foreach(GameObject _obj in holdingGloves)
+				{
+					_obj.SetActive(false);
+				}
+				AddItem(2);
+			}
+			if(activeTicket == true && collect.gunIsGot && gunSwap)
+			{
+				gunSwap = false;
 				holdingGun.gameObject.SetActive(false);
 				AddItem(10);
-			}*/
+			}
+			if(activeTicket == true && collect.poisonheadIsGot && poisonheadSwap)
+			{
+				poisonheadSwap = false;
+				holdingPoisonHead.gameObject.SetActive(false);
+				AddItem(11);
+			}
+			if(activeTicket == true && collect.anatomyIsGot && anatomySwap)
+			{
+				anatomySwap = false;
+				holdingAnatomy.gameObject.SetActive(false);
+				AddItem(12);
+			}
 			break;
 		}
 		case 10: //Gun
@@ -616,11 +725,45 @@ public class Inventory : MonoBehaviour
 
 			showInventory = false;
 			holdingGun.gameObject.SetActive(true);
-		/*	if(activeGun == true && collect.keyIsGot && keySwap)
+			if(activeGun == true && collect.rockIsGot && rockSwap)
 			{
+				rockSwap = false;
+				holdingRock.gameObject.SetActive(false);
+				AddItem(0);
+			}
+			if(activeGun == true && collect.keyIsGot && keySwap)
+			{
+				keySwap = false;
 				holdingKey.gameObject.SetActive(false);
 				AddItem(1);
-			}*/
+			}
+			if(activeGun == true && collect.glovesIsGot && glovesSwap)
+			{
+				glovesSwap = false;
+				foreach(GameObject _obj in holdingGloves)
+				{
+					_obj.SetActive(false);
+				}
+				AddItem(2);
+			}
+			if(activeGun == true && collect.ticketIsGot && ticketSwap)
+			{
+				ticketSwap = false;
+				holdingTicket.gameObject.SetActive(false);
+				AddItem(8);
+			}
+			if(activeGun == true && collect.poisonheadIsGot && poisonheadSwap)
+			{
+				poisonheadSwap = false;
+				holdingPoisonHead.gameObject.SetActive(false);
+				AddItem(11);
+			}
+			if(activeGun == true && collect.anatomyIsGot && anatomySwap)
+			{
+				anatomySwap = false;
+				holdingAnatomy.gameObject.SetActive(false);
+				AddItem(12);
+			}
 			break;
 		}
 		case 11: //Poisoned Head
@@ -636,11 +779,45 @@ public class Inventory : MonoBehaviour
 
 			showInventory = false;
 			holdingPoisonHead.gameObject.SetActive(true);
-			/*if(activeKey == true && collect.gunIsGot && gunSwap)
+			if(activePoisonHead == true && collect.rockIsGot && rockSwap)
 			{
+				rockSwap = false;
+				holdingRock.gameObject.SetActive(false);
+				AddItem(0);
+			}
+			if(activePoisonHead == true && collect.keyIsGot && keySwap)
+			{
+				keySwap = false;
+				holdingKey.gameObject.SetActive(false);
+				AddItem(1);
+			}
+			if(activePoisonHead == true && collect.glovesIsGot && glovesSwap)
+			{
+				glovesSwap = false;
+				foreach(GameObject _obj in holdingGloves)
+				{
+					_obj.SetActive(false);
+				}
+				AddItem(2);
+			}
+			if(activePoisonHead == true && collect.ticketIsGot && ticketSwap)
+			{
+				ticketSwap = false;
+				holdingTicket.gameObject.SetActive(false);
+				AddItem(8);
+			}
+			if(activePoisonHead == true && collect.gunIsGot && gunSwap)
+			{
+				gunSwap = false;
 				holdingGun.gameObject.SetActive(false);
 				AddItem(10);
-			}*/
+			}
+			if(activePoisonHead == true && collect.anatomyIsGot && anatomySwap)
+			{
+				anatomySwap = false;
+				holdingAnatomy.gameObject.SetActive(false);
+				AddItem(12);
+			}
 			break;
 		}
 		case 12: //Anatomy
@@ -656,11 +833,45 @@ public class Inventory : MonoBehaviour
 
 			showInventory = false;
 			holdingAnatomy.gameObject.SetActive(true);
-			/*if(activeKey == true && collect.gunIsGot && gunSwap)
+			if(activeAnatomy == true && collect.rockIsGot && rockSwap)
 			{
+				rockSwap = false;
+				holdingRock.gameObject.SetActive(false);
+				AddItem(0);
+			}
+			if(activeAnatomy == true && collect.keyIsGot && keySwap)
+			{
+				keySwap = false;
+				holdingKey.gameObject.SetActive(false);
+				AddItem(1);
+			}
+			if(activeAnatomy == true && collect.glovesIsGot && glovesSwap)
+			{
+				glovesSwap = false;
+				foreach(GameObject _obj in holdingGloves)
+				{
+					_obj.SetActive(false);
+				}
+				AddItem(2);
+			}
+			if(activeAnatomy == true && collect.ticketIsGot && ticketSwap)
+			{
+				ticketSwap = false;
+				holdingTicket.gameObject.SetActive(false);
+				AddItem(8);
+			}
+			if(activeAnatomy == true && collect.gunIsGot && gunSwap)
+			{
+				gunSwap = false;
 				holdingGun.gameObject.SetActive(false);
 				AddItem(10);
-			}*/
+			}
+			if(activeAnatomy == true && collect.poisonheadIsGot && poisonheadSwap)
+			{
+				poisonheadSwap = false;
+				holdingPoisonHead.gameObject.SetActive(false);
+				AddItem(11);
+			}
 			break;
 		}
 		}
