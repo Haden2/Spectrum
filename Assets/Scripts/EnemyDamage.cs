@@ -10,8 +10,10 @@ public class EnemyDamage : MonoBehaviour
 	public float wait;
 	public float readyOrNot;
 	public float startingTalk;
+	public float endingSequence;
 	public float radius;
 	GameObject main; 
+	GameObject mother;
 	Transform escapeDestination;
 	NavMeshAgent nav;
 	NavMeshAgent turnUp;
@@ -33,11 +35,13 @@ public class EnemyDamage : MonoBehaviour
 		main = GameObject.FindGameObjectWithTag ("Player");
 		player = GameObject.FindGameObjectWithTag ("Player").transform;
 		escapeDestination = GameObject.FindGameObjectWithTag ("Respawn").transform;
+		mother = GameObject.FindGameObjectWithTag ("Mother");
 		nav = GetComponent<NavMeshAgent>();
 		turnUp = GetComponent <NavMeshAgent>();
 		startingTalk = 15f;
 		wait = 3;
 		readyOrNot = 11;
+		endingSequence = 2;
 		radius = 8;
 		start = true;
 		seek = false;
@@ -58,6 +62,10 @@ public class EnemyDamage : MonoBehaviour
 		if(other.gameObject == main && escape == true && seek == false)
 		{
 			StartCoroutine (HideAndSeek ());
+		}
+		if(other.gameObject == mother && run == false)
+		{
+			StartCoroutine (FoundMother ());
 		}
 
 	}
@@ -86,6 +94,16 @@ public class EnemyDamage : MonoBehaviour
 		yield return new WaitForSeconds (readyOrNot);
 		seek = true;
 		run = false;
+	}
+	IEnumerator FoundMother()
+	{
+		seek = false;
+		escape = false;
+		run = false;
+		turnUp.speed = 0; 
+		print ("Found Mother");
+		yield return new WaitForSeconds (endingSequence);
+		gameObject.SetActive (false);
 	}
 
 	void Update()

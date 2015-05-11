@@ -9,7 +9,7 @@ public class DestroyBullet : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void Update ()
 	{
 		Destroy (gameObject, 3.0f);
 	}
