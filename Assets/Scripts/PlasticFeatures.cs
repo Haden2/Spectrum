@@ -11,14 +11,14 @@ public class PlasticFeatures : MonoBehaviour {
 	void Start () 
 	{
 		//plastic = GameObject.FindGameObjectWithTag ("Plastic");
-		//anatomy = GameObject.FindGameObjectWithTag ("Anatomy");
+		anatomy = GameObject.FindGameObjectWithTag ("Anatomy");
 		deathSequence = 3;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		anatomy = GameObject.FindGameObjectWithTag ("Anatomy");
+	
 	}
 
 	void OnTriggerEnter (Collider other) 
