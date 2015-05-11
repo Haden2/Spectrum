@@ -4,12 +4,35 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - PickUp
+  - PickUpKey
   - Floor
   - Enemy
   - Light
   - Item Database
   - Key
+  - Gun
+  - Gloves
+  - PickUpGun
+  - PickUpGloves
+  - NightVisionLight
+  - BlueLight
+  - Flare1
+  - Flare2
+  - Flare3
+  - Flare4
+  - Flare5
+  - Door
+  - PickUpRock
+  - PickUpHead
+  - PickUpLung
+  - PickUpHeart
+  - PickUpBrain
+  - PickUpTicket
+  - PickUpPoison
+  - Rock
+  - PoisonHead
+  - Anatomy
+  - Ticket
   layers:
   - Default
   - TransparentFX
