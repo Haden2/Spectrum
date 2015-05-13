@@ -57,6 +57,8 @@ public class Inventory : MonoBehaviour
 	public bool draggingBrainLung;
 	public bool draggingHeartLung;
 	public bool draggingCombine;
+	public bool firstShot;
+	public bool firstThrow;
 	private Item draggedItem;
 	private int prevIndex;
 
@@ -129,10 +131,12 @@ public class Inventory : MonoBehaviour
 		if(activeGun)
 		{
 			gunSwap = true;
+			firstShot = true;
 		}
 		if(activeRock)
 		{
 			rockSwap = true;
+			firstThrow = true;
 		}
 		if(activeGloves)
 		{
@@ -164,6 +168,7 @@ public class Inventory : MonoBehaviour
 		if (activeGun == false)
 		{
 			holdingGun.SetActive (false);
+			firstShot = false;
 		}
 		if (activeKey == false)
 		{
@@ -176,6 +181,7 @@ public class Inventory : MonoBehaviour
 		if (activeRock == false)
 		{
 			holdingRock.SetActive (false);
+			firstThrow = false;
 		}
 		if (activeTicket == false)
 		{
