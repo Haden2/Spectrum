@@ -3,14 +3,14 @@ using System.Collections;
 
 public class Jumper : MonoBehaviour {
 
-	//GameObject plastic;
+	public Inventory inventory;
 	GameObject gloves;
 	float deathSequence;
 	
 	// Use this for initialization
 	void Start () 
 	{
-		//plastic = GameObject.FindGameObjectWithTag ("Plastic");
+		inventory = GameObject.FindGameObjectWithTag ("Player").GetComponent<Inventory>();
 		gloves = GameObject.FindGameObjectWithTag ("Gloves");
 		deathSequence = 3;
 	}
@@ -32,6 +32,12 @@ public class Jumper : MonoBehaviour {
 	
 	IEnumerator DeathSequence()
 	{
+		inventory.activeGloves = false;
+		foreach(GameObject _obj in inventory.holdingGloves)
+		{
+			_obj.SetActive(false);
+		}
+		inventory.glovesSwap = false;
 		yield return new WaitForSeconds (deathSequence);
 		gameObject.SetActive (false);
 	}
