@@ -35,6 +35,9 @@ TagManager:
   - Ticket
   - Mother
   - Plastic
+  - ElevatorKey
+  - PickUpElevatorKey
+  - Elevator
   layers:
   - Default
   - TransparentFX
