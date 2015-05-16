@@ -4,27 +4,43 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	//public float speed;
-	public Text pressE;
-	public Color pickupText = new Color(1f, 0f, 0f, 1f);
-	
-	// Update is called once per frame
-/*	void FixedUpdate () 
+	public Elevator elevator;
+	public Inventory inventory;
+	public bool elevatorDoor;
+	public bool inElevator;
+
+	void Start()
 	{
-		float moveHorizontal = Input.GetAxis ("Horizontal");
-		float moveVertical = Input.GetAxis ("Vertical");
-
-		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
-		rigidbody.AddForce (movement * speed * Time.deltaTime);
-
+		elevator = GameObject.FindGameObjectWithTag ("Elevator").GetComponent<Elevator> ();
+		inventory = GetComponent<Inventory> ();
 	}
-*/
-	void OnTriggerEnter(Collider other) 
+
+	void OnTriggerEnter (Collider other)
 	{
-		if (other.gameObject.tag == "PickUp") 
+		if(other.gameObject.name == "Elevator")
 		{
-			pressE.color = pickupText;
-			//other.gameObject.SetActive(false);
+			elevatorDoor = true;
+		}
+		if(elevatorDoor && inventory.activeElevatorKey)
+		{
+			print ("Engage the Doors motherfucker");
+			elevator.canActivate = true;
+		}
+	}
+	void OnTriggerExit(Collider other)
+	{
+		if(other.gameObject.name == "Elevator")
+		{
+		elevatorDoor = false;
+		}
+	}
+
+	void Update()
+	{
+		if(elevatorDoor && inventory.activeElevatorKey && elevator.canActivate == true && Input.GetKeyDown("e"))
+		{
+			elevator.closeDoor = false;
+			elevator.openDoor = true;
 		}
 	}
 }

@@ -13,12 +13,14 @@ public class Elevator : MonoBehaviour {
 	GameObject player;
 	public GameObject bigDoor;
 	public GameObject littleDoor;
+	float allAboard;
 	public bool isDown;
 	public bool isUp;
 	public bool isMoving;
 	public bool canActivate;
 	public bool closeDoor;
-
+	public bool stationary;
+	public bool openDoor;
 
 	void Start()
 	{
@@ -26,7 +28,9 @@ public class Elevator : MonoBehaviour {
 		isUp = false;
 		isMoving = false;
 		closeDoor = true;
+		openDoor = false;
 		canActivate = false;
+		allAboard = 4;
 		elevator = transform.localPosition;
 		downPosition = new Vector3(13, 1, -5);
 		upPosition = new Vector3 (13, 15, -5);
@@ -42,8 +46,20 @@ public class Elevator : MonoBehaviour {
 	{
 		if(closeDoor)
 		{
-			StartCoroutine(ElevatorDoor (bigDoor.transform, openPosition, closedPosition, 3));	
-			StartCoroutine(ElevatorDoor (littleDoor.transform, openPosition1, closedPosition1, 3));		
+			//openDoor = false;
+			StartCoroutine(ElevatorDoor (bigDoor.transform, openPosition, closedPosition, 4));	
+			StartCoroutine(ElevatorDoor (littleDoor.transform, openPosition1, closedPosition1, 4));
+		}
+		if(openDoor)
+		{
+			//closeDoor = false;
+			StartCoroutine(ElevatorDoor (bigDoor.transform, closedPosition, openPosition, 4));	
+			StartCoroutine(ElevatorDoor (littleDoor.transform, closedPosition1, openPosition1, 4));		
+		}
+		if(stationary)
+		{
+			bigDoor.transform.position = closedPosition;
+			littleDoor.transform.position = closedPosition1;
 		}
 		if(isDown == true && isUp == false && isMoving == false && canActivate == true && Input.GetKeyDown ("t"))
 		{
@@ -56,11 +72,14 @@ public class Elevator : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter (Collider other)
+	/*void OnTriggerEnter (Collider other)
 	{
+		if(other == OutsideElevator)
 		if(other.gameObject == player)
 		{
-			StartCoroutine (Begin());
+			print ("Entered Elevator");
+			//StartCoroutine (Begin());
+			canActivate = true;
 		}
 	}
 
@@ -82,7 +101,7 @@ public class Elevator : MonoBehaviour {
 	{
 		canActivate = false;
 		yield return null;
-	}
+	}*/
 
 	IEnumerator CanMoveUp()
 	{
@@ -142,10 +161,25 @@ public class Elevator : MonoBehaviour {
 		{
 			h += Time.deltaTime * rot;
 			thatTransform.position = Vector3.Lerp (startArea, endArea, h);
-			thatTransform.position = Vector3.Lerp(startArea, endArea, h);
+			//thatTransform.position = Vector3.Lerp(startArea, endArea, h);
 			yield return null;
-			closeDoor = false;
 		}
+		//yield return new WaitForSeconds (allAboard);
+		stationary = true;
+		print("This is when it activates");
 	}
 
+	/*IEnumerator ElevatorDoorClose(Transform thatTransform, Vector3 endArea, Vector3 startArea, float timing)
+	{
+		float h = 0.0f;
+		float rot = 1.0f / timing;
+		while(h< 1.0f)
+		{
+			h += Time.deltaTime * rot;
+			thatTransform.position = Vector3.Lerp (endArea, startArea, h);
+			//thatTransform.position = Vector3.Lerp(endArea, startArea, h);
+			yield return null;
+			//stationary = true;
+		}
+	}*/
 }

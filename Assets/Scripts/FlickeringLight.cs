@@ -6,7 +6,10 @@ public class FlickeringLight : MonoBehaviour {
 	public Inventory inventory;
 	public Light lightBulb;
 	public Light smallFlicker;
-	public int randomNumber;
+	public float randomNumber;
+	public float randomNumber1;
+	public float randomNumber2;
+	public float randomNumber3;
 
 	// Use this for initialization
 	void Start () 
@@ -14,8 +17,6 @@ public class FlickeringLight : MonoBehaviour {
 		lightBulb = GetComponent<Light> ();
 		inventory = GameObject.FindGameObjectWithTag ("Player").GetComponent<Inventory>();
 		smallFlicker = GameObject.Find ("SmallFlicker").GetComponent <Light>();
-		randomNumber = Random.Range (1, 6);
-		print ("Random Number is " + randomNumber);
 	}
 	
 	// Update is called once per frame
@@ -23,22 +24,23 @@ public class FlickeringLight : MonoBehaviour {
 	{
 		if(inventory.showInventory == false)
 		{
+		randomNumber = Random.Range (0f, 2f);
+		randomNumber1 = Random.Range (0f, 30f);
+		randomNumber2 = Random.Range (3f, 4f);
+		randomNumber3 = Random.Range (14f, 16f);
+
 		lightBulb.intensity = Random.Range (0f, 2f);
 		lightBulb.range = Random.Range (0f, 30f);
-			randomNumber = Random.Range (1,6);
-			print ("Random Number is " + randomNumber);
 		smallFlicker.intensity = Random.Range (3f, 4f);
 		smallFlicker.range = Random.Range (14f, 16f);
-
 		}
-		if(inventory.showInventory == true && randomNumber == 1)
+
+		if(inventory.showInventory == true)
 		{
-			randomNumber = Random.Range (1,6);
-			print("Second Random Number "+ randomNumber);
-			lightBulb.intensity = 1f;
-			lightBulb.range = 15f;
-			smallFlicker.intensity = 3.5f;
-			smallFlicker.range = 15f;
+			lightBulb.intensity = randomNumber;
+			lightBulb.range = randomNumber1;
+			smallFlicker.intensity = randomNumber2;
+			smallFlicker.range = randomNumber3;
 		}
 	}
 	public void RandomNumber()
