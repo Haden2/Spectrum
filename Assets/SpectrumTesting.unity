@@ -524,10 +524,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a68c43943ca7bb48a3c7a37c23faad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elevator: {fileID: 0}
   inventory: {fileID: 0}
   elevatorDoor: 0
   inElevator: 0
+  doorIsClosed: 0
+  canActive: 0
+  isDown: 0
+  isUp: 0
+  isMoving: 0
+  downPosition: {x: 0, y: 0, z: 0}
+  upPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &51881591
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,7 +924,6 @@ GameObject:
   - 33: {fileID: 214589768}
   - 23: {fileID: 214589767}
   - 64: {fileID: 214589766}
-  - 114: {fileID: 214589769}
   - 65: {fileID: 214589770}
   m_Layer: 0
   m_Name: Elevator
@@ -986,33 +991,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 214589764}
   m_Mesh: {fileID: 4300000, guid: 092127caf91b12841b7a38f8cdaa95bc, type: 3}
---- !u!114 &214589769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 214589764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14958a6cb7a36b4458642225f762397e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  elevator: {x: 0, y: 0, z: 0}
-  downPosition: {x: 0, y: 0, z: 0}
-  upPosition: {x: 0, y: 0, z: 0}
-  openPosition: {x: 0, y: 0, z: 0}
-  closedPosition: {x: 0, y: 0, z: 0}
-  openPosition1: {x: 0, y: 0, z: 0}
-  closedPosition1: {x: 0, y: 0, z: 0}
-  bigDoor: {fileID: 1141114205}
-  littleDoor: {fileID: 809042182}
-  isDown: 0
-  isUp: 0
-  isMoving: 0
-  canActivate: 0
-  closeDoor: 0
-  stationary: 0
-  openDoor: 0
 --- !u!65 &214589770
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1023,8 +1001,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6, y: 1.5, z: 5}
-  m_Center: {x: 0, y: 4, z: 1.5}
+  m_Size: {x: 6, y: 3, z: 5}
+  m_Center: {x: 0, y: 4.5, z: 1.5}
 --- !u!1 &225389490
 GameObject:
   m_ObjectHideFlags: 0
@@ -4077,9 +4055,10 @@ GameObject:
   - 33: {fileID: 809042185}
   - 65: {fileID: 809042184}
   - 23: {fileID: 809042183}
+  - 111: {fileID: 809042187}
   m_Layer: 0
   m_Name: Little Door
-  m_TagString: Untagged
+  m_TagString: LittleDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4139,6 +4118,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 20
+--- !u!111 &809042187
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 809042182}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: db3d7227a4ac95c4cb516c566a645578, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: db3d7227a4ac95c4cb516c566a645578, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &823788892
 GameObject:
   m_ObjectHideFlags: 0
@@ -4719,9 +4713,10 @@ GameObject:
   - 33: {fileID: 1141114208}
   - 65: {fileID: 1141114207}
   - 23: {fileID: 1141114206}
+  - 111: {fileID: 1141114210}
   m_Layer: 0
   m_Name: Big Door
-  m_TagString: Untagged
+  m_TagString: BigDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4781,6 +4776,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 19
+--- !u!111 &1141114210
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1141114205}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: bda95f6860c99384ebbca3269bc7950d, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: bda95f6860c99384ebbca3269bc7950d, type: 2}
+  m_WrapMode: 1
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1152796757
 GameObject:
   m_ObjectHideFlags: 0

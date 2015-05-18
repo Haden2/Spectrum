@@ -1,66 +1,61 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using System.Collections;
 
 public class Elevator : MonoBehaviour {
 
-	public Vector3 elevator;
-	public Vector3 downPosition;
-	public Vector3 upPosition;
-	public Vector3 openPosition;
-	public Vector3 closedPosition;
-	public Vector3 openPosition1;
-	public Vector3 closedPosition1;
-	GameObject player;
-	public GameObject bigDoor;
-	public GameObject littleDoor;
-	float allAboard;
-	public bool isDown;
-	public bool isUp;
-	public bool isMoving;
-	public bool canActivate;
-	public bool closeDoor;
-	public bool stationary;
-	public bool openDoor;
+	//public Vector3 elevator;
+	//public Vector3 downPosition;
+	//public Vector3 upPosition;
+	//public Vector3 openPosition;
+	//public Vector3 closedPosition;
+	//public Vector3 openPosition1;
+	//public Vector3 closedPosition1;
+	//GameObject player;
+	//public GameObject bigDoor;
+	//public GameObject littleDoor;
+	//float allAboard;
+	//public bool isDown;
+	//public bool isUp;
+	//public bool isMoving;
+	//public bool canActivate;
+	//public bool closeDoor;
+	//public bool openDoor;
 
 	void Start()
 	{
-		isDown = true;
-		isUp = false;
-		isMoving = false;
-		closeDoor = true;
-		openDoor = false;
-		canActivate = false;
-		allAboard = 4;
-		elevator = transform.localPosition;
-		downPosition = new Vector3(13, 1, -5);
-		upPosition = new Vector3 (13, 15, -5);
-		openPosition = new Vector3 (10, 2.5f, -1);
-		closedPosition = new Vector3 (10, 2.5f, -5);
-		openPosition1 = new Vector3 (9.85f, 2.5f, -1);
-		closedPosition1 = new Vector3 (9.85f, 2.5f, -3);
+		//isDown = true;
+		//isUp = false;
+		//isMoving = false;
+		//closeDoor = true;
+		//openDoor = false;
+		//canActivate = false;
+		//allAboard = 4;
+		//elevator = transform.localPosition;
+		//downPosition = new Vector3(13, 1, -5);
+		//upPosition = new Vector3 (13, 15, -5);
+		//openPosition = new Vector3 (10, 2.5f, -1);
+		//closedPosition = new Vector3 (10, 2.5f, -5);
+		//openPosition1 = new Vector3 (9.85f, 2.5f, -1);
+		//closedPosition1 = new Vector3 (9.85f, 2.5f, -3);
 
-		player = GameObject.FindGameObjectWithTag ("Player");
+	//	player = GameObject.FindGameObjectWithTag ("Player");
 	}
 	
 	void Update () 
 	{
-		if(closeDoor)
+		//if(closeDoor)
 		{
 			//openDoor = false;
-			StartCoroutine(ElevatorDoor (bigDoor.transform, openPosition, closedPosition, 4));	
-			StartCoroutine(ElevatorDoor (littleDoor.transform, openPosition1, closedPosition1, 4));
+		//	StartCoroutine(ElevatorDoor (bigDoor.transform, openPosition, closedPosition, 4));	
+		//	StartCoroutine(ElevatorDoor (littleDoor.transform, openPosition1, closedPosition1, 4));
 		}
-		if(openDoor)
+	//	if(openDoor)
 		{
 			//closeDoor = false;
-			StartCoroutine(ElevatorDoor (bigDoor.transform, closedPosition, openPosition, 4));	
-			StartCoroutine(ElevatorDoor (littleDoor.transform, closedPosition1, openPosition1, 4));		
+		//	StartCoroutine(ElevatorDoor (bigDoor.transform, closedPosition, openPosition, 4));	
+		//	StartCoroutine(ElevatorDoor (littleDoor.transform, closedPosition1, openPosition1, 4));		
 		}
-		if(stationary)
-		{
-			bigDoor.transform.position = closedPosition;
-			littleDoor.transform.position = closedPosition1;
-		}
+
 		if(isDown == true && isUp == false && isMoving == false && canActivate == true && Input.GetKeyDown ("t"))
 		{
 			StartCoroutine(MoveUp (transform, downPosition, upPosition, 5));
@@ -72,7 +67,7 @@ public class Elevator : MonoBehaviour {
 		}
 	}
 
-	/*void OnTriggerEnter (Collider other)
+	void OnTriggerEnter (Collider other)
 	{
 		if(other == OutsideElevator)
 		if(other.gameObject == player)
@@ -101,7 +96,7 @@ public class Elevator : MonoBehaviour {
 	{
 		canActivate = false;
 		yield return null;
-	}*/
+	}
 
 	IEnumerator CanMoveUp()
 	{
@@ -137,7 +132,7 @@ public class Elevator : MonoBehaviour {
 			thisTransform.position = Vector3.Lerp (startPos, endPos, i);
 			yield return null;
 		}
-}
+	}
 
 	IEnumerator MoveDown(Transform thisTransform, Vector3 endPos, Vector3 startPos, float time)
 	{
@@ -169,7 +164,7 @@ public class Elevator : MonoBehaviour {
 		print("This is when it activates");
 	}
 
-	/*IEnumerator ElevatorDoorClose(Transform thatTransform, Vector3 endArea, Vector3 startArea, float timing)
+	IEnumerator ElevatorDoorClose(Transform thatTransform, Vector3 endArea, Vector3 startArea, float timing)
 	{
 		float h = 0.0f;
 		float rot = 1.0f / timing;
@@ -181,5 +176,5 @@ public class Elevator : MonoBehaviour {
 			yield return null;
 			//stationary = true;
 		}
-	}*/
-}
+	}
+}*/

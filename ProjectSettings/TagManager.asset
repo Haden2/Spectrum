@@ -38,6 +38,8 @@ TagManager:
   - ElevatorKey
   - PickUpElevatorKey
   - Elevator
+  - BigDoor
+  - LittleDoor
   layers:
   - Default
   - TransparentFX
