@@ -39,7 +39,6 @@ public class PlayerController : MonoBehaviour {
 		}
 		if(elevatorDoor && inventory.activeElevatorKey)
 		{
-			print ("Engage the Doors motherfucker");
 			canActive = true;
 		}
 	}
@@ -58,14 +57,23 @@ public class PlayerController : MonoBehaviour {
 			littleDoor.GetComponent<Animation>().Play("SmallElevatorDoor");
 			bigDoor.GetComponent<Animation>().Play("ElevatorDoor");
 		}
-		if(isDown == true && isUp == false && isMoving == false && canActive == true && Input.GetKeyDown ("t"))
+		if(isDown == true && isUp == false && isMoving == false && canActive == true && Input.GetKeyDown ("1"))
 		{
 			StartCoroutine(MoveUp (elevator.transform, downPosition, upPosition, 5));
 		}
-		if(isDown == false && isUp == true && isMoving == false && canActive == true && Input.GetKeyDown ("t"))
+		if(isDown == false && isUp == true && isMoving == false && canActive == true && Input.GetKeyDown ("1"))
 		{
 			StartCoroutine(MoveDown (elevator.transform, upPosition, downPosition, 5));
 		}
+		if(bigDoor.GetComponent<Animation>().isPlaying)
+		{
+			canActive = false;
+		}
+		else
+		{
+			canActive = true;
+		}
+
 	}
 	IEnumerator CanMoveUp()
 	{

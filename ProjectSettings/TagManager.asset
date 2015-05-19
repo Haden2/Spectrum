@@ -40,6 +40,12 @@ TagManager:
   - Elevator
   - BigDoor
   - LittleDoor
+  - Torso
+  - LeftArm
+  - RightLeg
+  - LeftLeg
+  - Extra
+  - Surgeon
   layers:
   - Default
   - TransparentFX
