@@ -29,6 +29,8 @@ public class ToggleFlashlight : MonoBehaviour
 
 	public Texture2D dust;
 	public float fAlpha = 0.35F;
+	
+	TestingNightVision testingNight;
 
   // Update is called once per frame
   	void Start()
@@ -50,6 +52,7 @@ public class ToggleFlashlight : MonoBehaviour
 		lensBright3 = .25F;
 		lensBright4 = .34F;
 		lensBright5 = .5F;
+		testingNight = GameObject.FindGameObjectWithTag("Player").GetComponent<TestingNightVision> ();
 	}
 
 	void Update ()
@@ -69,6 +72,7 @@ public class ToggleFlashlight : MonoBehaviour
 			lightIntensity3.GetComponent<LensFlare>().brightness = lensBright3; 
 			lightIntensity4.GetComponent<LensFlare>().brightness = lensBright4; 
 			lightIntensity5.GetComponent<LensFlare>().brightness = lensBright5;
+				testingNight.isFlashLight = true;
 			}
       else
       	{	
@@ -82,7 +86,9 @@ public class ToggleFlashlight : MonoBehaviour
 			lightIntensity2.GetComponent<LensFlare>().brightness = 0;		
 			lightIntensity3.GetComponent<LensFlare>().brightness = 0;
 			lightIntensity4.GetComponent<LensFlare>().brightness = 0;
-			lightIntensity5.GetComponent<LensFlare>().brightness = 0;			}
+			lightIntensity5.GetComponent<LensFlare>().brightness = 0;
+				testingNight.isFlashLight = false;
+			}
 		}
 	}
 

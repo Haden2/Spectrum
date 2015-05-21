@@ -14,6 +14,7 @@ public class EnemyDamage : MonoBehaviour
 	public float radius;
 	GameObject main; 
 	GameObject mother;
+	TestingNightVision testingNight;
 	Transform escapeDestination;
 	NavMeshAgent nav;
 	NavMeshAgent turnUp;
@@ -46,6 +47,7 @@ public class EnemyDamage : MonoBehaviour
 		start = true;
 		seek = false;
 		flash = true;
+		testingNight = GameObject.FindGameObjectWithTag("Player").GetComponent<TestingNightVision> ();
 	}
 
 	void OnTriggerEnter (Collider other) 
@@ -132,6 +134,14 @@ public class EnemyDamage : MonoBehaviour
 			turnUp.speed = 0;
 			collide.radius = 8;
 		}
-
+		if(testingNight.isFlashLight == false && start == false && seek == true && run == false)
+		{
+			print ("Speed increase");
+			turnUp.speed = 2;
+		}
+		if(testingNight.isFlashLight == true && start == false && seek == true && run == false)
+		{
+			turnUp.speed = 1;
+		}
 	}
 }

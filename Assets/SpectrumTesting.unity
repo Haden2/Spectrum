@@ -445,7 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf73b59fda20814892edaa4987dabc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotsX: 5
+  slotsX: 6
   slotsY: 2
   skin: {fileID: 11400000, guid: 586d8c685fb030748844038628eb8e7c, type: 2}
   inventory: []
@@ -4737,7 +4737,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1072094564}
   m_Enabled: 1
-  m_Radius: 1
+  m_Radius: .75
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
