@@ -24,6 +24,6 @@ public class ItemDatabase : MonoBehaviour
 		items.Add (new Item ("BrainHeart", 13, "2/3", 0, Item.ItemType.Combine));
 		items.Add (new Item ("BrainLung", 14, "2/3", 0, Item.ItemType.Combine));
 		items.Add (new Item ("HeartLung", 15, "2/3", 0, Item.ItemType.Combine));
-
+		items.Add (new Item ("ElevatorKey", 16, "Used to operate the elevator", 0, Item.ItemType.Key));
 	}
 }

@@ -19,6 +19,7 @@ public class CollectItem : MonoBehaviour {
 	public GameObject Brain;
 	public GameObject Ticket;
 	public GameObject Poison;
+	public GameObject ElevatorKey;
 
 	public Inventory inventory;
 	public OpenDoor openDoor;
@@ -34,6 +35,7 @@ public class CollectItem : MonoBehaviour {
 	public bool onHeart;
 	public bool onTicket;
 	public bool onPoison;
+	public bool onElevatorKey;
 	bool holdStill;
 
 	public bool keyIsGot;
@@ -48,6 +50,7 @@ public class CollectItem : MonoBehaviour {
 	public bool poisonIsGot;
 	public bool poisonheadIsGot;
 	public bool anatomyIsGot;
+	public bool elevatorkeyIsGot;
 
 
 
@@ -65,13 +68,14 @@ public class CollectItem : MonoBehaviour {
 		Brain = GameObject.FindGameObjectWithTag ("PickUpBrain");
 		Ticket = GameObject.FindGameObjectWithTag ("PickUpTicket");
 		Poison = GameObject.FindGameObjectWithTag ("PickUpPoison");
+		ElevatorKey = GameObject.FindGameObjectWithTag ("PickUpElevatorKey");
 	}
 	//WHEN YOU STEP ONTO THE OBJECT
 	void OnTriggerEnter(Collider other) 
 	{
 		if (other.gameObject.tag == "PickUpKey" || other.gameObject.tag == "PickUpGun" || other.gameObject.tag == "PickUpGloves" || other.gameObject.tag == "PickUpRock"
 		    || other.gameObject.tag == "PickUpHead" || other.gameObject.tag == "PickUpLung" || other.gameObject.tag == "PickUpHeart" || other.gameObject.tag == "PickUpBrain"
-		    || other.gameObject.tag == "PickUpTicket" || other.gameObject.tag == "PickUpPoison") 
+		    || other.gameObject.tag == "PickUpTicket" || other.gameObject.tag == "PickUpPoison" || other.gameObject.tag == "PickUpElevatorKey") 
 		{
 			pressE.color = pickupText;
 			onItem = true;
@@ -115,6 +119,10 @@ public class CollectItem : MonoBehaviour {
 			{
 				onPoison = true;
 			}
+			if(other.gameObject.tag == "PickUpElevatorKey")
+			{
+				onElevatorKey = true;
+			}
 		} 
 	}
 	//WHEN YOU LEAVE THAT OBJECT ON THE GROUND
@@ -122,7 +130,7 @@ public class CollectItem : MonoBehaviour {
 	{
 		if (other.gameObject.tag == "PickUpKey" || other.gameObject.tag == "PickUpGun" || other.gameObject.tag == "PickUpGloves" || other.gameObject.tag == "PickUpRock"
 		    || other.gameObject.tag == "PickUpHead" || other.gameObject.tag == "PickUpLung" || other.gameObject.tag == "PickUpHeart" || other.gameObject.tag == "PickUpBrain"
-		    || other.gameObject.tag == "PickUpTicket" || other.gameObject.tag == "PickUpPoison") 
+		    || other.gameObject.tag == "PickUpTicket" || other.gameObject.tag == "PickUpPoison" || other.gameObject.tag == "PickUpElevatorKey") 
 		{
 			pressE.color = blank;
 			onItem = false;
@@ -165,6 +173,10 @@ public class CollectItem : MonoBehaviour {
 			if(other.gameObject.tag == "PickUpPoison")
 			{
 				onPoison = false;
+			}
+			if(other.gameObject.tag == "PickUpElevatorKey")
+			{
+				onElevatorKey = false;
 			}
 		}
 	}
@@ -284,6 +296,15 @@ public class CollectItem : MonoBehaviour {
 			onItem = false;
 			poisonIsGot = true;
 			Poison.gameObject.SetActive(false);
+		}
+		if (onElevatorKey && Input.GetKeyDown ("e") && holdStill == false)
+		{
+			inventory.AddItem(16);
+			pressE.color = blank;
+			onElevatorKey = false;
+			onItem = false;
+			elevatorkeyIsGot = true;
+			ElevatorKey.gameObject.SetActive(false);
 		}
 	}
 }

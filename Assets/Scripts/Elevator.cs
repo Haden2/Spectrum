@@ -1,50 +1,61 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using System.Collections;
 
 public class Elevator : MonoBehaviour {
 
-	public Vector3 elevator;
-	public Vector3 downPosition;
-	public Vector3 upPosition;
-	public Vector3 openPosition;
-	public Vector3 closedPosition;
-	public Vector3 openPosition1;
-	public Vector3 closedPosition1;
-	GameObject player;
-	public GameObject bigDoor;
-	public GameObject littleDoor;
-	public bool isDown;
-	public bool isUp;
-	public bool isMoving;
-	public bool canActivate;
-	public bool closeDoor;
-
+	//public Vector3 elevator;
+	//public Vector3 downPosition;
+	//public Vector3 upPosition;
+	//public Vector3 openPosition;
+	//public Vector3 closedPosition;
+	//public Vector3 openPosition1;
+	//public Vector3 closedPosition1;
+	//GameObject player;
+	//public GameObject bigDoor;
+	//public GameObject littleDoor;
+	//float allAboard;
+	//public bool isDown;
+	//public bool isUp;
+	//public bool isMoving;
+	//public bool canActivate;
+	//public bool closeDoor;
+	//public bool openDoor;
 
 	void Start()
 	{
-		isDown = true;
-		isUp = false;
-		isMoving = false;
-		closeDoor = true;
-		canActivate = false;
-		elevator = transform.localPosition;
-		downPosition = new Vector3(13, 1, -5);
-		upPosition = new Vector3 (13, 15, -5);
-		openPosition = new Vector3 (10, 2.5f, -1);
-		closedPosition = new Vector3 (10, 2.5f, -5);
-		openPosition1 = new Vector3 (9.85f, 2.5f, -1);
-		closedPosition1 = new Vector3 (9.85f, 2.5f, -3);
+		//isDown = true;
+		//isUp = false;
+		//isMoving = false;
+		//closeDoor = true;
+		//openDoor = false;
+		//canActivate = false;
+		//allAboard = 4;
+		//elevator = transform.localPosition;
+		//downPosition = new Vector3(13, 1, -5);
+		//upPosition = new Vector3 (13, 15, -5);
+		//openPosition = new Vector3 (10, 2.5f, -1);
+		//closedPosition = new Vector3 (10, 2.5f, -5);
+		//openPosition1 = new Vector3 (9.85f, 2.5f, -1);
+		//closedPosition1 = new Vector3 (9.85f, 2.5f, -3);
 
-		player = GameObject.FindGameObjectWithTag ("Player");
+	//	player = GameObject.FindGameObjectWithTag ("Player");
 	}
 	
 	void Update () 
 	{
-		if(closeDoor)
+		//if(closeDoor)
 		{
-			StartCoroutine(ElevatorDoor (bigDoor.transform, openPosition, closedPosition, 3));	
-			StartCoroutine(ElevatorDoor (littleDoor.transform, openPosition1, closedPosition1, 3));		
+			//openDoor = false;
+		//	StartCoroutine(ElevatorDoor (bigDoor.transform, openPosition, closedPosition, 4));	
+		//	StartCoroutine(ElevatorDoor (littleDoor.transform, openPosition1, closedPosition1, 4));
 		}
+	//	if(openDoor)
+		{
+			//closeDoor = false;
+		//	StartCoroutine(ElevatorDoor (bigDoor.transform, closedPosition, openPosition, 4));	
+		//	StartCoroutine(ElevatorDoor (littleDoor.transform, closedPosition1, openPosition1, 4));		
+		}
+
 		if(isDown == true && isUp == false && isMoving == false && canActivate == true && Input.GetKeyDown ("t"))
 		{
 			StartCoroutine(MoveUp (transform, downPosition, upPosition, 5));
@@ -58,9 +69,12 @@ public class Elevator : MonoBehaviour {
 
 	void OnTriggerEnter (Collider other)
 	{
+		if(other == OutsideElevator)
 		if(other.gameObject == player)
 		{
-			StartCoroutine (Begin());
+			print ("Entered Elevator");
+			//StartCoroutine (Begin());
+			canActivate = true;
 		}
 	}
 
@@ -118,7 +132,7 @@ public class Elevator : MonoBehaviour {
 			thisTransform.position = Vector3.Lerp (startPos, endPos, i);
 			yield return null;
 		}
-}
+	}
 
 	IEnumerator MoveDown(Transform thisTransform, Vector3 endPos, Vector3 startPos, float time)
 	{
@@ -142,10 +156,25 @@ public class Elevator : MonoBehaviour {
 		{
 			h += Time.deltaTime * rot;
 			thatTransform.position = Vector3.Lerp (startArea, endArea, h);
-			thatTransform.position = Vector3.Lerp(startArea, endArea, h);
+			//thatTransform.position = Vector3.Lerp(startArea, endArea, h);
 			yield return null;
-			closeDoor = false;
 		}
+		//yield return new WaitForSeconds (allAboard);
+		stationary = true;
+		print("This is when it activates");
 	}
 
-}
+	IEnumerator ElevatorDoorClose(Transform thatTransform, Vector3 endArea, Vector3 startArea, float timing)
+	{
+		float h = 0.0f;
+		float rot = 1.0f / timing;
+		while(h< 1.0f)
+		{
+			h += Time.deltaTime * rot;
+			thatTransform.position = Vector3.Lerp (endArea, startArea, h);
+			//thatTransform.position = Vector3.Lerp(endArea, startArea, h);
+			yield return null;
+			//stationary = true;
+		}
+	}
+}*/

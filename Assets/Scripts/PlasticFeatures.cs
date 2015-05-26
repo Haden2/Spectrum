@@ -4,13 +4,14 @@ using System.Collections;
 public class PlasticFeatures : MonoBehaviour {
 
 	//GameObject plastic;
+	public Inventory inventory;
 	GameObject anatomy;
 	float deathSequence;
 
 	// Use this for initialization
 	void Start () 
 	{
-		//plastic = GameObject.FindGameObjectWithTag ("Plastic");
+		inventory = GameObject.FindGameObjectWithTag ("Player").GetComponent<Inventory>();
 		anatomy = GameObject.FindGameObjectWithTag ("Anatomy");
 		deathSequence = 3;
 	}
@@ -32,6 +33,9 @@ public class PlasticFeatures : MonoBehaviour {
 
 	IEnumerator DeathSequence()
 	{
+		inventory.activeAnatomy = false;
+		inventory.holdingAnatomy.SetActive(false);
+		inventory.anatomySwap = false;
 		yield return new WaitForSeconds (deathSequence);
 		gameObject.SetActive (false);
 	}

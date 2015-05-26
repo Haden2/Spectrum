@@ -35,6 +35,17 @@ TagManager:
   - Ticket
   - Mother
   - Plastic
+  - ElevatorKey
+  - PickUpElevatorKey
+  - Elevator
+  - BigDoor
+  - LittleDoor
+  - Torso
+  - LeftArm
+  - RightLeg
+  - LeftLeg
+  - Extra
+  - Surgeon
   layers:
   - Default
   - TransparentFX

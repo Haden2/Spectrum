@@ -46,7 +46,7 @@ public class TestingNightVision : MonoBehaviour
 			isNightVision = false;
 			isFlashLight = true;
 			NightVisionLight.SetActive(false);
-			blueLight.GetComponent<Light>().intensity = 1;
+			blueLight.GetComponent<Light>().intensity = 2;
 		}
 	}
 	
