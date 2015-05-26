@@ -8,6 +8,7 @@ public class PlasticFeatures : MonoBehaviour {
 	GameObject anatomy;
 	float deathSequence;
 
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -19,7 +20,7 @@ public class PlasticFeatures : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-	
+
 	}
 
 	void OnTriggerEnter (Collider other) 

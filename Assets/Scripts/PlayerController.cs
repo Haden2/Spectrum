@@ -73,7 +73,6 @@ public class PlayerController : MonoBehaviour {
 		{
 			canActive = true;
 		}
-
 	}
 	IEnumerator CanMoveUp()
 	{

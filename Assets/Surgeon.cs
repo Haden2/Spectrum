@@ -23,6 +23,7 @@ public class Surgeon : MonoBehaviour {
 	GameObject AdditionalPart;
 	GameObject Player;
 
+
 	
 	// Use this for initialization
 	void Start () 
@@ -47,32 +48,32 @@ public class Surgeon : MonoBehaviour {
 	{
 		if(torso)
 		{
-			bodyBuilding.speed = 3; //.5
+			bodyBuilding.speed = .5f; //.5
 			bodyBuilding.SetDestination(Torso.transform.position);
 		}
 		if(leftArm)
 		{
-			bodyBuilding.speed = 5; //1
+			bodyBuilding.speed = 1; //1
 			bodyBuilding.SetDestination(LeftArm.transform.position);
 		}
 		if(rightLeg)
 		{
-			bodyBuilding.speed = 7;
+			bodyBuilding.speed = 2;
 			bodyBuilding.SetDestination(RightLeg.transform.position);
 		}
 		if(leftLeg)
 		{
-			bodyBuilding.speed = 10;
+			bodyBuilding.speed = 3;
 			bodyBuilding.SetDestination(LeftLeg.transform.position);
 		}
 		if(additionalPart)
 		{
-			bodyBuilding.speed = 12;
+			bodyBuilding.speed = 4;
 			bodyBuilding.SetDestination(AdditionalPart.transform.position);
 		}
 		if(kill)
 		{
-			bodyBuilding.speed = 15;
+			bodyBuilding.speed = 5;
 			bodyBuilding.SetDestination(Player.transform.position);
 		}
 	}
