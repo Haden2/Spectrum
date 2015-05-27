@@ -29,9 +29,7 @@ public class MouseLook : MonoBehaviour {
 	public float maximumY = 60F;
 
 	float rotationY = 0F;
-	
-	float distance;
-	float power;
+
 
 	void Start ()
 	{
@@ -40,27 +38,10 @@ public class MouseLook : MonoBehaviour {
 		{
 			GetComponent<Rigidbody>().freezeRotation = true;
 		}
-		distance = 30f;
-		power = 500;
 	}
 
 	void Update ()
 	{
-		if(Input.GetMouseButton(0))
-		{
-			Ray rayOrigin = Camera.main.ScreenPointToRay (Input.mousePosition);
-			RaycastHit hitInfo;
-
-			if(Physics.Raycast (rayOrigin, out hitInfo, distance))
-			{
-				Debug.Log("casting ray");
-				Debug.DrawLine(rayOrigin.direction, hitInfo.point);
-				if(hitInfo.rigidbody != null)
-				{
-					hitInfo.rigidbody.AddForceAtPosition(rayOrigin.direction * power, hitInfo.point);
-				}
-			}
-		}
 		if (axes == RotationAxes.MouseXAndY)
 		{
 			float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;

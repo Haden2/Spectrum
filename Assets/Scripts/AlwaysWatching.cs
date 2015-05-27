@@ -14,8 +14,8 @@ public class AlwaysWatching : MonoBehaviour {
 	void Update () 
 	{
 		Vector3 endPivotDir = player.position - transform.position;
-		float step = speed * Time.deltaTime;
-		Vector3 newDir = Vector3.RotateTowards (transform.forward, endPivotDir, step, 0.0F);
+		//float step = speed * Time.deltaTime;
+		Vector3 newDir = Vector3.RotateTowards (transform.forward, endPivotDir, 1,10);
 		Debug.DrawRay(transform.position, newDir, Color.red);
 		transform.rotation = Quaternion.LookRotation(newDir);
 	}

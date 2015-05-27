@@ -46,6 +46,7 @@ TagManager:
   - LeftLeg
   - Extra
   - Surgeon
+  - OldMan
   layers:
   - Default
   - TransparentFX

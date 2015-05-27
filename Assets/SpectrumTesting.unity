@@ -532,6 +532,7 @@ MonoBehaviour:
   isDown: 0
   isUp: 0
   isMoving: 0
+  oldManSeen: 0
   downPosition: {x: 0, y: 0, z: 0}
   upPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &51881591
@@ -7610,11 +7611,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalPosition.y
-      value: .670000017
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 14300000, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400006, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
+      propertyPath: minimumY
+      value: -80
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400006, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
+      propertyPath: maximumY
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
@@ -9641,7 +9650,7 @@ GameObject:
   - 54: {fileID: 2090591891}
   m_Layer: 0
   m_Name: OldMan
-  m_TagString: Untagged
+  m_TagString: OldMan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -5,6 +5,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	GameObject elevator;
+	GameObject oldMan;
 	public Inventory inventory;
 	GameObject bigDoor;
 	GameObject littleDoor;
@@ -15,8 +16,13 @@ public class PlayerController : MonoBehaviour {
 	public bool isDown;
 	public bool isUp;
 	public bool isMoving;
+	public bool oldManSeen;
 	public Vector3 downPosition;
 	public Vector3 upPosition;
+	float distance;
+	float power;
+	float fieldOfViewDegrees = 100;
+	float oldManViewAngle = 50;
 
 	void Start()
 	{
@@ -29,6 +35,9 @@ public class PlayerController : MonoBehaviour {
 		isDown = true;
 		isUp = false;
 		isMoving = false;
+		oldMan = GameObject.FindGameObjectWithTag ("OldMan");
+		distance = 30f;
+		power = 500;
 	}
 
 	void OnTriggerEnter (Collider other)
@@ -72,6 +81,46 @@ public class PlayerController : MonoBehaviour {
 		else
 		{
 			canActive = true;
+		}
+		//if(Input.GetMouseButton(0))
+		{
+			//Ray rayOrigin = Camera.main.ScreenPointToRay (Input.mousePosition);
+			RaycastHit hitInfo;
+			Vector3 rayDirection = oldMan.transform.position - transform.position;
+			if ((Vector3.Angle(rayDirection, transform.forward)) <= oldManViewAngle * 0.5f)
+			{
+				if(Physics.Raycast(transform.position, rayDirection, out hitInfo, 20))
+				{
+					Debug.DrawLine(transform.position, hitInfo.point);
+					if(hitInfo.transform.tag == "OldMan")
+					{
+						oldManSeen = true;
+					}
+					else
+					{
+						oldManSeen = false;
+					}
+				//hitInfo.rigidbody.AddForceAtPosition(transform.position *power, hitInfo.point);
+				}
+			}
+			if((Vector3.Angle(rayDirection, transform.forward)) > oldManViewAngle * 0.5f)
+			{
+				oldManSeen = false;
+			}
+			if((Camera.main.transform.eulerAngles.x <= 300f && Camera.main.transform.eulerAngles.x > 60f))
+			{
+				oldManSeen = false;
+			}
+			print (rayDirection);
+			/*if(Physics.Raycast (rayOrigin, Vector3.forward, out hitInfo))
+			{
+				Debug.Log("casting ray");
+				Debug.DrawLine(rayOrigin.direction, hitInfo.point);
+				if(hitInfo.rigidbody != null)
+				{
+					hitInfo.rigidbody.AddForceAtPosition(rayOrigin.direction * power, hitInfo.point);
+				}
+			}*/
 		}
 	}
 	IEnumerator CanMoveUp()
