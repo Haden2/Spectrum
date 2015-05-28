@@ -47,6 +47,7 @@ TagManager:
   - Extra
   - Surgeon
   - OldMan
+  - Environment
   layers:
   - Default
   - TransparentFX

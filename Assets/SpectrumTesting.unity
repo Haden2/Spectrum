@@ -100,7 +100,7 @@ GameObject:
   - 23: {fileID: 30598603}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -173,7 +173,7 @@ GameObject:
   - 23: {fileID: 43935731}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -514,6 +514,7 @@ MonoBehaviour:
   isUp: 0
   isMoving: 0
   oldManSeen: 0
+  peripheral: 0
   downPosition: {x: 0, y: 0, z: 0}
   upPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &51881591
@@ -529,7 +530,7 @@ GameObject:
   - 23: {fileID: 51881593}
   m_Layer: 0
   m_Name: Ramp
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -665,7 +666,7 @@ GameObject:
   - 4: {fileID: 144378320}
   m_Layer: 0
   m_Name: Inner Walls
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -706,7 +707,7 @@ GameObject:
   - 23: {fileID: 157563861}
   m_Layer: 0
   m_Name: Outer Wall
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -998,7 +999,7 @@ GameObject:
   - 23: {fileID: 225389492}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1333,7 +1334,7 @@ GameObject:
   - 23: {fileID: 303061320}
   m_Layer: 0
   m_Name: Floating Step
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1482,9 +1483,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 5492206, guid: 9085cc2e27fdd8348b9b9f1dc4c3bb49, type: 2}
   bulletLocation: {fileID: 449927146}
+  bulletHole: {fileID: 119082, guid: 348af5ba41f9c5e49843846fb5560b05, type: 2}
   collect: {fileID: 0}
-  shootingPower: 0
   inventory: {fileID: 0}
+  shootingPower: 0
   oldManShot: 0
 --- !u!1 &332967040
 GameObject:
@@ -1496,7 +1498,7 @@ GameObject:
   - 4: {fileID: 332967041}
   m_Layer: 0
   m_Name: Platformer
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2088,7 +2090,7 @@ GameObject:
   - 23: {fileID: 463208621}
   m_Layer: 0
   m_Name: Floating Step
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2161,7 +2163,7 @@ GameObject:
   - 23: {fileID: 507965258}
   m_Layer: 0
   m_Name: Outer Wall
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2442,7 +2444,7 @@ GameObject:
   - 23: {fileID: 568415733}
   m_Layer: 0
   m_Name: Floating Step
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3761,7 +3763,7 @@ GameObject:
   - 23: {fileID: 635937814}
   m_Layer: 0
   m_Name: Outer Wall
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3974,7 +3976,7 @@ GameObject:
   - 23: {fileID: 673459346}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -4342,7 +4344,7 @@ GameObject:
   - 23: {fileID: 863285975}
   m_Layer: 0
   m_Name: Floating Step
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -4517,7 +4519,7 @@ GameObject:
   - 23: {fileID: 1022765931}
   m_Layer: 0
   m_Name: Outer Wall
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -4590,7 +4592,7 @@ GameObject:
   - 23: {fileID: 1029431773}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6173,7 +6175,7 @@ GameObject:
   - 23: {fileID: 1217819978}
   m_Layer: 0
   m_Name: Floating Step
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6414,7 +6416,7 @@ GameObject:
   - 23: {fileID: 1291865392}
   m_Layer: 0
   m_Name: Floating Step
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6938,7 +6940,7 @@ GameObject:
   - 23: {fileID: 1357692408}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -7011,7 +7013,7 @@ GameObject:
   - 23: {fileID: 1370027812}
   m_Layer: 0
   m_Name: Floating Step
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -7292,7 +7294,7 @@ GameObject:
   - 4: {fileID: 1499057499}
   m_Layer: 0
   m_Name: Floating Staircase
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -7329,7 +7331,7 @@ GameObject:
   - 4: {fileID: 1500800907}
   m_Layer: 0
   m_Name: Outer Walls
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -8000,7 +8002,7 @@ GameObject:
   - 23: {fileID: 1706618286}
   m_Layer: 0
   m_Name: Floating Step
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -8073,7 +8075,7 @@ GameObject:
   - 23: {fileID: 1725140361}
   m_Layer: 0
   m_Name: Floating Step
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -8635,7 +8637,7 @@ GameObject:
   - 23: {fileID: 1863653847}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -8708,7 +8710,7 @@ GameObject:
   - 23: {fileID: 1868063366}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -9032,7 +9034,7 @@ GameObject:
   - 23: {fileID: 1944043718}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -9194,7 +9196,7 @@ GameObject:
   - 23: {fileID: 1964274276}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -9267,7 +9269,7 @@ GameObject:
   - 23: {fileID: 2045999525}
   m_Layer: 0
   m_Name: Floating Step
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -9340,7 +9342,7 @@ GameObject:
   - 23: {fileID: 2055290467}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -9592,7 +9594,7 @@ GameObject:
   - 23: {fileID: 2089572236}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
