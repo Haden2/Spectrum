@@ -13,7 +13,7 @@ GameObject:
   - 23: {fileID: 2396184}
   - 54: {fileID: 5492206}
   - 114: {fileID: 11494004}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 177790}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 1.00000001e-07
   m_Drag: 0
   m_AngularDrag: .5
   m_UseGravity: 1

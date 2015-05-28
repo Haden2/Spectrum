@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class EnemyMovement : MonoBehaviour 
-{
+{/*
 	Transform player;
 	NavMeshAgent nav; 
 
@@ -17,5 +17,5 @@ public class EnemyMovement : MonoBehaviour
 	void Update () 
 	{
 		nav.SetDestination (player.position);
-	}
+	}*/
 }

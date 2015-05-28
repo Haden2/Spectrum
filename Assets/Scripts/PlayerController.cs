@@ -17,12 +17,11 @@ public class PlayerController : MonoBehaviour {
 	public bool isUp;
 	public bool isMoving;
 	public bool oldManSeen;
+	public bool peripheral;
 	public Vector3 downPosition;
 	public Vector3 upPosition;
-	float distance;
 	float power;
-	float fieldOfViewDegrees = 100;
-	float oldManViewAngle = 50;
+	float oldManViewAngle = 60;
 
 	void Start()
 	{
@@ -36,8 +35,6 @@ public class PlayerController : MonoBehaviour {
 		isUp = false;
 		isMoving = false;
 		oldMan = GameObject.FindGameObjectWithTag ("OldMan");
-		distance = 30f;
-		power = 500;
 	}
 
 	void OnTriggerEnter (Collider other)
@@ -82,45 +79,40 @@ public class PlayerController : MonoBehaviour {
 		{
 			canActive = true;
 		}
-		//if(Input.GetMouseButton(0))
+	
 		{
-			//Ray rayOrigin = Camera.main.ScreenPointToRay (Input.mousePosition);
-			RaycastHit hitInfo;
+			RaycastHit hit;
 			Vector3 rayDirection = oldMan.transform.position - transform.position;
+			Ray ray = Camera.main.ViewportPointToRay(new Vector3(.5F, 0.5F, 0));
+			if(Physics.Raycast(ray, out hit, 20))
+			{
+				if(hit.transform.tag == "OldMan")
+				{
+					oldManSeen = true;
+				}
+				else
+				{
+					oldManSeen = false;
+				}
+				Debug.DrawLine(transform.position, hit.point, Color.blue);
+				//print ("Looking at " + hit.transform.name);
+			}
 			if ((Vector3.Angle(rayDirection, transform.forward)) <= oldManViewAngle * 0.5f)
 			{
-				if(Physics.Raycast(transform.position, rayDirection, out hitInfo, 20))
-				{
-					Debug.DrawLine(transform.position, hitInfo.point);
-					if(hitInfo.transform.tag == "OldMan")
-					{
-						oldManSeen = true;
-					}
-					else
-					{
-						oldManSeen = false;
-					}
-				//hitInfo.rigidbody.AddForceAtPosition(transform.position *power, hitInfo.point);
-				}
+				peripheral = true;
+			}
+			else
+			{
+				peripheral = false;
 			}
 			if((Vector3.Angle(rayDirection, transform.forward)) > oldManViewAngle * 0.5f)
 			{
 				oldManSeen = false;
 			}
-			if((Camera.main.transform.eulerAngles.x <= 300f && Camera.main.transform.eulerAngles.x > 60f))
+			if((Camera.main.transform.eulerAngles.x <= 330f && Camera.main.transform.eulerAngles.x > 60f))
 			{
-				oldManSeen = false;
+				peripheral = false;
 			}
-			print (rayDirection);
-			/*if(Physics.Raycast (rayOrigin, Vector3.forward, out hitInfo))
-			{
-				Debug.Log("casting ray");
-				Debug.DrawLine(rayOrigin.direction, hitInfo.point);
-				if(hitInfo.rigidbody != null)
-				{
-					hitInfo.rigidbody.AddForceAtPosition(rayOrigin.direction * power, hitInfo.point);
-				}
-			}*/
 		}
 	}
 	IEnumerator CanMoveUp()

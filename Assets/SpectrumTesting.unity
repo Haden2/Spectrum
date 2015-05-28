@@ -494,25 +494,6 @@ MonoBehaviour:
   draggingElevatorKey: 0
   firstShot: 0
   firstThrow: 0
---- !u!114 &50584751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 50584740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee90762e438fff94c9aca816865f640f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectile: {fileID: 5492206, guid: 9085cc2e27fdd8348b9b9f1dc4c3bb49, type: 2}
-  rockProjectile: {fileID: 5440430, guid: 360403c767287e041adc19b2d66fd3d3, type: 2}
-  bulletLocation: {fileID: 449927146}
-  rockLocation: {fileID: 1152796758}
-  collect: {fileID: 0}
-  shootingPower: 0
-  throwingPower: 0
-  inventory: {fileID: 0}
 --- !u!114 &50584752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -617,7 +598,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 123513435}
   - 108: {fileID: 123513434}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: BlueFlashlight
   m_TagString: BlueLight
   m_Icon: {fileID: 0}
@@ -1423,6 +1404,7 @@ GameObject:
   - 33: {fileID: 332067324}
   - 136: {fileID: 332067323}
   - 23: {fileID: 332067322}
+  - 114: {fileID: 332067325}
   m_Layer: 0
   m_Name: HoldingGun
   m_TagString: Gun
@@ -1487,6 +1469,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 332067320}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &332067325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 332067320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee90762e438fff94c9aca816865f640f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 5492206, guid: 9085cc2e27fdd8348b9b9f1dc4c3bb49, type: 2}
+  bulletLocation: {fileID: 449927146}
+  collect: {fileID: 0}
+  shootingPower: 0
+  inventory: {fileID: 0}
+  oldManShot: 0
 --- !u!1 &332967040
 GameObject:
   m_ObjectHideFlags: 0
@@ -1641,6 +1640,33 @@ Prefab:
     - {fileID: 11487522, guid: aa5e80e99bc3d964eac49d558bb127cf, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: aa5e80e99bc3d964eac49d558bb127cf, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &361870487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 361870488}
+  m_Layer: 0
+  m_Name: ThrownLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &361870488
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 361870487}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.25999999, y: -.820000052, z: .5}
+  m_LocalScale: {x: .100000001, y: .100000001, z: .100000001}
+  m_Children: []
+  m_Father: {fileID: 1477525519}
+  m_RootOrder: 3
 --- !u!1 &362992632
 GameObject:
   m_ObjectHideFlags: 0
@@ -2297,7 +2323,7 @@ GameObject:
   - 4: {fileID: 538748804}
   - 108: {fileID: 538748806}
   - 123: {fileID: 538748805}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Top
   m_TagString: Flare1
   m_Icon: {fileID: 0}
@@ -4944,33 +4970,6 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!1 &1152796757
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1152796758}
-  m_Layer: 0
-  m_Name: ThrownLocation
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1152796758
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1152796757}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.25999999, y: -.490000069, z: .5}
-  m_LocalScale: {x: .100000001, y: .100000001, z: .100000001}
-  m_Children: []
-  m_Father: {fileID: 1477525519}
-  m_RootOrder: 3
 --- !u!1 &1172984148
 GameObject:
   m_ObjectHideFlags: 0
@@ -6485,7 +6484,7 @@ GameObject:
   - 4: {fileID: 1313711443}
   - 108: {fileID: 1313711442}
   - 123: {fileID: 1313711441}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Middle
   m_TagString: Flare3
   m_Icon: {fileID: 0}
@@ -6784,7 +6783,7 @@ GameObject:
   - 4: {fileID: 1341470825}
   - 108: {fileID: 1341470827}
   - 123: {fileID: 1341470826}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: 2nd from top
   m_TagString: Flare2
   m_Icon: {fileID: 0}
@@ -6860,7 +6859,7 @@ GameObject:
   - 4: {fileID: 1347030707}
   - 108: {fileID: 1347030706}
   - 123: {fileID: 1347030705}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Lowest
   m_TagString: Flare5
   m_Icon: {fileID: 0}
@@ -7625,6 +7624,18 @@ Prefab:
       propertyPath: maximumY
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
   m_IsPrefabParent: 0
@@ -8136,7 +8147,6 @@ GameObject:
   - 135: {fileID: 1767091203}
   - 23: {fileID: 1767091202}
   - 195: {fileID: 1767091200}
-  - 114: {fileID: 1767091201}
   - 114: {fileID: 1767091208}
   m_Layer: 0
   m_Name: HospitalGirl
@@ -8165,17 +8175,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1767091201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1767091198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 200af45e85a7bb14f8fc1e8bef8aa4e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!23 &1767091202
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8289,6 +8288,7 @@ GameObject:
   - 33: {fileID: 1784036093}
   - 135: {fileID: 1784036092}
   - 23: {fileID: 1784036091}
+  - 114: {fileID: 1784036094}
   m_Layer: 0
   m_Name: HoldingRock
   m_TagString: Rock
@@ -8351,6 +8351,22 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1784036089}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1784036094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1784036089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29d2bff86ab5f1744acf2f92e5bc0cf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rockProjectile: {fileID: 5440430, guid: 360403c767287e041adc19b2d66fd3d3, type: 2}
+  collect: {fileID: 0}
+  rockLocation: {fileID: 361870488}
+  throwingPower: 0
+  inventory: {fileID: 0}
 --- !u!1 &1808817572
 GameObject:
   m_ObjectHideFlags: 0
@@ -8540,7 +8556,7 @@ GameObject:
   - 4: {fileID: 1862810079}
   - 108: {fileID: 1862810081}
   - 123: {fileID: 1862810080}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: 2nd Lowest
   m_TagString: Flare4
   m_Icon: {fileID: 0}
@@ -9725,7 +9741,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1 &2093065188
 GameObject:
   m_ObjectHideFlags: 0

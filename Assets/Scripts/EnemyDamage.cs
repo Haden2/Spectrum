@@ -113,11 +113,11 @@ public class EnemyDamage : MonoBehaviour
 		if(run)
 		{
 			nav.SetDestination(escapeDestination.position);
-			turnUp.speed = 10;
+			turnUp.speed = 0; //10
 		}
 		if(seek)
 		{
-			turnUp.speed = 1;
+			turnUp.speed = 0; //1
 			nav.SetDestination (player.position);
 		}
 		if(flash == true)
@@ -132,7 +132,7 @@ public class EnemyDamage : MonoBehaviour
 		if(start == true)
 		{
 			turnUp.speed = 0;
-			collide.radius = 8;
+			collide.radius = 0; //8
 		}
 		if(testingNight.isFlashLight == false && start == false && seek == true && run == false)
 		{
@@ -141,7 +141,7 @@ public class EnemyDamage : MonoBehaviour
 		}
 		if(testingNight.isFlashLight == true && start == false && seek == true && run == false)
 		{
-			turnUp.speed = 1;
+			turnUp.speed = 0; //1
 		}
 	}
 }
