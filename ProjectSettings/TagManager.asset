@@ -48,6 +48,7 @@ TagManager:
   - Surgeon
   - OldMan
   - Environment
+  - TailDirection
   layers:
   - Default
   - TransparentFX
