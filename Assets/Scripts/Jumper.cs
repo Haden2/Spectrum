@@ -18,7 +18,8 @@ public class Jumper : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		
+		//Vector3 worldDeltaPosition = player.transform.position - transform.position;
+
 	}
 	
 	void OnTriggerEnter (Collider other) 

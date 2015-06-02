@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour {
 
 	GameObject elevator;
 	GameObject oldMan;
+	Wander wander;
 	public Inventory inventory;
 	GameObject bigDoor;
 	GameObject littleDoor;
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Start()
 	{
+		wander = GameObject.FindGameObjectWithTag ("OldMan").GetComponent<Wander> ();
 		elevator = GameObject.FindGameObjectWithTag ("Elevator");
 		inventory = GetComponent<Inventory> ();
 		bigDoor = GameObject.FindGameObjectWithTag ("BigDoor");
@@ -58,6 +60,10 @@ public class PlayerController : MonoBehaviour {
 
 	void Update()
 	{
+		if(wander.attack || wander.newDestination)
+		{
+			oldManSeen = false;
+		}
 		if(elevatorDoor && inventory.activeElevatorKey && canActive == true && Input.GetKeyDown("e"))
 		{
 			littleDoor.GetComponent<Animation>().Play("SmallElevatorDoor");
