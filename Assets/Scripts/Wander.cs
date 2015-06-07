@@ -97,7 +97,7 @@ public class Wander : MonoBehaviour
 		if(attack)
 		{
 			player.oldManSeen = false;
-			wander.acceleration = 5;
+			wander.acceleration = 25;
 			wander.speed = 10;
 			wander.SetDestination(player.transform.position);
 			Vector3 endPivotDir = player.transform.position - transform.position;
