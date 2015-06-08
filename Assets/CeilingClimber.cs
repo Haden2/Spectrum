@@ -38,7 +38,7 @@ public class CeilingClimber : MonoBehaviour {
 		endShakeTime = Time.realtimeSinceStartup - shakeTime;
 
 		Vector3 rayDirection = player.transform.position - transform.position;
-		RaycastHit hit;
+		//RaycastHit hit;
 
 		if ((Vector3.Angle(rayDirection, transform.forward)) <= zombieViewAngle * 0.5f)
 		{

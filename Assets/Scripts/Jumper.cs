@@ -20,7 +20,6 @@ public class Jumper : MonoBehaviour {
 		deathSequence = 3;
 		nav = GetComponent<NavMeshAgent> ();
 		nav.speed = 0;
-		jump = true;
 	}
 	
 	// Update is called once per frame
@@ -28,13 +27,20 @@ public class Jumper : MonoBehaviour {
 	{
 		if(jump)
 		{
-			transform.position = (worldDeltaPosition);
+			//transform.position = (worldDeltaPosition);
 		}
 		Vector3 endPivotDir = Player.transform.position - transform.position;
 		Vector3 newDir = Vector3.RotateTowards (transform.forward, endPivotDir, 1,10);
-		transform.rotation = Quaternion.LookRotation(newDir);
+		//transform.rotation = Quaternion.LookRotation(newDir);
 		worldDeltaPosition = Player.transform.position - transform.position;
+		print (worldDeltaPosition);
 		nav.SetDestination (Player.transform.position);
+		if(worldDeltaPosition.z == 10)
+		{
+			jump = true;
+			print ("Further away");
+			StartCoroutine (JumpForward());
+		}
 	}
 	
 	void OnTriggerEnter (Collider other) 
@@ -45,7 +51,15 @@ public class Jumper : MonoBehaviour {
 			StartCoroutine (DeathSequence());
 		}
 	}
-	
+
+	IEnumerator JumpForward()
+	{
+		//nav.speed = 1;
+		//nav.SetDestination (worldDeltaPosition + new Vector3(0,0,5));
+		transform.position = (worldDeltaPosition + new Vector3(0,0,1));
+		yield return null;
+	}
+
 	IEnumerator DeathSequence()
 	{
 		inventory.activeGloves = false;
