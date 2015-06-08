@@ -8451,7 +8451,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!1 &1664272881
 GameObject:
@@ -9009,10 +9009,13 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1808817576}
-  - 33: {fileID: 1808817575}
-  - 65: {fileID: 1808817574}
-  - 23: {fileID: 1808817573}
   - 54: {fileID: 1808817577}
+  - 33: {fileID: 1808817575}
+  - 23: {fileID: 1808817573}
+  - 65: {fileID: 1808817574}
+  - 135: {fileID: 1808817580}
+  - 195: {fileID: 1808817579}
+  - 114: {fileID: 1808817578}
   m_Layer: 0
   m_Name: CeilingZombie
   m_TagString: Untagged
@@ -9082,14 +9085,68 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1808817572}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Mass: 15
+  m_Drag: 3.40282347e+38
+  m_AngularDrag: 3.40282347e+38
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1808817578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1808817572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 114015aaf9f59aa4e991bb326798c889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foundPlayer: 0
+  onPlayer: 0
+  leftTurn: 0
+  rightTurn: 0
+  secondLeft: 0
+  thirdLeft: 0
+  hold: 0
+  thrownOff: 0
+  shakeTime: 0
+  timeLimit: 0
+  endShakeTime: 0
+--- !u!195 &1808817579
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1808817572}
+  m_Enabled: 1
+  m_Radius: .5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: .5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!135 &1808817580
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1808817572}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1855892914
 GameObject:
   m_ObjectHideFlags: 0
