@@ -9,7 +9,10 @@ public class Jumper : MonoBehaviour {
 	GameObject gloves;
 	GameObject Player;
 	float deathSequence;
-	bool jump;
+	public bool jumpForward;
+	public bool jumpRight;
+	public bool jumpBack;
+	public bool jumpLeft;
 	
 	// Use this for initialization
 	void Start () 
@@ -25,21 +28,50 @@ public class Jumper : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if(jump)
+		if(jumpForward)
 		{
+			transform.position = (transform.position + new Vector3(0,0,1) /*+ (worldDeltaPosition.z + 1)*/);
+			jumpForward = false;
 			//transform.position = (worldDeltaPosition);
+		}
+		if(jumpRight)
+		{
+			transform.position = (transform.position + new Vector3(1,0,0));
+			jumpRight = false;
+		}
+		if(jumpBack)
+		{
+			transform.position = (transform.position + new Vector3(0,0,-1));
+			jumpBack = false;
+		}
+		if(jumpLeft)
+		{
+			transform.position = (transform.position + new Vector3(-1,0,0));
+			jumpLeft = false;
 		}
 		Vector3 endPivotDir = Player.transform.position - transform.position;
 		Vector3 newDir = Vector3.RotateTowards (transform.forward, endPivotDir, 1,10);
 		//transform.rotation = Quaternion.LookRotation(newDir);
 		worldDeltaPosition = Player.transform.position - transform.position;
-		print (worldDeltaPosition);
+		//print (worldDeltaPosition);
 		nav.SetDestination (Player.transform.position);
-		if(worldDeltaPosition.z == 10)
+		if(worldDeltaPosition.z >= 2)
 		{
-			jump = true;
-			print ("Further away");
-			StartCoroutine (JumpForward());
+			jumpForward = true;
+			//StartCoroutine (JumpForward());
+		}
+		if(worldDeltaPosition.x >= 2)
+		{
+			jumpRight = true;
+		}
+		if(worldDeltaPosition.z < -2)
+		{
+			jumpBack = true;
+			//StartCoroutine (JumpForward());
+		}
+		if(worldDeltaPosition.x < -2)
+		{
+			jumpLeft = true;
 		}
 	}
 	
