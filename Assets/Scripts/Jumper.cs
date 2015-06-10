@@ -23,56 +23,21 @@ public class Jumper : MonoBehaviour {
 		deathSequence = 3;
 		nav = GetComponent<NavMeshAgent> ();
 		nav.speed = 0;
+		StartCoroutine(JumpForward());
+		StartCoroutine(JumpBack());
+		StartCoroutine(JumpRight());
+		StartCoroutine(JumpLeft());
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if(jumpForward)
-		{
-			transform.position = (transform.position + new Vector3(0,0,1) /*+ (worldDeltaPosition.z + 1)*/);
-			jumpForward = false;
-			//transform.position = (worldDeltaPosition);
-		}
-		if(jumpRight)
-		{
-			transform.position = (transform.position + new Vector3(1,0,0));
-			jumpRight = false;
-		}
-		if(jumpBack)
-		{
-			transform.position = (transform.position + new Vector3(0,0,-1));
-			jumpBack = false;
-		}
-		if(jumpLeft)
-		{
-			transform.position = (transform.position + new Vector3(-1,0,0));
-			jumpLeft = false;
-		}
 		Vector3 endPivotDir = Player.transform.position - transform.position;
-		Vector3 newDir = Vector3.RotateTowards (transform.forward, endPivotDir, 1,10);
-		//transform.rotation = Quaternion.LookRotation(newDir);
+		Vector3 newDir = Vector3.RotateTowards (transform.forward, endPivotDir, .1f,1);
+		transform.rotation = Quaternion.LookRotation(newDir);
 		worldDeltaPosition = Player.transform.position - transform.position;
 		//print (worldDeltaPosition);
 		nav.SetDestination (Player.transform.position);
-		if(worldDeltaPosition.z >= 2)
-		{
-			jumpForward = true;
-			//StartCoroutine (JumpForward());
-		}
-		if(worldDeltaPosition.x >= 2)
-		{
-			jumpRight = true;
-		}
-		if(worldDeltaPosition.z < -2)
-		{
-			jumpBack = true;
-			//StartCoroutine (JumpForward());
-		}
-		if(worldDeltaPosition.x < -2)
-		{
-			jumpLeft = true;
-		}
 	}
 	
 	void OnTriggerEnter (Collider other) 
@@ -86,10 +51,42 @@ public class Jumper : MonoBehaviour {
 
 	IEnumerator JumpForward()
 	{
-		//nav.speed = 1;
-		//nav.SetDestination (worldDeltaPosition + new Vector3(0,0,5));
-		transform.position = (worldDeltaPosition + new Vector3(0,0,1));
-		yield return null;
+		print ("Courotine");
+		if(worldDeltaPosition.z >= 2)
+		{
+			print ("In If Loop");
+			//jumpForward = true;
+			transform.position = (transform.position + new Vector3(0,0,2));
+		}
+		yield return new WaitForSeconds (1.5f);
+		StartCoroutine (JumpForward());
+	}
+	IEnumerator JumpRight()
+	{
+		if(worldDeltaPosition.x >= 2)
+		{
+			transform.position = (transform.position + new Vector3(2,0,0));
+		}
+		yield return new WaitForSeconds (1.5f);
+		StartCoroutine (JumpRight());
+	}
+	IEnumerator JumpBack()
+	{
+		if(worldDeltaPosition.z < -2)
+		{
+			transform.position = (transform.position + new Vector3(0,0,-2));
+		}	
+		yield return new WaitForSeconds (1.5f);
+		StartCoroutine (JumpBack());
+	}
+	IEnumerator JumpLeft()
+	{
+		if(worldDeltaPosition.x < -2)
+		{
+			transform.position = (transform.position + new Vector3(-2,0,0));
+		}
+		yield return new WaitForSeconds (1.5f);
+		StartCoroutine (JumpLeft());
 	}
 
 	IEnumerator DeathSequence()
