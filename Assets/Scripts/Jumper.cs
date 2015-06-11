@@ -9,10 +9,16 @@ public class Jumper : MonoBehaviour {
 	GameObject gloves;
 	GameObject Player;
 	float deathSequence;
-	public bool jumpForward;
-	public bool jumpRight;
-	public bool jumpBack;
-	public bool jumpLeft;
+	float jumpForward;
+	float jumpRight;
+	float jumpBack;
+	float jumpLeft;
+	float randomForward;
+	float randomRight;
+	float randomBack;
+	float randomLeft;
+	float lookingAngle;
+
 	
 	// Use this for initialization
 	void Start () 
@@ -32,6 +38,8 @@ public class Jumper : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		lookingAngle = transform.eulerAngles.y;
+		print (lookingAngle);
 		Vector3 endPivotDir = Player.transform.position - transform.position;
 		Vector3 newDir = Vector3.RotateTowards (transform.forward, endPivotDir, .1f,1);
 		transform.rotation = Quaternion.LookRotation(newDir);
@@ -51,41 +59,63 @@ public class Jumper : MonoBehaviour {
 
 	IEnumerator JumpForward()
 	{
-		print ("Courotine");
-		if(worldDeltaPosition.z >= 2)
+		if(lookingAngle >= 225 && lookingAngle <= 315)
 		{
-			print ("In If Loop");
-			//jumpForward = true;
-			transform.position = (transform.position + new Vector3(0,0,2));
+			jumpForward = Random.Range (.5f, 2);
+			randomForward = Random.Range (1.5f, 3);
+			if(worldDeltaPosition.z >= 2)
+			{
+				transform.position = (transform.position + new Vector3(0,0,jumpForward));
+			}
 		}
-		yield return new WaitForSeconds (1.5f);
+		//if(lookingAngle >= 45 && lookingAngle <= 135f)
+
+		jumpForward = Random.Range (4, 6);
+		randomForward = Random.Range (.5f, 3);
+
+		yield return new WaitForSeconds (randomForward);
 		StartCoroutine (JumpForward());
 	}
 	IEnumerator JumpRight()
 	{
+		randomRight = Random.Range (1.5f, 3);
+		jumpRight = Random.Range (.5f, 2);
+
 		if(worldDeltaPosition.x >= 2)
 		{
-			transform.position = (transform.position + new Vector3(2,0,0));
+			transform.position = (transform.position + new Vector3(jumpRight,0,0));
 		}
-		yield return new WaitForSeconds (1.5f);
+		yield return new WaitForSeconds (randomRight);
 		StartCoroutine (JumpRight());
 	}
 	IEnumerator JumpBack()
 	{
+		randomBack = Random.Range (.5f, 3);
+		jumpBack = Random.Range (4, 6);
 		if(worldDeltaPosition.z < -2)
 		{
-			transform.position = (transform.position + new Vector3(0,0,-2));
+			print ("Jumped Backward");
+
+			transform.position = (transform.position + new Vector3(0,0,-jumpBack));
 		}	
-		yield return new WaitForSeconds (1.5f);
+		yield return new WaitForSeconds (randomBack);
 		StartCoroutine (JumpBack());
 	}
 	IEnumerator JumpLeft()
 	{
-		if(worldDeltaPosition.x < -2)
+		if(lookingAngle >= 225 && lookingAngle <= 315)
 		{
-			transform.position = (transform.position + new Vector3(-2,0,0));
+			jumpLeft = Random.Range (4, 6);
+			randomLeft = Random.Range (.5f, 3);
+			if(worldDeltaPosition.x < -2)
+			{
+				transform.position = (transform.position + new Vector3(-jumpLeft,0,0));
+			}
 		}
-		yield return new WaitForSeconds (1.5f);
+		randomLeft = Random.Range (1.5f, 3);
+		jumpLeft = Random.Range (.5f, 2);
+
+		yield return new WaitForSeconds (randomLeft);
 		StartCoroutine (JumpLeft());
 	}
 
