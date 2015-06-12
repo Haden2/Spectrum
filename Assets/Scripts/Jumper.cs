@@ -4,25 +4,23 @@ using System.Collections;
 public class Jumper : MonoBehaviour {
 
 	public Inventory inventory;
+	CharacterMotorC playerMovement;
 	NavMeshAgent nav;
 	Vector3 worldDeltaPosition;
 	GameObject gloves;
 	GameObject Player;
 	float deathSequence;
-	float jumpForward;
-	float jumpRight;
-	float jumpBack;
-	float jumpLeft;
-	float randomForward;
-	float randomRight;
-	float randomBack;
-	float randomLeft;
+	float jumpZ;
+	float jumpX;
+	float randomZ;
+	float randomX;
 	float lookingAngle;
 
 	
 	// Use this for initialization
 	void Start () 
 	{
+		playerMovement = GameObject.FindGameObjectWithTag ("Player").GetComponent<CharacterMotorC> ();
 		inventory = GameObject.FindGameObjectWithTag ("Player").GetComponent<Inventory>();
 		gloves = GameObject.FindGameObjectWithTag ("Gloves");
 		Player = GameObject.FindGameObjectWithTag ("Player");
@@ -30,21 +28,17 @@ public class Jumper : MonoBehaviour {
 		nav = GetComponent<NavMeshAgent> ();
 		nav.speed = 0;
 		StartCoroutine(JumpForward());
-		StartCoroutine(JumpBack());
-		StartCoroutine(JumpRight());
-		StartCoroutine(JumpLeft());
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
 		lookingAngle = transform.eulerAngles.y;
-		print (lookingAngle);
+		//print (lookingAngle);
 		Vector3 endPivotDir = Player.transform.position - transform.position;
 		Vector3 newDir = Vector3.RotateTowards (transform.forward, endPivotDir, .1f,1);
 		transform.rotation = Quaternion.LookRotation(newDir);
 		worldDeltaPosition = Player.transform.position - transform.position;
-		//print (worldDeltaPosition);
 		nav.SetDestination (Player.transform.position);
 	}
 	
@@ -55,68 +49,77 @@ public class Jumper : MonoBehaviour {
 			print ("collided with gloves");
 			StartCoroutine (DeathSequence());
 		}
+		if(other.gameObject == Player)
+		{
+			StartCoroutine(TeleportPlayer());
+		}
 	}
 
 	IEnumerator JumpForward()
 	{
-		if(lookingAngle >= 225 && lookingAngle <= 315)
+		//print (worldDeltaPosition);
+
+		//In the X plane going left or right
+		if(lookingAngle > 225 && lookingAngle < 315 || lookingAngle > 45 && lookingAngle < 135)
 		{
-			jumpForward = Random.Range (.5f, 2);
-			randomForward = Random.Range (1.5f, 3);
+			jumpX = Random.Range (3,5);
+			jumpZ = Random.Range (2, 4);
 			if(worldDeltaPosition.z >= 2)
 			{
-				transform.position = (transform.position + new Vector3(0,0,jumpForward));
+				transform.position = (transform.position + new Vector3(0,0,jumpZ));
+			}
+			if(worldDeltaPosition.z <= -2)
+			{
+				transform.position = (transform.position + new Vector3(0,0,-jumpZ));
+			}
+			if(worldDeltaPosition.x >= 2)
+			{
+				transform.position = (transform.position + new Vector3(jumpX,0,0));
+			}
+			if(worldDeltaPosition.x <= -2)
+			{
+				transform.position = (transform.position + new Vector3(-jumpX,0,0));
 			}
 		}
-		//if(lookingAngle >= 45 && lookingAngle <= 135f)
-
-		jumpForward = Random.Range (4, 6);
-		randomForward = Random.Range (.5f, 3);
-
-		yield return new WaitForSeconds (randomForward);
+		//In the Z plane going forwards or backwards
+		if(((lookingAngle < 45 && lookingAngle > 0) || (lookingAngle > 315 && lookingAngle < 360)) || (lookingAngle > 135 && lookingAngle < 225))
+		{
+			jumpX = Random.Range (2,4);
+			jumpZ = Random.Range (3, 5);
+			if(worldDeltaPosition.z >= 2)
+			{
+				transform.position = (transform.position + new Vector3(0,0,jumpZ));
+			}
+			if(worldDeltaPosition.z <= -2)
+			{
+				transform.position = (transform.position + new Vector3(0,0,-jumpZ));
+			}
+			if(worldDeltaPosition.x >= 2)
+			{
+				transform.position = (transform.position + new Vector3(jumpX,0,0));
+			}
+			if(worldDeltaPosition.x <= -2)
+			{
+				transform.position = (transform.position + new Vector3(-jumpX,0,0));
+			}
+		}
+		if(worldDeltaPosition.z >= 15 || worldDeltaPosition.z <= -15 || worldDeltaPosition.x >= 15 || worldDeltaPosition.x <= -15)
+		{
+			print ("Fast Mode");
+			randomZ = Random.Range (.1f,.5f);
+		}
+		if((worldDeltaPosition.z < 15 && worldDeltaPosition.z > -15) && (worldDeltaPosition.x < 15 && worldDeltaPosition.x > -15))
+		{
+			randomZ = Random.Range (1f, 3);
+		}
+		yield return new WaitForSeconds (randomZ);
 		StartCoroutine (JumpForward());
 	}
-	IEnumerator JumpRight()
+	IEnumerator TeleportPlayer()
 	{
-		randomRight = Random.Range (1.5f, 3);
-		jumpRight = Random.Range (.5f, 2);
-
-		if(worldDeltaPosition.x >= 2)
-		{
-			transform.position = (transform.position + new Vector3(jumpRight,0,0));
-		}
-		yield return new WaitForSeconds (randomRight);
-		StartCoroutine (JumpRight());
-	}
-	IEnumerator JumpBack()
-	{
-		randomBack = Random.Range (.5f, 3);
-		jumpBack = Random.Range (4, 6);
-		if(worldDeltaPosition.z < -2)
-		{
-			print ("Jumped Backward");
-
-			transform.position = (transform.position + new Vector3(0,0,-jumpBack));
-		}	
-		yield return new WaitForSeconds (randomBack);
-		StartCoroutine (JumpBack());
-	}
-	IEnumerator JumpLeft()
-	{
-		if(lookingAngle >= 225 && lookingAngle <= 315)
-		{
-			jumpLeft = Random.Range (4, 6);
-			randomLeft = Random.Range (.5f, 3);
-			if(worldDeltaPosition.x < -2)
-			{
-				transform.position = (transform.position + new Vector3(-jumpLeft,0,0));
-			}
-		}
-		randomLeft = Random.Range (1.5f, 3);
-		jumpLeft = Random.Range (.5f, 2);
-
-		yield return new WaitForSeconds (randomLeft);
-		StartCoroutine (JumpLeft());
+		playerMovement.canControl = false;
+		//playerMovement.inputMoveDirection = Vector3.zero;
+		yield return null;
 	}
 
 	IEnumerator DeathSequence()

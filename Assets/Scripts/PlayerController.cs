@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour {
 
 	GameObject elevator;
 	GameObject oldMan;
+	GameObject hG;
 	Wander wander;
 	public Inventory inventory;
 	GameObject bigDoor;
@@ -19,13 +20,16 @@ public class PlayerController : MonoBehaviour {
 	public bool isMoving;
 	public bool oldManSeen;
 	public bool peripheral;
+	public bool hGInsight;
 	public Vector3 downPosition;
 	public Vector3 upPosition;
 	float power;
+	float hGViewAngle = 135;
 	float oldManViewAngle = 60;
 
 	void Start()
 	{
+		hG = GameObject.FindGameObjectWithTag ("Enemy");
 		wander = GameObject.FindGameObjectWithTag ("OldMan").GetComponent<Wander> ();
 		elevator = GameObject.FindGameObjectWithTag ("Elevator");
 		inventory = GetComponent<Inventory> ();
@@ -89,6 +93,7 @@ public class PlayerController : MonoBehaviour {
 		{
 			RaycastHit hit;
 			Vector3 rayDirection = oldMan.transform.position - transform.position;
+			Vector3 hGDirection = hG.transform.position - transform.position;
 			Ray ray = Camera.main.ViewportPointToRay(new Vector3(.5F, 0.5F, 0));
 			if(Physics.Raycast(ray, out hit, 20))
 			{
@@ -118,6 +123,14 @@ public class PlayerController : MonoBehaviour {
 			if((Camera.main.transform.eulerAngles.x <= 330f && Camera.main.transform.eulerAngles.x > 60f))
 			{
 				peripheral = false;
+			}
+			if((Vector3.Angle(hGDirection, transform.forward)) <= hGViewAngle * 0.5f)
+			{
+				hGInsight = true;
+			}
+			else
+			{
+				hGInsight = false;
 			}
 		}
 	}

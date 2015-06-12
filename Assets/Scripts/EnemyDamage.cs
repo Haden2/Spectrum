@@ -14,18 +14,21 @@ public class EnemyDamage : MonoBehaviour
 	public float radius;
 	GameObject main; 
 	GameObject mother;
+	GameObject BehindPlayer;
 	TestingNightVision testingNight;
 	Transform escapeDestination;
 	NavMeshAgent nav;
 	NavMeshAgent turnUp;
-	Transform player;
+	PlayerController player;
 	public SphereCollider collide;
-
+	public float behindPlayerAngle;
+	public float playerAngle;
 	bool escape;
 	bool run;
 	bool seek;
 	bool flash;
 	bool start;
+	public bool toBehindPlayer;
 
 
 	void Awake()
@@ -34,12 +37,12 @@ public class EnemyDamage : MonoBehaviour
 		NightVision = GameObject.FindGameObjectWithTag ("NightVisionLight");
 		collide = GetComponent<SphereCollider> ();
 		main = GameObject.FindGameObjectWithTag ("Player");
-		player = GameObject.FindGameObjectWithTag ("Player").transform;
+		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController>();
 		escapeDestination = GameObject.FindGameObjectWithTag ("Respawn").transform;
 		mother = GameObject.FindGameObjectWithTag ("Mother");
 		nav = GetComponent<NavMeshAgent>();
 		turnUp = GetComponent <NavMeshAgent>();
-		startingTalk = 15f;
+		startingTalk = 2f; //15
 		wait = 3;
 		readyOrNot = 11;
 		endingSequence = 2;
@@ -48,6 +51,7 @@ public class EnemyDamage : MonoBehaviour
 		seek = false;
 		flash = true;
 		testingNight = GameObject.FindGameObjectWithTag("Player").GetComponent<TestingNightVision> ();
+		BehindPlayer = GameObject.Find ("BehindPlayer");
 	}
 
 	void OnTriggerEnter (Collider other) 
@@ -82,11 +86,22 @@ public class EnemyDamage : MonoBehaviour
 
 	IEnumerator WaitForLight()
 	{
-		flash = false;
+		behindPlayerAngle = main.transform.eulerAngles.y + 180;
+		print (behindPlayerAngle);
+		if(player.hGInsight)
+		{
+			toBehindPlayer = true;
+			if(behindPlayerAngle >= 360)
+			{
+				behindPlayerAngle = behindPlayerAngle - 360;
+				print (behindPlayerAngle);
+			}
+		}
+		//flash = false;
 		seek = false;
-		run = true;
+		//run = true;
 		yield return new WaitForSeconds (wait);
-		escape = true;
+		//escape = true;
 	}
 
 	IEnumerator HideAndSeek()
@@ -110,6 +125,11 @@ public class EnemyDamage : MonoBehaviour
 
 	void Update()
 	{
+		playerAngle = main.transform.eulerAngles.y;
+		if(((playerAngle < behindPlayerAngle + 90) && playerAngle > behindPlayerAngle) || (main.transform.eulerAngles.y > behindPlayerAngle - 90) && (playerAngle < behindPlayerAngle))
+		{
+			toBehindPlayer = false;
+		}
 		if(run)
 		{
 			nav.SetDestination(escapeDestination.position);
@@ -118,7 +138,7 @@ public class EnemyDamage : MonoBehaviour
 		if(seek)
 		{
 			turnUp.speed = 1; //1
-			nav.SetDestination (player.position);
+			nav.SetDestination (main.transform.position);
 		}
 		if(flash == true)
 		{
@@ -133,6 +153,10 @@ public class EnemyDamage : MonoBehaviour
 		{
 			turnUp.speed = 0;
 			collide.radius = 8; //8
+		}
+		if(toBehindPlayer)
+		{
+			transform.position = BehindPlayer.transform.position;
 		}
 		if(testingNight.isFlashLight == false && start == false && seek == true && run == false)
 		{
