@@ -15,6 +15,8 @@ public class EnemyDamage : MonoBehaviour
 	GameObject main; 
 	GameObject mother;
 	GameObject BehindPlayer;
+	GameObject leftOfPlayer;
+	GameObject rightOfPlayer;
 	TestingNightVision testingNight;
 	Transform escapeDestination;
 	NavMeshAgent nav;
@@ -29,6 +31,7 @@ public class EnemyDamage : MonoBehaviour
 	bool flash;
 	bool start;
 	public bool toBehindPlayer;
+	bool jumpScare;
 
 
 	void Awake()
@@ -52,6 +55,8 @@ public class EnemyDamage : MonoBehaviour
 		flash = true;
 		testingNight = GameObject.FindGameObjectWithTag("Player").GetComponent<TestingNightVision> ();
 		BehindPlayer = GameObject.Find ("BehindPlayer");
+		leftOfPlayer = GameObject.Find("LeftPlayer");
+		rightOfPlayer = GameObject.Find("RightPlayer");
 	}
 
 	void OnTriggerEnter (Collider other) 
@@ -96,6 +101,7 @@ public class EnemyDamage : MonoBehaviour
 				behindPlayerAngle = behindPlayerAngle - 360;
 				print (behindPlayerAngle);
 			}
+
 		}
 		//flash = false;
 		seek = false;
@@ -126,9 +132,25 @@ public class EnemyDamage : MonoBehaviour
 	void Update()
 	{
 		playerAngle = main.transform.eulerAngles.y;
-		if(((playerAngle < behindPlayerAngle + 90) && playerAngle > behindPlayerAngle) || (main.transform.eulerAngles.y > behindPlayerAngle - 90) && (playerAngle < behindPlayerAngle))
+		if(((playerAngle < behindPlayerAngle + 90) && playerAngle > behindPlayerAngle) && toBehindPlayer || (playerAngle > behindPlayerAngle - 90) && (playerAngle < behindPlayerAngle) && toBehindPlayer)
 		{
+			jumpScare = true;
 			toBehindPlayer = false;
+		}
+		if(jumpScare)
+		{
+			if((playerAngle < behindPlayerAngle + 90) && playerAngle > behindPlayerAngle)
+			{				
+				gameObject.transform.position = leftOfPlayer.transform.position;
+				jumpScare = false;
+			}
+			if((playerAngle > behindPlayerAngle - 90) && (playerAngle < behindPlayerAngle))
+			{				
+				print ("Play Animator");
+				gameObject.transform.position = rightOfPlayer.transform.position;
+				jumpScare = false;
+				player.GetComponent<Animation>().Play("RotateRight");
+			}
 		}
 		if(run)
 		{

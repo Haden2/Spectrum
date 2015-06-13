@@ -49,6 +49,7 @@ TagManager:
   - OldMan
   - Environment
   - TailDirection
+  - Animator
   layers:
   - Default
   - TransparentFX
