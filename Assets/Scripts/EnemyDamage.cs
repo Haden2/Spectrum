@@ -17,6 +17,7 @@ public class EnemyDamage : MonoBehaviour
 	GameObject BehindPlayer;
 	GameObject leftOfPlayer;
 	GameObject rightOfPlayer;
+	GameObject camera;
 	TestingNightVision testingNight;
 	Transform escapeDestination;
 	NavMeshAgent nav;
@@ -25,6 +26,7 @@ public class EnemyDamage : MonoBehaviour
 	public SphereCollider collide;
 	public float behindPlayerAngle;
 	public float playerAngle;
+	MouseLook mouseLook;
 	bool escape;
 	bool run;
 	bool seek;
@@ -57,6 +59,8 @@ public class EnemyDamage : MonoBehaviour
 		BehindPlayer = GameObject.Find ("BehindPlayer");
 		leftOfPlayer = GameObject.Find("LeftPlayer");
 		rightOfPlayer = GameObject.Find("RightPlayer");
+		camera = GameObject.FindGameObjectWithTag ("MainCamera");
+		mouseLook = (MouseLook)GameObject.Find ("Main Camera").GetComponent ("MouseLook");
 	}
 
 	void OnTriggerEnter (Collider other) 
@@ -149,7 +153,9 @@ public class EnemyDamage : MonoBehaviour
 				print ("Play Animator");
 				gameObject.transform.position = rightOfPlayer.transform.position;
 				jumpScare = false;
-				player.GetComponent<Animation>().Play("RotateRight");
+				camera.GetComponent<Animation>().Play("RotateRight");
+				mouseLook.GetComponent<MouseLook>().enabled = false;
+				//INVENTORY CLASS IS CAUSEING THE MOUSE TO KEEP WORKING
 			}
 		}
 		if(run)
