@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour {
 	GameObject elevator;
 	GameObject oldMan;
 	GameObject hG;
+	GameObject eyesHere;
+	GameObject cam;
+	public EnemyDamage enemyDamage;
 	Wander wander;
 	public Inventory inventory;
 	GameObject bigDoor;
@@ -24,12 +27,15 @@ public class PlayerController : MonoBehaviour {
 	public Vector3 downPosition;
 	public Vector3 upPosition;
 	float power;
+	public float speed;
 	float hGViewAngle = 135;
 	float oldManViewAngle = 60;
 
 	void Start()
 	{
+		eyesHere = GameObject.FindGameObjectWithTag ("EyesHere");
 		hG = GameObject.FindGameObjectWithTag ("Enemy");
+		enemyDamage = GameObject.FindGameObjectWithTag ("Enemy").GetComponent<EnemyDamage> ();
 		wander = GameObject.FindGameObjectWithTag ("OldMan").GetComponent<Wander> ();
 		elevator = GameObject.FindGameObjectWithTag ("Elevator");
 		inventory = GetComponent<Inventory> ();
@@ -41,6 +47,8 @@ public class PlayerController : MonoBehaviour {
 		isUp = false;
 		isMoving = false;
 		oldMan = GameObject.FindGameObjectWithTag ("OldMan");
+		speed = 3f;
+		cam = GameObject.FindGameObjectWithTag ("MainCamera");
 	}
 
 	void OnTriggerEnter (Collider other)
@@ -64,6 +72,20 @@ public class PlayerController : MonoBehaviour {
 
 	void Update()
 	{
+		if(enemyDamage.left || enemyDamage.right)
+		{
+			/*Vector3 targetDir = eyesHere.transform.position - transform.position;
+			float timeSpeed = speed * Time.deltaTime;
+			Vector3 newDir = Vector3.RotateTowards (cam.transform.LookAt(eyesHere.transform.position), targetDir, timeSpeed, 0.0F);
+			Debug.DrawRay(cam.transform.position, newDir, Color.red); //To the Eyes.
+			Debug.DrawRay(transform.position, newDir, Color.green); // The bodys position to the eyes.
+			transform.rotation = Quaternion.LookRotation(newDir);*/
+
+			//cam.transform.LookAt(eyesHere.transform.position);
+				Vector3 targetPoint = new Vector3(eyesHere.transform.position.x, cam.transform.position.y, eyesHere.transform.position.z) - cam.transform.position;
+				Quaternion targetRotation = Quaternion.LookRotation (targetPoint, Vector3.up);
+				cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, targetRotation, Time.deltaTime * 4.0f);
+		}
 		if(wander.attack || wander.newDestination)
 		{
 			oldManSeen = false;
@@ -105,7 +127,8 @@ public class PlayerController : MonoBehaviour {
 				{
 					oldManSeen = false;
 				}
-				Debug.DrawLine(transform.position, hit.point, Color.blue);
+				Debug.DrawLine(transform.position, hit.point, Color.white);
+
 				//print ("Looking at " + hit.transform.name);
 			}
 			if ((Vector3.Angle(rayDirection, transform.forward)) <= oldManViewAngle * 0.5f)

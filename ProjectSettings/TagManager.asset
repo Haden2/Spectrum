@@ -50,6 +50,7 @@ TagManager:
   - Environment
   - TailDirection
   - Animator
+  - EyesHere
   layers:
   - Default
   - TransparentFX

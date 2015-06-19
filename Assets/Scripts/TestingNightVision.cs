@@ -16,11 +16,13 @@ public class TestingNightVision : MonoBehaviour
 	public GameObject secondLowest;
 	public GameObject lowest;
 	public GameObject hospitalGirl;
+	public EnemyDamage enemyDamage;
 	public bool isFlashLight = true;
 
 	void Start()
 	{
 		NightVisionLight = GameObject.FindGameObjectWithTag ("NightVisionLight");
+		enemyDamage = GameObject.FindGameObjectWithTag ("Enemy").GetComponent <EnemyDamage> ();
 		blueLight = GameObject.FindGameObjectWithTag ("BlueLight");
 		top = GameObject.FindGameObjectWithTag ("Flare1");
 		secondTop = GameObject.FindGameObjectWithTag ("Flare2");

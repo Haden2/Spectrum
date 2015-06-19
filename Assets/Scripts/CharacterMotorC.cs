@@ -170,6 +170,10 @@ public class CharacterMotorC : MonoBehaviour {
 	}
 	
 	void UpdateFunction () {
+		/*if(Input.GetButtonDown("Tab"))
+		{
+			maxForwardSpeed = 10;
+		}*/
 		// We copy the actual velocity into a temporary variable that we can manipulate.
 		Vector3 velocity = movement.velocity;
 		// Update velocity based on input

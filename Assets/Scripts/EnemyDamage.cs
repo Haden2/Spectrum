@@ -5,7 +5,6 @@ using System.Collections;
 public class EnemyDamage : MonoBehaviour 
 {
 	public GameObject BlueFlashlight;
-	//TestingNightVision NightVisionLight;
 	public GameObject NightVision;
 	public float wait;
 	public float readyOrNot;
@@ -17,7 +16,7 @@ public class EnemyDamage : MonoBehaviour
 	GameObject BehindPlayer;
 	GameObject leftOfPlayer;
 	GameObject rightOfPlayer;
-	GameObject camera;
+	GameObject cam;
 	TestingNightVision testingNight;
 	Transform escapeDestination;
 	NavMeshAgent nav;
@@ -26,14 +25,27 @@ public class EnemyDamage : MonoBehaviour
 	public SphereCollider collide;
 	public float behindPlayerAngle;
 	public float playerAngle;
+	//public float camAngle;
+	//public float newCamAngle;
+	public float playerAngleReturn;
 	MouseLook mouseLook;
-	bool escape;
-	bool run;
-	bool seek;
-	bool flash;
-	bool start;
+	MouseLook playerLook;
+	public bool escape;
+	public bool run;
+	public bool seek;
+	public bool flash;
+	public bool start;
+	public bool left;
+	public bool right;
 	public bool toBehindPlayer;
-	bool jumpScare;
+	public bool jumpScare;
+	public bool dontMove;
+	public bool wasntLooking;
+	public bool wasLooking;
+	public bool notBehindMe;
+	public CharacterMotorC motor;
+	public Rigidbody rigid;
+
 
 
 	void Awake()
@@ -59,8 +71,11 @@ public class EnemyDamage : MonoBehaviour
 		BehindPlayer = GameObject.Find ("BehindPlayer");
 		leftOfPlayer = GameObject.Find("LeftPlayer");
 		rightOfPlayer = GameObject.Find("RightPlayer");
-		camera = GameObject.FindGameObjectWithTag ("MainCamera");
+		cam = GameObject.FindGameObjectWithTag ("MainCamera");
 		mouseLook = (MouseLook)GameObject.Find ("Main Camera").GetComponent ("MouseLook");
+		playerLook = (MouseLook)GameObject.Find ("First Person Controller").GetComponent ("MouseLook");
+		motor = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMotorC>();
+		rigid = gameObject.GetComponent<Rigidbody> ();
 	}
 
 	void OnTriggerEnter (Collider other) 
@@ -71,7 +86,8 @@ public class EnemyDamage : MonoBehaviour
 		}
 		if(other.gameObject == main && seek == true && start == false)
 		{
-			StartCoroutine (WaitForLight ());
+			//print ("Start Coroutine?");
+			StartCoroutine (TurnAround ());
 		}
 
 		if(other.gameObject == main && escape == true && seek == false)
@@ -82,7 +98,10 @@ public class EnemyDamage : MonoBehaviour
 		{
 			StartCoroutine (FoundMother ());
 		}
-
+		if(other.gameObject == main && dontMove)
+		{
+			StartCoroutine (WaitForLight());
+		}
 	}
 
 	IEnumerator StartGame()
@@ -93,25 +112,50 @@ public class EnemyDamage : MonoBehaviour
 		seek = true;
 	}
 
-	IEnumerator WaitForLight()
+	IEnumerator TurnAround()
 	{
 		behindPlayerAngle = main.transform.eulerAngles.y + 180;
-		print (behindPlayerAngle);
-		if(player.hGInsight)
+		if(behindPlayerAngle >= 360)
+		{
+			behindPlayerAngle = behindPlayerAngle - 360;
+		}
+		if(player.hGInsight && wasntLooking == false)
+		{
+			wasLooking = true;
+			toBehindPlayer = true;
+		}
+		if(player.hGInsight == false && wasLooking == false && notBehindMe == false)
 		{
 			toBehindPlayer = true;
-			if(behindPlayerAngle >= 360)
-			{
-				behindPlayerAngle = behindPlayerAngle - 360;
-				print (behindPlayerAngle);
-			}
-
+			wasntLooking = true;
 		}
-		//flash = false;
 		seek = false;
-		//run = true;
+		yield return null;
+	}
+	IEnumerator WaitForLight()
+	{
+		//newCamAngle = cam.transform.eulerAngles.x;
+		//print (camAngle);
+		yield return new WaitForSeconds (2);
+		dontMove = false;
+		right = false;
+		left = false;
+		mouseLook.GetComponent<MouseLook>().enabled = true;
+		playerLook.GetComponent<MouseLook>().enabled = true;
+		main.transform.rotation = Quaternion.Euler(0,playerAngleReturn,0);
+		mouseLook.transform.rotation = Quaternion.Euler (0, playerAngleReturn, 0);
+		rigid.useGravity = true;
+		motor.canControl = true;
+		cam.transform.rotation = Quaternion.Euler (0, playerAngleReturn, 0);
+		gameObject.transform.position = gameObject.transform.position + new Vector3 (0,-.5f,0);
+		flash = false;
+		seek = false;
+		run = true;
 		yield return new WaitForSeconds (wait);
-		//escape = true;
+		escape = true;
+		wasLooking = false;
+		notBehindMe = false;
+		wasntLooking = false;
 	}
 
 	IEnumerator HideAndSeek()
@@ -135,27 +179,57 @@ public class EnemyDamage : MonoBehaviour
 
 	void Update()
 	{
+		//camAngle = cam.transform.eulerAngles.x;
 		playerAngle = main.transform.eulerAngles.y;
-		if(((playerAngle < behindPlayerAngle + 90) && playerAngle > behindPlayerAngle) && toBehindPlayer || (playerAngle > behindPlayerAngle - 90) && (playerAngle < behindPlayerAngle) && toBehindPlayer)
+		if(wasntLooking)
 		{
-			jumpScare = true;
-			toBehindPlayer = false;
+			if(((playerAngle < behindPlayerAngle + 20) && playerAngle > behindPlayerAngle - 20) && toBehindPlayer || (playerAngle > behindPlayerAngle - 20) && (playerAngle < behindPlayerAngle + 20) && toBehindPlayer)
+			{
+				behindPlayerAngle = main.transform.eulerAngles.y + 180;
+				if(behindPlayerAngle >= 360)
+				{
+					behindPlayerAngle = behindPlayerAngle - 360;
+				}
+				notBehindMe = true;
+			}
+			if(((playerAngle < behindPlayerAngle + 90) && playerAngle > behindPlayerAngle) && toBehindPlayer && notBehindMe || (playerAngle > behindPlayerAngle - 90) && (playerAngle < behindPlayerAngle) && toBehindPlayer && notBehindMe)
+			{
+				jumpScare = true;
+				toBehindPlayer = false;
+			}
+			
 		}
+		if(wasntLooking == false)
+		{
+			if(((playerAngle < behindPlayerAngle + 90) && playerAngle > behindPlayerAngle) && toBehindPlayer || (playerAngle > behindPlayerAngle - 90) && (playerAngle < behindPlayerAngle) && toBehindPlayer)
+			{
+				jumpScare = true;
+				toBehindPlayer = false;
+			}
+		}
+
 		if(jumpScare)
 		{
 			if((playerAngle < behindPlayerAngle + 90) && playerAngle > behindPlayerAngle)
-			{				
+			{		
+				/*if(camAngle > 0 && camAngle < 85 && camAngle < 280)
+				{
+					print("Rotate Up");
+					cam.GetComponent<Animation>().Play("RotateUp");
+				}*/
 				gameObject.transform.position = leftOfPlayer.transform.position;
+				dontMove = true;
+				left = true;
+				//cam.GetComponent<Animation>().Play("RotateLeft");
 				jumpScare = false;
 			}
 			if((playerAngle > behindPlayerAngle - 90) && (playerAngle < behindPlayerAngle))
 			{				
-				print ("Play Animator");
 				gameObject.transform.position = rightOfPlayer.transform.position;
+				dontMove = true;
+				right = true;
+				//cam.GetComponent<Animation>().Play("RotateRight");
 				jumpScare = false;
-				camera.GetComponent<Animation>().Play("RotateRight");
-				mouseLook.GetComponent<MouseLook>().enabled = false;
-				//INVENTORY CLASS IS CAUSEING THE MOUSE TO KEEP WORKING
 			}
 		}
 		if(run)
@@ -194,6 +268,23 @@ public class EnemyDamage : MonoBehaviour
 		if(testingNight.isFlashLight == true && start == false && seek == true && run == false)
 		{
 			turnUp.speed = 1; //1
+		}
+		if(dontMove)
+		{
+			seek = true;
+			rigid.useGravity = false;
+			gameObject.transform.position = gameObject.transform.position + new Vector3 (0,.5f,0);
+			motor.canControl = false;
+			mouseLook.GetComponent<MouseLook>().enabled = false;
+			playerLook.GetComponent<MouseLook>().enabled = false;
+			if(right)
+			{
+				playerAngleReturn = main.transform.eulerAngles.y + 90;
+			}
+			if(left)
+			{
+				playerAngleReturn = main.transform.eulerAngles.y - 90;
+			}
 		}
 	}
 }
