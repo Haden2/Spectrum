@@ -24,6 +24,7 @@ public class EnemyDamage : MonoBehaviour
 	PlayerController player;
 	public SphereCollider collide;
 	public float behindPlayerAngle;
+	public float behindPlayerAngleZero;
 	public float playerAngle;
 	//public float camAngle;
 	//public float newCamAngle;
@@ -43,6 +44,7 @@ public class EnemyDamage : MonoBehaviour
 	public bool wasntLooking;
 	public bool wasLooking;
 	public bool notBehindMe;
+	public bool behindOnly;
 	public CharacterMotorC motor;
 	public Rigidbody rigid;
 
@@ -119,6 +121,11 @@ public class EnemyDamage : MonoBehaviour
 		{
 			behindPlayerAngle = behindPlayerAngle - 360;
 		}
+		if(behindPlayerAngle < 90)
+		{
+			behindPlayerAngleZero = behindPlayerAngle + 360;
+			print (behindPlayerAngleZero);
+		}
 		if(player.hGInsight && wasntLooking == false)
 		{
 			wasLooking = true;
@@ -156,6 +163,7 @@ public class EnemyDamage : MonoBehaviour
 		wasLooking = false;
 		notBehindMe = false;
 		wasntLooking = false;
+		behindOnly = false;
 	}
 
 	IEnumerator HideAndSeek()
@@ -194,17 +202,46 @@ public class EnemyDamage : MonoBehaviour
 			}
 			if(((playerAngle < behindPlayerAngle + 90) && playerAngle > behindPlayerAngle) && toBehindPlayer && notBehindMe || (playerAngle > behindPlayerAngle - 90) && (playerAngle < behindPlayerAngle) && toBehindPlayer && notBehindMe)
 			{
+				print ("Test");
 				jumpScare = true;
 				toBehindPlayer = false;
 			}
-			
+			if(((playerAngle > behindPlayerAngle + 270) && playerAngle < behindPlayerAngle + 360) && toBehindPlayer && notBehindMe)
+			{
+				print ("Test2");
+				jumpScare = true;
+				toBehindPlayer = false;
+				behindOnly = true;
+			}
+			if(((playerAngle > behindPlayerAngle - 360) && playerAngle < behindPlayerAngle - 270) && toBehindPlayer && notBehindMe)
+			{
+				print ("Test3");
+				jumpScare = true;
+				toBehindPlayer = false;
+				behindOnly = true;
+			}
+
 		}
 		if(wasntLooking == false)
 		{
 			if(((playerAngle < behindPlayerAngle + 90) && playerAngle > behindPlayerAngle) && toBehindPlayer || (playerAngle > behindPlayerAngle - 90) && (playerAngle < behindPlayerAngle) && toBehindPlayer)
 			{
+				//print ("Test1");
 				jumpScare = true;
 				toBehindPlayer = false;
+			}
+			if(((playerAngle < behindPlayerAngleZero) && playerAngle > behindPlayerAngleZero - 90) && toBehindPlayer) /*|| (playerAngle > behindPlayerAngleZero) && (playerAngle < behindPlayerAngleZero + 90) && toBehindPlayer)*/
+			{
+				//print ("Test2");
+				jumpScare = true;
+				toBehindPlayer = false;
+			}
+			if(((playerAngle > behindPlayerAngle - 360) && playerAngle < behindPlayerAngle - 270) && toBehindPlayer)
+			{
+				//print ("Test3");
+				jumpScare = true;
+				toBehindPlayer = false;
+				behindOnly = true;
 			}
 		}
 
@@ -212,23 +249,56 @@ public class EnemyDamage : MonoBehaviour
 		{
 			if((playerAngle < behindPlayerAngle + 90) && playerAngle > behindPlayerAngle)
 			{		
-				/*if(camAngle > 0 && camAngle < 85 && camAngle < 280)
-				{
-					print("Rotate Up");
-					cam.GetComponent<Animation>().Play("RotateUp");
-				}*/
+				print ("Test4");
+
 				gameObject.transform.position = leftOfPlayer.transform.position;
 				dontMove = true;
 				left = true;
-				//cam.GetComponent<Animation>().Play("RotateLeft");
 				jumpScare = false;
 			}
-			if((playerAngle > behindPlayerAngle - 90) && (playerAngle < behindPlayerAngle))
-			{				
+			if((playerAngle < behindPlayerAngleZero) && playerAngle > behindPlayerAngleZero - 90)
+			{
+				print ("Test5");
+
 				gameObject.transform.position = rightOfPlayer.transform.position;
 				dontMove = true;
 				right = true;
-				//cam.GetComponent<Animation>().Play("RotateRight");
+				jumpScare = false;
+			}
+			if((playerAngle > behindPlayerAngle - 90) && (playerAngle < behindPlayerAngle))
+			{		
+				print ("Test6");
+
+				gameObject.transform.position = rightOfPlayer.transform.position;
+				dontMove = true;
+				right = true;
+				jumpScare = false;
+			}
+			if((playerAngle > behindPlayerAngleZero) && playerAngle < behindPlayerAngleZero + 90 && behindOnly)
+			{
+				print ("Test7");
+
+				gameObject.transform.position = leftOfPlayer.transform.position;
+				dontMove = true;
+				left = true;
+				jumpScare = false;
+			}
+			if((playerAngle > behindPlayerAngleZero - 90) && playerAngle < behindPlayerAngleZero && behindOnly)
+			{		
+				print ("Test9");
+				
+				gameObject.transform.position = leftOfPlayer.transform.position;
+				dontMove = true;
+				left = true;
+				jumpScare = false;
+			}
+			if((playerAngle < behindPlayerAngleZero + 360) && playerAngle > behindPlayerAngleZero + 270 && behindOnly)
+			{
+				print ("Test8");
+				
+				gameObject.transform.position = rightOfPlayer.transform.position;
+				dontMove = true;
+				right = true;
 				jumpScare = false;
 			}
 		}

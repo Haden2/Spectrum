@@ -9168,9 +9168,8 @@ MonoBehaviour:
   radius: 0
   collide: {fileID: 0}
   behindPlayerAngle: 0
+  behindPlayerAngleZero: 0
   playerAngle: 0
-  camAngle: 0
-  newCamAngle: 0
   playerAngleReturn: 0
   escape: 0
   run: 0
@@ -9185,6 +9184,7 @@ MonoBehaviour:
   wasntLooking: 0
   wasLooking: 0
   notBehindMe: 0
+  behindOnly: 0
   motor: {fileID: 0}
   rigid: {fileID: 0}
 --- !u!1 &1784036089
