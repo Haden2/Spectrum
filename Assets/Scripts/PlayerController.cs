@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Update()
 	{
-		if(enemyDamage.left || enemyDamage.right)
+		if(enemyDamage.dontMove)
 		{
 			/*Vector3 targetDir = eyesHere.transform.position - transform.position;
 			float timeSpeed = speed * Time.deltaTime;
