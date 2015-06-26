@@ -403,8 +403,11 @@ MonoBehaviour:
   secondLowest: {fileID: 0}
   lowest: {fileID: 0}
   hospitalGirl: {fileID: 0}
+  sonarLight: {fileID: 0}
   enemyDamage: {fileID: 0}
   isFlashLight: 1
+  DoF: {fileID: 0}
+  pulse: 0
 --- !u!114 &50584749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,7 +579,12 @@ MonoBehaviour:
   hGInsight: 0
   downPosition: {x: 0, y: 0, z: 0}
   upPosition: {x: 0, y: 0, z: 0}
-  speed: 0
+  walkSpeed: 6
+  crouchSpeed: 3
+  runSpeed: 15
+  chMotor: {fileID: 0}
+  tr: {fileID: 0}
+  dist: 0
 --- !u!114 &50584753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1966,7 +1974,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 829e59d197516ca41bfaf459d42fad7a, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -4956,7 +4964,7 @@ GameObject:
   - 4: {fileID: 910146381}
   - 108: {fileID: 910146380}
   m_Layer: 0
-  m_Name: Point light
+  m_Name: SonarLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4971,8 +4979,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 2
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2.57999992
+  m_Color: {r: .292279422, g: .579538643, b: .75, a: 1}
+  m_Intensity: 4
   m_Range: 30.6299992
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -4990,7 +4998,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_Lightmapping: 4
-  m_BounceIntensity: 1
+  m_BounceIntensity: 2
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
@@ -5001,7 +5009,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 910146379}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.9000001, y: 10.9799995, z: 9.86999989}
+  m_LocalPosition: {x: 0, y: 10.9799995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -10925,6 +10933,36 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &2113123553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2113123546}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd70d448b18cfbc46af26466f752332c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualizeFocus: 0
+  focalLength: 0
+  focalSize: 0
+  aperture: 30
+  focalTransform: {fileID: 0}
+  maxBlurSize: 500
+  highResolution: 0
+  blurType: 0
+  blurSampleCount: 2
+  nearBlur: 0
+  foregroundOverlap: 1
+  dofHdrShader: {fileID: 4800000, guid: acd613035ff3e455e8abf23fdc8c8c24, type: 3}
+  dx11BokehShader: {fileID: 4800000, guid: d8e82664aa8686642a424c88ab10164a, type: 3}
+  dx11BokehThreshold: .5
+  dx11SpawnHeuristic: .0874999985
+  dx11BokehTexture: {fileID: 2800000, guid: a4cdca73d61814d33ac1587f6c163bca, type: 3}
+  dx11BokehScale: 1.20000005
+  dx11BokehIntensity: 2.5
+  focalDistance01: 10
 --- !u!1 &2119413787
 GameObject:
   m_ObjectHideFlags: 0

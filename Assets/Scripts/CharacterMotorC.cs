@@ -153,9 +153,9 @@ public class CharacterMotorC : MonoBehaviour {
 	public CharacterMotorJumping jumping = new CharacterMotorJumping();
 	public CharacterMotorMovingPlatform movingPlatform = new CharacterMotorMovingPlatform();
 	public CharacterMotorSliding sliding = new CharacterMotorSliding();
-	
+
 	[System.NonSerialized]
-	bool grounded = true;
+	public bool grounded = true;
 	
 	[System.NonSerialized]
 	Vector3 groundNormal = Vector3.zero;
@@ -170,10 +170,6 @@ public class CharacterMotorC : MonoBehaviour {
 	}
 	
 	void UpdateFunction () {
-		/*if(Input.GetButtonDown("Tab"))
-		{
-			maxForwardSpeed = 10;
-		}*/
 		// We copy the actual velocity into a temporary variable that we can manipulate.
 		Vector3 velocity = movement.velocity;
 		// Update velocity based on input
@@ -310,7 +306,6 @@ public class CharacterMotorC : MonoBehaviour {
 		if (!useFixedUpdate)
 			UpdateFunction();
 	}
-	
 	private Vector3 ApplyInputVelocityChange (Vector3 velocity) {
 		if (!canControl)
 			inputMoveDirection = Vector3.zero;

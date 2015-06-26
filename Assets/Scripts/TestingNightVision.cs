@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityStandardAssets.ImageEffects;
+
 
 [RequireComponent(typeof(Light))]
 
@@ -16,8 +18,11 @@ public class TestingNightVision : MonoBehaviour
 	public GameObject secondLowest;
 	public GameObject lowest;
 	public GameObject hospitalGirl;
+	public GameObject sonarLight;
 	public EnemyDamage enemyDamage;
 	public bool isFlashLight = true;
+	public DepthOfField DoF;
+	public bool pulse;
 
 	void Start()
 	{
@@ -32,6 +37,9 @@ public class TestingNightVision : MonoBehaviour
 		hospitalGirl = GameObject.FindGameObjectWithTag ("Enemy");
 		NightVisionLight.SetActive(false);
 		blueLight.GetComponent<Light>().intensity = 2;
+		DoF = Camera.main.GetComponent<DepthOfField>();
+		sonarLight = GameObject.Find ("SonarLight");
+		sonarLight.SetActive (false);
 	}
 	
 	void Update()
@@ -49,6 +57,38 @@ public class TestingNightVision : MonoBehaviour
 			isFlashLight = true;
 			NightVisionLight.SetActive(false);
 			blueLight.GetComponent<Light>().intensity = 2;
+		}
+		if(Input.GetKeyDown("3"))
+		{
+			isNightVision = false;
+			isFlashLight = false;
+			DoF.enabled = true;
+			sonarLight.SetActive(true);
+		}
+		if(DoF.isActiveAndEnabled)
+		{
+			if(Input.GetKeyDown ("y"))
+			{
+				pulse = true;
+			}
+		}
+		if(pulse)
+		{
+			DoF.focalLength += 20*Time.deltaTime;
+			if(DoF.focalLength > 50)
+			{
+				DoF.focalLength = 0;
+				pulse = false;
+			}
+		}
+		if(isFlashLight == false)
+		{
+			top.SetActive(false);
+			secondTop.SetActive(false);
+			middle.SetActive(false);
+			secondLowest.SetActive(false);
+			lowest.SetActive(false);
+			blueLight.GetComponent<Light>().intensity = 0;
 		}
 	}
 	

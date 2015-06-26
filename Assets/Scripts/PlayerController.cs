@@ -27,9 +27,14 @@ public class PlayerController : MonoBehaviour {
 	public Vector3 downPosition;
 	public Vector3 upPosition;
 	float power;
-	public float speed;
 	float hGViewAngle = 135;
 	float oldManViewAngle = 60;
+	public float walkSpeed = 6;
+	public float crouchSpeed = 3;
+	public float runSpeed = 15;
+	public CharacterMotorC chMotor;
+	public Transform tr;
+	public float dist;
 
 	void Start()
 	{
@@ -47,8 +52,11 @@ public class PlayerController : MonoBehaviour {
 		isUp = false;
 		isMoving = false;
 		oldMan = GameObject.FindGameObjectWithTag ("OldMan");
-		speed = 3f;
 		cam = GameObject.FindGameObjectWithTag ("MainCamera");
+		chMotor =  GetComponent<CharacterMotorC>();
+		tr = transform;
+		CharacterController ch = GetComponent<CharacterController>();
+		dist = ch.height/2; // calculate distance to ground
 	}
 
 	void OnTriggerEnter (Collider other)
@@ -72,6 +80,45 @@ public class PlayerController : MonoBehaviour {
 
 	void Update()
 	{
+		//print (chMotor.movement.velocity);
+		float vScale = 1.0f;
+		float speed = walkSpeed;
+		
+		if ((Input.GetKey ("left shift") || Input.GetKey ("right shift")) && chMotor.grounded && chMotor.movement.velocity != new Vector3 (0,0,0)) 
+		{
+			speed = runSpeed; 
+			Camera.main.fieldOfView += 40 * Time.deltaTime;
+			if (Camera.main.fieldOfView > 60) {
+				Camera.main.fieldOfView = 60;
+			}
+		} else {
+			Camera.main.fieldOfView -= 40 *Time.deltaTime;
+			if(Camera.main.fieldOfView <=50)
+			{
+				Camera.main.fieldOfView = 50;
+			}
+		}
+		
+		if (Input.GetKey("c"))
+		{ // press C to crouch
+			vScale = 0.5f;
+			speed = crouchSpeed; // slow down when crouching
+		}
+		
+		chMotor.movement.maxForwardSpeed = speed; // set max speed
+		float ultScale = tr.localScale.y; // crouch/stand up smoothly 
+		
+		Vector3 tmpScale = tr.localScale;
+		Vector3 tmpPosition = tr.position;
+		
+		tmpScale.y = Mathf.Lerp(tr.localScale.y, vScale, 5 * Time.deltaTime);
+		tr.localScale = tmpScale;
+		
+		tmpPosition.y += dist * (tr.localScale.y - ultScale); // fix vertical position        
+		tr.position = tmpPosition;
+
+		////////////////////////////////////////////////////////////////////////////////////////////
+
 		if(enemyDamage.dontMove)
 		{
 			/*Vector3 targetDir = eyesHere.transform.position - transform.position;
