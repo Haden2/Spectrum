@@ -48,6 +48,7 @@ public class Inventory : MonoBehaviour
 	public bool showInventory;
 	private ItemDatabase database;
 	public CollectItem collect;
+	public EnemyDamage enemyDamage;
 	private bool showTooltip;
 	private string tooltip;
 	private bool draggingItem;
@@ -84,7 +85,7 @@ public class Inventory : MonoBehaviour
 		holdingAnatomy = GameObject.FindGameObjectWithTag ("Anatomy");
 		holdingTicket = GameObject.FindGameObjectWithTag ("Ticket");
 		holdingElevatorKey = GameObject.FindGameObjectWithTag ("ElevatorKey");
-
+		enemyDamage = GameObject.FindGameObjectWithTag ("Enemy").GetComponent<EnemyDamage> (); 
 
 		playerCameraLook = (MouseLook)GameObject.Find ("Main Camera").GetComponent ("MouseLook");
 		//AddItem (0);
@@ -1030,6 +1031,7 @@ public class Inventory : MonoBehaviour
 
 	IEnumerator UnPauseGame()
 	{
+		if(unPause /*&& enemyDamage.dontMove == false*/)
 		unPause = true;
 		pause = false;
 		Cursor.visible = false;

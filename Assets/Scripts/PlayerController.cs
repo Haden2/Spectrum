@@ -5,6 +5,12 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	GameObject elevator;
+	GameObject oldMan;
+	GameObject hG;
+	GameObject eyesHere;
+	GameObject cam;
+	public EnemyDamage enemyDamage;
+	Wander wander;
 	public Inventory inventory;
 	GameObject bigDoor;
 	GameObject littleDoor;
@@ -15,11 +21,27 @@ public class PlayerController : MonoBehaviour {
 	public bool isDown;
 	public bool isUp;
 	public bool isMoving;
+	public bool oldManSeen;
+	public bool peripheral;
+	public bool hGInsight;
 	public Vector3 downPosition;
 	public Vector3 upPosition;
+	float power;
+	float hGViewAngle = 135;
+	float oldManViewAngle = 60;
+	public float walkSpeed = 6;
+	public float crouchSpeed = 3;
+	public float runSpeed = 15;
+	public CharacterMotorC chMotor;
+	public Transform tr;
+	public float dist;
 
 	void Start()
 	{
+		eyesHere = GameObject.FindGameObjectWithTag ("EyesHere");
+		hG = GameObject.FindGameObjectWithTag ("Enemy");
+		enemyDamage = GameObject.FindGameObjectWithTag ("Enemy").GetComponent<EnemyDamage> ();
+		wander = GameObject.FindGameObjectWithTag ("OldMan").GetComponent<Wander> ();
 		elevator = GameObject.FindGameObjectWithTag ("Elevator");
 		inventory = GetComponent<Inventory> ();
 		bigDoor = GameObject.FindGameObjectWithTag ("BigDoor");
@@ -29,6 +51,12 @@ public class PlayerController : MonoBehaviour {
 		isDown = true;
 		isUp = false;
 		isMoving = false;
+		oldMan = GameObject.FindGameObjectWithTag ("OldMan");
+		cam = GameObject.FindGameObjectWithTag ("MainCamera");
+		chMotor =  GetComponent<CharacterMotorC>();
+		tr = transform;
+		CharacterController ch = GetComponent<CharacterController>();
+		dist = ch.height/2; // calculate distance to ground
 	}
 
 	void OnTriggerEnter (Collider other)
@@ -52,6 +80,63 @@ public class PlayerController : MonoBehaviour {
 
 	void Update()
 	{
+		//print (chMotor.movement.velocity);
+		float vScale = 1.0f;
+		float speed = walkSpeed;
+		
+		if ((Input.GetKey ("left shift") || Input.GetKey ("right shift")) && chMotor.grounded && chMotor.movement.velocity != new Vector3 (0,0,0)) 
+		{
+			speed = runSpeed; 
+			Camera.main.fieldOfView += 40 * Time.deltaTime;
+			if (Camera.main.fieldOfView > 60) {
+				Camera.main.fieldOfView = 60;
+			}
+		} else {
+			Camera.main.fieldOfView -= 40 *Time.deltaTime;
+			if(Camera.main.fieldOfView <=50)
+			{
+				Camera.main.fieldOfView = 50;
+			}
+		}
+		
+		if (Input.GetKey("c"))
+		{ // press C to crouch
+			vScale = 0.5f;
+			speed = crouchSpeed; // slow down when crouching
+		}
+		
+		chMotor.movement.maxForwardSpeed = speed; // set max speed
+		float ultScale = tr.localScale.y; // crouch/stand up smoothly 
+		
+		Vector3 tmpScale = tr.localScale;
+		Vector3 tmpPosition = tr.position;
+		
+		tmpScale.y = Mathf.Lerp(tr.localScale.y, vScale, 5 * Time.deltaTime);
+		tr.localScale = tmpScale;
+		
+		tmpPosition.y += dist * (tr.localScale.y - ultScale); // fix vertical position        
+		tr.position = tmpPosition;
+
+		////////////////////////////////////////////////////////////////////////////////////////////
+
+		if(enemyDamage.dontMove)
+		{
+			/*Vector3 targetDir = eyesHere.transform.position - transform.position;
+			float timeSpeed = speed * Time.deltaTime;
+			Vector3 newDir = Vector3.RotateTowards (cam.transform.LookAt(eyesHere.transform.position), targetDir, timeSpeed, 0.0F);
+			Debug.DrawRay(cam.transform.position, newDir, Color.red); //To the Eyes.
+			Debug.DrawRay(transform.position, newDir, Color.green); // The bodys position to the eyes.
+			transform.rotation = Quaternion.LookRotation(newDir);*/
+
+			//cam.transform.LookAt(eyesHere.transform.position);
+				Vector3 targetPoint = new Vector3(eyesHere.transform.position.x, cam.transform.position.y, eyesHere.transform.position.z) - cam.transform.position;
+				Quaternion targetRotation = Quaternion.LookRotation (targetPoint, Vector3.up);
+				cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, targetRotation, Time.deltaTime * 4.0f);
+		}
+		if(wander.attack || wander.newDestination)
+		{
+			oldManSeen = false;
+		}
 		if(elevatorDoor && inventory.activeElevatorKey && canActive == true && Input.GetKeyDown("e"))
 		{
 			littleDoor.GetComponent<Animation>().Play("SmallElevatorDoor");
@@ -73,7 +158,51 @@ public class PlayerController : MonoBehaviour {
 		{
 			canActive = true;
 		}
+	
+		{
+			RaycastHit hit;
+			Vector3 rayDirection = oldMan.transform.position - transform.position;
+			Vector3 hGDirection = hG.transform.position - transform.position;
+			Ray ray = Camera.main.ViewportPointToRay(new Vector3(.5F, 0.5F, 0));
+			if(Physics.Raycast(ray, out hit, 20))
+			{
+				if(hit.transform.tag == "OldMan")
+				{
+					oldManSeen = true;
+				}
+				else
+				{
+					oldManSeen = false;
+				}
+				Debug.DrawLine(transform.position, hit.point, Color.white);
 
+				//print ("Looking at " + hit.transform.name);
+			}
+			if ((Vector3.Angle(rayDirection, transform.forward)) <= oldManViewAngle * 0.5f)
+			{
+				peripheral = true;
+			}
+			else
+			{
+				peripheral = false;
+			}
+			if((Vector3.Angle(rayDirection, transform.forward)) > oldManViewAngle * 0.5f)
+			{
+				oldManSeen = false;
+			}
+			if((Camera.main.transform.eulerAngles.x <= 330f && Camera.main.transform.eulerAngles.x > 60f))
+			{
+				peripheral = false;
+			}
+			if((Vector3.Angle(hGDirection, transform.forward)) <= hGViewAngle * 0.5f)
+			{
+				hGInsight = true;
+			}
+			else
+			{
+				hGInsight = false;
+			}
+		}
 	}
 	IEnumerator CanMoveUp()
 	{

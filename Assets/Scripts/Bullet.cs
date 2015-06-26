@@ -4,43 +4,51 @@ using System.Collections;
 public class Bullet : MonoBehaviour {
 
 	public Rigidbody projectile; //Prefab bullet
-	public Rigidbody rockProjectile;
 	public Transform bulletLocation;
-	public Transform rockLocation;
+	public GameObject bulletHole;
 	public CollectItem collect;
-	public int shootingPower;
-	public int throwingPower;
 	public Inventory inventory;
-
-	// Use this for initialization
+	public int shootingPower;
+	public bool oldManShot;
+	
 	void Start () 
 	{
 		projectile = projectile.GetComponent<Rigidbody> ();
-		rockProjectile = rockProjectile.GetComponent<Rigidbody> ();
 		shootingPower = 150;
-		throwingPower = 20;
 		inventory = GameObject.FindGameObjectWithTag ("Player").GetComponent<Inventory>();
 		collect = GameObject.FindGameObjectWithTag ("Player").GetComponent<CollectItem> ();
 	}
-	
-	// Update is called once per frame
+
 	void Update () 
 	{
 		if(Input.GetButtonDown ("Fire1") && inventory.showInventory == false && inventory.firstShot && inventory.activeGun)
 		{
-			print ("shooting");
 			Rigidbody clone = Instantiate(projectile, bulletLocation.transform.position, bulletLocation.transform.rotation) as Rigidbody;
 			clone.velocity = bulletLocation.transform.TransformDirection (Vector3.up * shootingPower);
-		}
-		if(Input.GetButtonDown("Fire1") && inventory.showInventory == false && inventory.firstThrow)
-		{
-			//rockProjectile.maxAngularVelocity = 10;
-			print ("throwing");
-			Rigidbody clone = Instantiate(rockProjectile, rockLocation.transform.position, rockLocation.transform.rotation) as Rigidbody;
-			clone.velocity = rockLocation.transform.TransformDirection (Vector3.forward * throwingPower);
-			inventory.activeRock = false;
-			collect.rockIsGot = false;
 
+			RaycastHit hit;
+			Ray ray = new Ray(transform.position, transform.up);
+			if(Physics.Raycast(ray, out hit, 100f))
+			{
+				GameObject targetGameObject = hit.collider.gameObject; // What's the GameObject?
+				print (targetGameObject);
+				if(hit.transform.tag == "OldMan")
+				{
+					oldManShot = true;
+				}
+				if(hit.transform.tag == "Environment")
+				{
+					Instantiate(bulletHole, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+				}
+			}
+			Debug.DrawLine(transform.position, hit.point, Color.green);
+			/*if(Physics.Raycast (rayOrigin, Vector3.forward, out hitInfo))
+			{
+				if(hitInfo.rigidbody != null)
+				{
+					hitInfo.rigidbody.AddForceAtPosition(rayOrigin.direction * power, hitInfo.point);
+				}
+			}*/
 		}
 	}
 }

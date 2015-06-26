@@ -46,6 +46,11 @@ TagManager:
   - LeftLeg
   - Extra
   - Surgeon
+  - OldMan
+  - Environment
+  - TailDirection
+  - Animator
+  - EyesHere
   layers:
   - Default
   - TransparentFX
