@@ -7685,7 +7685,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1353508735}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -1.62920685e-07}
   m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -9168,7 +9168,7 @@ MonoBehaviour:
   radius: 0
   collide: {fileID: 0}
   setPoint: 0
-  newPoint: 0
+  behindPoint: 0
   rightPoint: 0
   leftPoint: 0
   playerAngle: 0
@@ -9178,10 +9178,7 @@ MonoBehaviour:
   seek: 0
   flash: 0
   start: 0
-  left: 0
-  right: 0
   toBehindPlayer: 0
-  jumpScare: 0
   dontMove: 0
   wasntLooking: 0
   wasLooking: 0

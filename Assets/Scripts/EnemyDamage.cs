@@ -24,12 +24,10 @@ public class EnemyDamage : MonoBehaviour
 	PlayerController player;
 	public SphereCollider collide;
 	public float setPoint;
-	public float newPoint;
+	public float behindPoint;
 	public float rightPoint;
 	public float leftPoint;
 	public float playerAngle;
-	//public float camAngle;
-	//public float newCamAngle;
 	public float playerAngleReturn;
 	MouseLook mouseLook;
 	MouseLook playerLook;
@@ -38,10 +36,7 @@ public class EnemyDamage : MonoBehaviour
 	public bool seek;
 	public bool flash;
 	public bool start;
-	public bool left;
-	public bool right;
 	public bool toBehindPlayer;
-	public bool jumpScare;
 	public bool dontMove;
 	public bool wasntLooking;
 	public bool wasLooking;
@@ -92,6 +87,16 @@ public class EnemyDamage : MonoBehaviour
 		}
 		if(other.gameObject == main && seek == true && start == false)
 		{
+			if(player.hGInsight == true)
+			{
+				wasLooking = true;
+				wasntLooking = false;
+			}
+			if(player.hGInsight == false)
+			{
+				wasntLooking = true;
+				wasLooking = false;
+			}
 			//print ("Start Coroutine?");
 			StartCoroutine (TurnAround ());
 		}
@@ -123,18 +128,16 @@ public class EnemyDamage : MonoBehaviour
 		setPoint = main.transform.eulerAngles.y;
 		leftPoint = leftOfPlayer.transform.eulerAngles.y;
 		rightPoint = rightOfPlayer.transform.eulerAngles.y;
-		notBehindMe = true;
-		/*if(player.hGInsight && wasntLooking == false)
+
+		if(wasntLooking && dontMove == false)
 		{
-			wasLooking = true;
+			behindPoint = BehindPlayer.transform.eulerAngles.y;
+			//notBehindMe = false;
+			//Possible issue here
+			behindOnly = true;
 			toBehindPlayer = true;
 		}
-		if(player.hGInsight == false && wasLooking == false && notBehindMe == false)
-		{
-			toBehindPlayer = true;
-			wasntLooking = true;
-		}*/
-		if(player.hGInsight)
+		if(wasLooking && dontMove == false)
 		{
 			toBehindPlayer = true;
 		}
@@ -147,8 +150,6 @@ public class EnemyDamage : MonoBehaviour
 		//print (camAngle);
 		yield return new WaitForSeconds (2);
 		dontMove = false;
-		right = false;
-		left = false;
 		mouseLook.GetComponent<MouseLook>().enabled = true;
 		playerLook.GetComponent<MouseLook>().enabled = true;
 		main.transform.rotation = Quaternion.Euler(0,playerAngleReturn,0);
@@ -191,216 +192,50 @@ public class EnemyDamage : MonoBehaviour
 	{
 		playerAngle = main.transform.eulerAngles.y;
 
-		if(playerAngle > leftPoint - 10 && playerAngle < leftPoint + 1 && notBehindMe)
+		if(playerAngle > leftPoint - 10 && playerAngle < leftPoint + 1 && toBehindPlayer && wasLooking)
 		{
+		//	print("Test1");
 			gameObject.transform.position = leftOfPlayer.transform.position;
 			playerAngleReturn = main.transform.eulerAngles.y - 90;
-			notBehindMe = false;
 			toBehindPlayer = false;
 			dontMove = true;
 		}
-		if(playerAngle > rightPoint - 1 && playerAngle < rightPoint + 10 && notBehindMe)
+		if(playerAngle > rightPoint - 1 && playerAngle < rightPoint + 10 && toBehindPlayer && wasLooking)
 		{
+		//	print("Test2");
 			gameObject.transform.position = rightOfPlayer.transform.position;
 			playerAngleReturn = main.transform.eulerAngles.y + 90;
-			notBehindMe = false;
 			toBehindPlayer = false;
 			dontMove = true;
 		}
-		/*if (playerAngle < left || playerAngle > 90) {
-			notBehindMe = true;
-		} else {
-			notBehindMe = false;
-		}
-		//camAngle = cam.transform.eulerAngles.x;
-		playerAngle = main.transform.eulerAngles.y;
-		if(setPoint > 0f && setPoint < 90 && toBehindPlayer)
+		if(behindOnly)
 		{
-			print ("1");
-			if(playerAngle > setPoint + 90 && notBehindMe == false)
+			//print ("Test3");
+			if(playerAngle > behindPoint - 10 && playerAngle < behindPoint + 10)
 			{
-				print ("1A");
-				gameObject.transform.position = rightOfPlayer.transform.position;
-				//playerAngleReturn = main.transform.eulerAngles.y + 90;
-				toBehindPlayer = false;
-				dontMove = true;
-			}
-			if(playerAngle < 360f && playerAngle > 270)
-			{
-				print ("1B");
-				newPoint = setPoint + 270;
-				if(playerAngle < newPoint)
-				{
-					print ("1C");
-					gameObject.transform.position = leftOfPlayer.transform.position;
-				//	playerAngleReturn = main.transform.eulerAngles.y - 90;
-					toBehindPlayer = false;
-					dontMove = true;
-				}
-			}
-		}
-
-		if(setPoint > 90 && setPoint < 270 && toBehindPlayer)
-		{
-			print ("2");
-			if(playerAngle > setPoint + 90)
-			{
-				print ("2A");
-				gameObject.transform.position = rightOfPlayer.transform.position;
-				//playerAngleReturn = main.transform.eulerAngles.y + 90;
-				toBehindPlayer = false;
-				dontMove = true;
-			}
-			if(playerAngle < setPoint - 90)
-			{
-				print ("2B");
-				gameObject.transform.position = leftOfPlayer.transform.position;
-				//playerAngleReturn = main.transform.eulerAngles.y - 90;
-				toBehindPlayer = false;
-				dontMove = true;
-			}
-		}
-
-		if(setPoint > 270 && setPoint < 360f && toBehindPlayer)
-		{
-			print ("3");
-			if(playerAngle < setPoint - 90)
-			{
-				print ("3A");
-				gameObject.transform.position = leftOfPlayer.transform.position;
-				//playerAngleReturn = main.transform.eulerAngles.y - 90;
-				toBehindPlayer = false;
-				dontMove = true;
-			}
-			if(playerAngle > .1f && playerAngle < 90)
-			{
-				print ("3B");
-				newPoint = setPoint - 270;
-				if(playerAngle > newPoint)
-				{
-					print ("3C");
-					gameObject.transform.position = rightOfPlayer.transform.position;
-					//playerAngleReturn = main.transform.eulerAngles.y + 90;
-					toBehindPlayer = false;
-					dontMove = true;
-				}
-			}
-		}
-		///////////////////////
-
-		if(wasntLooking)
-		{
-			if(((playerAngle < behindPlayerAngle + 20) && playerAngle > behindPlayerAngle - 20) && toBehindPlayer || (playerAngle > behindPlayerAngle - 20) && (playerAngle < behindPlayerAngle + 20) && toBehindPlayer)
-			{
-				behindPlayerAngle = main.transform.eulerAngles.y + 180;
-				if(behindPlayerAngle >= 360)
-				{
-					behindPlayerAngle = behindPlayerAngle - 360;
-				}
+				//print ("Test4");
 				notBehindMe = true;
 			}
-			if(((playerAngle < behindPlayerAngle + 90) && playerAngle > behindPlayerAngle) && toBehindPlayer && notBehindMe || (playerAngle > behindPlayerAngle - 90) && (playerAngle < behindPlayerAngle) && toBehindPlayer && notBehindMe)
+			if(playerAngle > rightPoint - 10 && playerAngle < rightPoint + 10 && toBehindPlayer && notBehindMe)
 			{
-				print ("Test");
-				jumpScare = true;
+				//print ("Test5");
+				gameObject.transform.position = leftOfPlayer.transform.position;
+				playerAngleReturn = main.transform.eulerAngles.y - 90;
+				notBehindMe = false;
 				toBehindPlayer = false;
+				dontMove = true;
 			}
-			if(((playerAngle > behindPlayerAngle + 270) && playerAngle < behindPlayerAngle + 360) && toBehindPlayer && notBehindMe)
+			if(playerAngle > leftPoint - 10 && playerAngle < leftPoint + 10 && toBehindPlayer && notBehindMe)
 			{
-				print ("Test2");
-				jumpScare = true;
+				//print ("Test6");
+				gameObject.transform.position = rightOfPlayer.transform.position;
+				playerAngleReturn = main.transform.eulerAngles.y + 90;
+				notBehindMe = false;
 				toBehindPlayer = false;
-				behindOnly = true;
-			}
-			if(((playerAngle > behindPlayerAngle - 360) && playerAngle < behindPlayerAngle - 270) && toBehindPlayer && notBehindMe)
-			{
-				print ("Test3");
-				jumpScare = true;
-				toBehindPlayer = false;
-				behindOnly = true;
-			}
-
-		}
-		if(wasntLooking == false)
-		{
-			if(((playerAngle < behindPlayerAngle + 90) && playerAngle > behindPlayerAngle) && toBehindPlayer || (playerAngle > behindPlayerAngle - 90) && (playerAngle < behindPlayerAngle) && toBehindPlayer)
-			{
-				//print ("Test1");
-				jumpScare = true;
-				toBehindPlayer = false;
-			}
-			if(((playerAngle < behindPlayerAngleZero) && playerAngle > behindPlayerAngleZero - 90) && toBehindPlayer) || (playerAngle > behindPlayerAngleZero) && (playerAngle < behindPlayerAngleZero + 90) && toBehindPlayer)
-			{
-				//print ("Test2");
-				jumpScare = true;
-				toBehindPlayer = false;
-			}
-			if(((playerAngle > behindPlayerAngle - 360) && playerAngle < behindPlayerAngle - 270) && toBehindPlayer)
-			{
-				//print ("Test3");
-				jumpScare = true;
-				toBehindPlayer = false;
-				behindOnly = true;
+				dontMove = true;
 			}
 		}
 
-		if(jumpScare)
-		{
-			if((playerAngle < behindPlayerAngle + 90) && playerAngle > behindPlayerAngle)
-			{		
-				print ("Test4");
-
-				gameObject.transform.position = leftOfPlayer.transform.position;
-				dontMove = true;
-				left = true;
-				jumpScare = false;
-			}
-			if((playerAngle < behindPlayerAngleZero) && playerAngle > behindPlayerAngleZero - 90)
-			{
-				print ("Test5");
-
-				gameObject.transform.position = rightOfPlayer.transform.position;
-				dontMove = true;
-				right = true;
-				jumpScare = false;
-			}
-			if((playerAngle > behindPlayerAngle - 90) && (playerAngle < behindPlayerAngle))
-			{		
-				print ("Test6");
-
-				gameObject.transform.position = rightOfPlayer.transform.position;
-				dontMove = true;
-				right = true;
-				jumpScare = false;
-			}
-			if((playerAngle > behindPlayerAngleZero) && playerAngle < behindPlayerAngleZero + 90 && behindOnly)
-			{
-				print ("Test7");
-
-				gameObject.transform.position = leftOfPlayer.transform.position;
-				dontMove = true;
-				left = true;
-				jumpScare = false;
-			}
-			if((playerAngle > behindPlayerAngleZero - 90) && playerAngle < behindPlayerAngleZero && behindOnly)
-			{		
-				print ("Test9");
-				
-				gameObject.transform.position = leftOfPlayer.transform.position;
-				dontMove = true;
-				left = true;
-				jumpScare = false;
-			}
-			if((playerAngle < behindPlayerAngleZero + 360) && playerAngle > behindPlayerAngleZero + 270 && behindOnly)
-			{
-				print ("Test8");
-				
-				gameObject.transform.position = rightOfPlayer.transform.position;
-				dontMove = true;
-				right = true;
-				jumpScare = false;
-			}
-		}*/
 		if(run)
 		{
 			nav.SetDestination(escapeDestination.position);
@@ -448,14 +283,6 @@ public class EnemyDamage : MonoBehaviour
 			motor.canControl = false;
 			mouseLook.GetComponent<MouseLook>().enabled = false;
 			playerLook.GetComponent<MouseLook>().enabled = false;
-			if(right)
-			{
-				playerAngleReturn = main.transform.eulerAngles.y + 90;
-			}
-			if(left)
-			{
-				playerAngleReturn = main.transform.eulerAngles.y - 90;
-			}
 		}
 	}
 }
