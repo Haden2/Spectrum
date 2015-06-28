@@ -10,6 +10,7 @@ public class TestingNightVision : MonoBehaviour
 	public Texture2D greenStatic;
 	public bool isNightVision = false;
 	public float fAlpha = 0.35F;
+	public float blackAlpha = 100F;
 	public GameObject NightVisionLight;
 	public GameObject blueLight;
 	public GameObject top;
@@ -23,6 +24,9 @@ public class TestingNightVision : MonoBehaviour
 	public bool isFlashLight = true;
 	public DepthOfField DoF;
 	public bool pulse;
+	public bool ready;
+	public Texture2D Black;
+
 
 	void Start()
 	{
@@ -70,15 +74,17 @@ public class TestingNightVision : MonoBehaviour
 			if(Input.GetKeyDown ("y"))
 			{
 				pulse = true;
+				ready = false;
 			}
 		}
 		if(pulse)
 		{
 			DoF.focalLength += 20*Time.deltaTime;
-			if(DoF.focalLength > 50)
+			if(DoF.focalLength > 40)
 			{
 				DoF.focalLength = 0;
 				pulse = false;
+				ready = true;
 			}
 		}
 		if(isFlashLight == false)
@@ -116,6 +122,26 @@ public class TestingNightVision : MonoBehaviour
 			secondLowest.SetActive(true);
 			lowest.SetActive(true);
 		}
-
+		if(DoF.isActiveAndEnabled && pulse == false)
+		{
+			blackAlpha = 100f;
+			var colPreviousGUIColor = GUI.color;
+			GUI.color = new Color(colPreviousGUIColor.r, colPreviousGUIColor.g, colPreviousGUIColor.b, blackAlpha);
+			GUI.DrawTexture(new Rect(0.0F, 0.0F, Screen.width, Screen.height), Black); 
+		}
+		if(pulse)
+		{
+			blackAlpha = 0;
+			var colPreviousGUIColor = GUI.color;
+			GUI.color = new Color(colPreviousGUIColor.r, colPreviousGUIColor.g, colPreviousGUIColor.b, blackAlpha);
+			GUI.DrawTexture(new Rect(0.0F, 0.0F, Screen.width, Screen.height), Black); 
+		}
+		if(ready)
+		{
+			blackAlpha = 100f;
+			var colPreviousGUIColor = GUI.color;
+			GUI.color = new Color(colPreviousGUIColor.r, colPreviousGUIColor.g, colPreviousGUIColor.b, blackAlpha);
+			GUI.DrawTexture(new Rect(0.0F, 0.0F, Screen.width, Screen.height), Black); 
+		}
 	}
 }
