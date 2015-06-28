@@ -78,6 +78,12 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	void OnParticleCollision(GameObject other)
+	{
+		print (gameObject.name);
+		//gameObject.SetActive (false);
+	}
+	
 	void Update()
 	{
 		//print (chMotor.movement.velocity);
