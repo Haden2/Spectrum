@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: EchoMultiTexture
+  m_Shader: {fileID: 4800000, guid: 98893f6e6758b1e478fad5d19b5e8032, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: ab5bb3eb247a4492fa9900f6ac0db050, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _EchoTex
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _Radius
+        second: 1.04765761
+      data:
+        first:
+          name: _MaxRadius
+        second: 10
+      data:
+        first:
+          name: _EchoFade
+        second: 0
+      data:
+        first:
+          name: _MaxFade
+        second: 10
+      data:
+        first:
+          name: _DistanceFade
+        second: 1
+      data:
+        first:
+          name: _DistanceFade1
+        second: 1
+      data:
+        first:
+          name: _DistanceFade2
+        second: 1
+      data:
+        first:
+          name: _DistanceFade3
+        second: 1
+      data:
+        first:
+          name: _DistanceFade4
+        second: 1
+      data:
+        first:
+          name: _DistanceFade5
+        second: 1
+      data:
+        first:
+          name: _DistanceFade6
+        second: 1
+      data:
+        first:
+          name: _DistanceFade7
+        second: 1
+      data:
+        first:
+          name: _DistanceFade8
+        second: 1
+      data:
+        first:
+          name: _DistanceFade9
+        second: 1
+      data:
+        first:
+          name: _DistanceFade00
+        second: 1
+      data:
+        first:
+          name: _DistanceFade000
+        second: 1
+      data:
+        first:
+          name: _DistanceFade0000
+        second: 1
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _MainColor
+        second: {r: .574626863, g: .574626863, b: .574626863, a: 0}
+      data:
+        first:
+          name: _Position
+        second: {r: -45.8756371, g: 42.4952469, b: -33.890152, a: 0}

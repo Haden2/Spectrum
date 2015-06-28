@@ -1,0 +1,284 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: EchoMultiProperty
+  m_Shader: {fileID: 4800000, guid: 1edd28e4d5441964d9a8beea7365cb94, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: ab5bb3eb247a4492fa9900f6ac0db050, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _EchoTex
+        second:
+          m_Texture: {fileID: 2800000, guid: d3b7d84ffb95cc04aaeb74f19a10f034, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _MaxRadius
+        second: 20
+      data:
+        first:
+          name: _MaxFade
+        second: 2.22222233
+      data:
+        first:
+          name: _DistanceFade
+        second: 1
+      data:
+        first:
+          name: _Radius0
+        second: 9.4018259
+      data:
+        first:
+          name: _Radius1
+        second: 12.4346704
+      data:
+        first:
+          name: _Radius2
+        second: 10.9182491
+      data:
+        first:
+          name: _Fade0
+        second: 1.04464722
+      data:
+        first:
+          name: _Fade1
+        second: 1.38162959
+      data:
+        first:
+          name: _Fade2
+        second: 1.21313858
+      data:
+        first:
+          name: _Fade3
+        second: 0
+      data:
+        first:
+          name: _Fade4
+        second: 0
+      data:
+        first:
+          name: _Fade5
+        second: 0
+      data:
+        first:
+          name: _Fade6
+        second: 0
+      data:
+        first:
+          name: _Fade7
+        second: 0
+      data:
+        first:
+          name: _Fade8
+        second: 0
+      data:
+        first:
+          name: _Fade9
+        second: 0
+      data:
+        first:
+          name: _Fade12
+        second: 0
+      data:
+        first:
+          name: _Fade112
+        second: 0
+      data:
+        first:
+          name: _Fade1112
+        second: 0
+      data:
+        first:
+          name: _Fade10
+        second: 0
+      data:
+        first:
+          name: _Fade11
+        second: 0
+      data:
+        first:
+          name: _Fade13
+        second: 0
+      data:
+        first:
+          name: _Fade14
+        second: 0
+      data:
+        first:
+          name: _Fade15
+        second: 0
+      data:
+        first:
+          name: _Fade16
+        second: 0
+      data:
+        first:
+          name: _Fade17
+        second: 0
+      data:
+        first:
+          name: _Fade18
+        second: 0
+      data:
+        first:
+          name: _Fade19
+        second: 0
+      data:
+        first:
+          name: _Fade20
+        second: 0
+      data:
+        first:
+          name: _Fade21
+        second: 0
+      data:
+        first:
+          name: _Fade22
+        second: 0
+      data:
+        first:
+          name: _Fade23
+        second: 0
+      data:
+        first:
+          name: _Fade24
+        second: 0
+      data:
+        first:
+          name: _Fade25
+        second: 0
+      data:
+        first:
+          name: _Fade26
+        second: 0
+      data:
+        first:
+          name: _Fade27
+        second: 0
+      data:
+        first:
+          name: _Fade28
+        second: 0
+      data:
+        first:
+          name: _Fade29
+        second: 0
+      data:
+        first:
+          name: _Fade30
+        second: 0
+      data:
+        first:
+          name: _Fade31
+        second: 0
+      data:
+        first:
+          name: _Fade32
+        second: 0
+      data:
+        first:
+          name: _Fade33
+        second: 0
+      data:
+        first:
+          name: _Fade34
+        second: 0
+      data:
+        first:
+          name: _Fade35
+        second: 0
+      data:
+        first:
+          name: _Fade36
+        second: 0
+      data:
+        first:
+          name: _Fade37
+        second: 0
+      data:
+        first:
+          name: _Fade38
+        second: 0
+      data:
+        first:
+          name: _Fade39
+        second: 0
+      data:
+        first:
+          name: _Fade40
+        second: 0
+      data:
+        first:
+          name: _Fade41
+        second: 0
+      data:
+        first:
+          name: _Fade42
+        second: 0
+      data:
+        first:
+          name: _Fade43
+        second: 0
+      data:
+        first:
+          name: _Fade44
+        second: 0
+      data:
+        first:
+          name: _Fade45
+        second: 0
+      data:
+        first:
+          name: _Fade46
+        second: 0
+      data:
+        first:
+          name: _Fade47
+        second: 0
+      data:
+        first:
+          name: _Fade48
+        second: 0
+      data:
+        first:
+          name: _Fade49
+        second: 0
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _MainColor
+        second: {r: .529850721, g: .529850721, b: .529850721, a: 1}
+      data:
+        first:
+          name: _Position0
+        second: {r: -20.1135941, g: 39.9844208, b: -9.6338253, a: 0}
+      data:
+        first:
+          name: _Position1
+        second: {r: -32.1277733, g: 38.1272049, b: -24.0340729, a: 0}
+      data:
+        first:
+          name: _Position2
+        second: {r: -20.1135941, g: 38.8869553, b: -19.6821079, a: 0}
