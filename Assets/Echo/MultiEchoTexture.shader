@@ -26,7 +26,7 @@ Shader "Custom/Echo/MultipleUsingTexture" {
 		
 		sampler2D _MainTex;
 		sampler2D _EchoTex;
-		
+
 		float4 _MainColor;
 		float _DistanceFade;
 		float _MaxRadius;
@@ -86,6 +86,7 @@ Shader "Custom/Echo/MultipleUsingTexture" {
 		}
 		// Custom surfacer that mimics an echo effect
 		void surf (Input IN, inout SurfaceOutput o) {
+		
 			float c1;
 			//Unity was not pleased with my use of a for loop.  Somewhere
 			//in the loop unroll Unity blew up and crashed.  So echo count

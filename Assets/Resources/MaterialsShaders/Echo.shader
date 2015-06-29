@@ -1,7 +1,7 @@
 Shader "Custom/Echo/Single" {
 	Properties {
 		_MainTex ("Base (RGB)", 2D) = "white" {}
-		_MainColor ("Main Color",Color) = (1.0,1.0,1.0,1.0)	
+		_MainColor ("Main Color",Color) = (30.0,30.0,30.0,1.0)	
 		_Position ("Position",Vector) = (0.0,0.0,0.0)
 		_Radius ("Radius",float) = 5.0
 		_MaxRadius ("Max Radius",float) = 5.0

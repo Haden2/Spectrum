@@ -9,6 +9,7 @@ public class Rock : MonoBehaviour {
 	public int throwingPower;
 	public Inventory inventory;
 
+
 	void Start () 
 	{
 		rockProjectile = rockProjectile.GetComponent<Rigidbody> ();

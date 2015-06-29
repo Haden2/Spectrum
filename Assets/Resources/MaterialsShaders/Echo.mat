@@ -18,7 +18,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: d3b7d84ffb95cc04aaeb74f19a10f034, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -32,11 +32,11 @@ Material:
       data:
         first:
           name: _Radius
-        second: 19.4102077
+        second: 0
       data:
         first:
           name: _MaxRadius
-        second: 20
+        second: 40
       data:
         first:
           name: _EchoFade
@@ -44,7 +44,7 @@ Material:
       data:
         first:
           name: _MaxFade
-        second: 2.22222233
+        second: 4.44444466
       data:
         first:
           name: _DistanceFade
@@ -65,7 +65,7 @@ Material:
       data:
         first:
           name: _Position
-        second: {r: -5.47425938, g: -.0288009644, b: 7.29386425, a: 0}
+        second: {r: 0, g: 0, b: 0, a: 0}
       data:
         first:
           name: _SpherePosition
