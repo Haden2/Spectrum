@@ -434,7 +434,6 @@ MonoBehaviour:
   echo: {fileID: 4800000, guid: 198de934d3844d2409a89de1acb02352, type: 3}
   rend: []
   EchoMaterial: {fileID: 2100000, guid: 1783746642733ee4f90f773b00dd7781, type: 2}
-  Default: {fileID: 2100000, guid: 829e59d197516ca41bfaf459d42fad7a, type: 2}
   lights: []
 --- !u!114 &50584749
 MonoBehaviour:
@@ -9721,6 +9720,8 @@ MonoBehaviour:
   rockLocation: {fileID: 361870488}
   throwingPower: 0
   inventory: {fileID: 0}
+  hitobject: 
+  isgrounded: 0
 --- !u!1 &1808817572
 GameObject:
   m_ObjectHideFlags: 0
