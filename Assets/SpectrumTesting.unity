@@ -9720,8 +9720,6 @@ MonoBehaviour:
   rockLocation: {fileID: 361870488}
   throwingPower: 0
   inventory: {fileID: 0}
-  hitobject: 
-  isgrounded: 0
 --- !u!1 &1808817572
 GameObject:
   m_ObjectHideFlags: 0
