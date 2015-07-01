@@ -29,6 +29,7 @@ public class TestingNightVision : MonoBehaviour
 	public Shader echo;
 	public Renderer[] rend;
 	public Material EchoMaterial = null;
+	public Material Default = null;
 	public GameObject[] lights;
 	
 
@@ -78,7 +79,6 @@ public class TestingNightVision : MonoBehaviour
 				rend[i] = environ[i].GetComponent<Renderer>();
 				rend[i].material.shader = echo;
 				rend[i].material = EchoMaterial;
-				print (environ.Length);
 			}
 			for(int l = 0; l < lights.Length; l++)
 			{
@@ -117,6 +117,24 @@ public class TestingNightVision : MonoBehaviour
 			secondLowest.SetActive(false);
 			lowest.SetActive(false);
 			blueLight.GetComponent<Light>().intensity = 0;
+		}
+		if(isSonar)
+		{
+			if(Input.GetKeyDown("2") || Input.GetKeyDown("1"))
+			{
+				isSonar = false;
+			}
+		}
+		if(isSonar == false)
+		{
+			for(int t = 0 ; t < environ.Length ; t++)
+			{
+				///Need floor to be different tag.
+				rend[t] = environ[t].GetComponent<Renderer>();
+				//rend[i].material.shader = echo;
+				rend[t].material = Default;
+				print (environ.Length);
+			}
 		}
 	}
 	
