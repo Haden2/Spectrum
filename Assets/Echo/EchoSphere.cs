@@ -42,7 +42,7 @@ public class EchoSphere : MonoBehaviour {
 		//EchoShader = Shader.Find ("GlowOutline");
 		//rend = GetComponent<Renderer> ();
 
-		
+	//	EchoMaterial.SetColor ("_MainColor", Color.red);
 		EchoMaterial.SetFloat("_DistanceFade",1.0f);
 		isTexturedScene = false;
 	}

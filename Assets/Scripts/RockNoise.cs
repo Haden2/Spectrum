@@ -55,5 +55,6 @@ public class RockNoise : MonoBehaviour {
 	void OnTriggerExit (Collider other)
 	{
 		collect.pressE.color = collect.blank;
+		standingOn = false;
 	}
 }

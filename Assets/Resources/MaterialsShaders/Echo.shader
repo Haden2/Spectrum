@@ -66,7 +66,8 @@ Shader "Custom/Echo/Single" {
 		}
 		
 		// Custom surfacer that mimics an echo effect
-		void surf (Input IN, inout SurfaceOutput o) {
+		void surf (Input IN, inout SurfaceOutput o) 
+		{
 			o.Albedo = ApplyFade(IN);			
 		}
 		ENDCG

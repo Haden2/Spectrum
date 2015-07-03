@@ -154,7 +154,7 @@ Material:
       data:
         first:
           name: _ColorTint
-        second: {r: .521568656, g: .521568656, b: .525490224, a: 0}
+        second: {r: 0, g: 0, b: 0, a: 0}
       data:
         first:
           name: _RimColor

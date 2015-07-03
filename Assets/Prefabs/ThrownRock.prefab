@@ -9,11 +9,11 @@ GameObject:
   m_Component:
   - 4: {fileID: 416698}
   - 33: {fileID: 3332824}
-  - 135: {fileID: 13589502}
   - 23: {fileID: 2350934}
   - 54: {fileID: 5440430}
   - 114: {fileID: 11428444}
   - 135: {fileID: 13582328}
+  - 65: {fileID: 6596882}
   m_Layer: 0
   m_Name: ThrownRock
   m_TagString: Untagged
@@ -79,6 +79,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!65 &6596882
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 182618}
+  m_Material: {fileID: 13400000, guid: 426a0513788524341bf9b170cd9ac334, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11428444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,18 +120,6 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &13589502
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 182618}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:
