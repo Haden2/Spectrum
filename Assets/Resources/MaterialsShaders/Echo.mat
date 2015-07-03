@@ -32,7 +32,7 @@ Material:
       data:
         first:
           name: _Radius
-        second: 21.3389225
+        second: 0
       data:
         first:
           name: _MaxRadius
@@ -65,7 +65,7 @@ Material:
       data:
         first:
           name: _Position
-        second: {r: 3.19116116, g: 1.04999995, b: -14.8764286, a: 0}
+        second: {r: 7.15657568, g: 1.05000007, b: 9.95167446, a: 0}
       data:
         first:
           name: _SpherePosition
