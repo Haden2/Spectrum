@@ -32,7 +32,7 @@ Material:
       data:
         first:
           name: _Radius
-        second: 22.4741058
+        second: 21.3389225
       data:
         first:
           name: _MaxRadius
@@ -61,11 +61,11 @@ Material:
       data:
         first:
           name: _MainColor
-        second: {r: 1, g: 0, b: 0, a: 1}
+        second: {r: 0, g: 0, b: 0, a: 1}
       data:
         first:
           name: _Position
-        second: {r: -21.5167923, g: 5.05832911, b: -3.23675203, a: 0}
+        second: {r: 3.19116116, g: 1.04999995, b: -14.8764286, a: 0}
       data:
         first:
           name: _SpherePosition

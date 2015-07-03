@@ -109,6 +109,7 @@ MonoBehaviour:
   inventory: {fileID: 0}
   realTime: 0
   thrownTime: 0
+  echoSphere: {fileID: 0}
 --- !u!135 &13582328
 SphereCollider:
   m_ObjectHideFlags: 1

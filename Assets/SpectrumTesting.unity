@@ -331,7 +331,11 @@ MonoBehaviour:
   fade: 0
   isTexturedScene: 1
   pingLocation: {x: 0, y: 0, z: 0}
+  rockLocation: {x: 0, y: 0, z: 0}
   appControl: {fileID: 0}
+  isGrounded: 0
+  rockNoise: {fileID: 11428444, guid: 360403c767287e041adc19b2d66fd3d3, type: 2}
+  rock: {fileID: 182618, guid: 360403c767287e041adc19b2d66fd3d3, type: 2}
 --- !u!4 &50584745 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}

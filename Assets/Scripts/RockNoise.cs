@@ -10,12 +10,15 @@ public class RockNoise : MonoBehaviour {
 	public Inventory inventory;
 	public float realTime;
 	public float thrownTime;
+	public EchoSphere echoSphere;
 
 	void Start () 
 	{
 		collect = GameObject.Find ("First Person Controller").GetComponent<CollectItem> ();
 		inventory = GameObject.Find ("First Person Controller").GetComponent<Inventory> ();
 		thrownTime = Time.realtimeSinceStartup;
+		echoSphere = GameObject.Find ("First Person Controller").GetComponent<EchoSphere> ();
+		echoSphere.isGrounded = true;
 	}
 	
 	void Update () 
@@ -23,6 +26,8 @@ public class RockNoise : MonoBehaviour {
 		realTime = Time.realtimeSinceStartup;
 		if(standingOn && Input.GetKeyDown("e") && collect.holdStill == false)
 		{
+			echoSphere.isGrounded = false;
+			isgrounded = false;
 			inventory.AddItem(0);
 			collect.pressE.color = collect.blank;
 			standingOn = false;
@@ -34,8 +39,8 @@ public class RockNoise : MonoBehaviour {
 
 	void OnCollisionEnter(UnityEngine.Collision hit)
 	{
-		hitobject = hit.gameObject.tag;
-		//if(hitobject == "Floor")
+		hitobject = hit.gameObject.name;
+		if(hitobject == "Floor")
 		{
 			isgrounded = true;
 		}

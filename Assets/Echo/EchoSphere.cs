@@ -21,10 +21,15 @@ public class EchoSphere : MonoBehaviour {
 	public float fade = 0.0f;
 	public bool isTexturedScene = true;
 	public Vector3 pingLocation;
+	public Vector3 rockLocation;
 	public TestingNightVision appControl;
-	
+	public bool isGrounded;
+	public RockNoise rockNoise;
+	public GameObject rock;
+
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{	
 		SetupSimpleScene1();
 		appControl = GetComponent<TestingNightVision> ();
 	}
@@ -32,7 +37,8 @@ public class EchoSphere : MonoBehaviour {
 	/// 
 	/// Scenario1: Monocolor echo. 
 	/// 
-	void SetupSimpleScene1(){
+	void SetupSimpleScene1()
+	{
 		MaxRadius = 40.0f;
 		CurrentRadius = 0.0f;
 		FadeDelay = 0.0f;
@@ -42,7 +48,6 @@ public class EchoSphere : MonoBehaviour {
 		//EchoShader = Shader.Find ("GlowOutline");
 		//rend = GetComponent<Renderer> ();
 
-	//	EchoMaterial.SetColor ("_MainColor", Color.red);
 		EchoMaterial.SetFloat("_DistanceFade",1.0f);
 		isTexturedScene = false;
 	}
@@ -50,14 +55,15 @@ public class EchoSphere : MonoBehaviour {
 	/// 
 	/// Scenario2: Diffuse texture echo
 	/// 
-	void SetupSimpleScene2(){
-		MaxRadius = 20.0f;
+	void SetupSimpleScene2()
+	{
+		MaxRadius = 40.0f;
 		CurrentRadius = 0.0f;
 		FadeDelay = 0.0f;
 		FadeRate = 1.0f;
 		EchoSpeed = 9.0f;
 		EchoMaterial.mainTexture = EchoTexture;
-		
+
 		EchoMaterial.SetFloat("_DistanceFade",0.0f);
 		isTexturedScene = true;
 	}
@@ -82,7 +88,18 @@ public class EchoSphere : MonoBehaviour {
 		GUI.enabled = true;
 	}*/
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
+		if(isGrounded)
+		{
+			rockNoise = GameObject.Find("ThrownRock(Clone)").GetComponent<RockNoise>();
+			rock = GameObject.Find("ThrownRock(Clone)");
+		}
+		if(isGrounded == false)
+		{
+			//rockNoise = null;
+			//rock = null;
+		}
 		deltaTime += Time.deltaTime;
 		
 		UpdateRayCast();
@@ -96,14 +113,20 @@ public class EchoSphere : MonoBehaviour {
 		CurrentRadius = 0.0f;
 		fade = 0.0f;
 		isAnimated = true;
+		if(rockNoise.isgrounded)
+		{
+			rockNoise.isgrounded = false;
+		}
 	}
 	
 	// Called to halt an echo pulse.
-	void HaltPulse(){
+	void HaltPulse()
+	{
 		isAnimated = false; 
 	}
 	
-	void ClearPulse(){
+	void ClearPulse()
+	{
 		fade = 0.0f;
 		CurrentRadius = 0.0f;
 		isAnimated = false;
@@ -112,18 +135,36 @@ public class EchoSphere : MonoBehaviour {
 	// Called to manually place echo pulse
 	void UpdateRayCast() 
 	{
-
+		//rockNoise = GameObject.Find ("ThrownRock").GetComponent<RockNoise> ();
 		if (Input.GetButtonDown("Fire1") && appControl.isSonar){
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 			RaycastHit hit;
 			if (Physics.Raycast(ray,out hit, Mathf.Infinity)) 
 			{
 				pingLocation = gameObject.transform.position;
-				//transform.position = hit.point;
+				EchoMaterial.SetVector("_Position", hit.point);
 				//rend.material.shader = EchoShader;
 				TriggerPulse();
 			}
 		}  
+		if (Input.GetButtonDown("Fire2") && appControl.isSonar){
+			Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+			RaycastHit hit;
+			if (Physics.Raycast(ray,out hit, Mathf.Infinity)) 
+			{
+				pingLocation = gameObject.transform.position;
+				EchoMaterial.SetVector("_Position", pingLocation);
+				//rend.material.shader = EchoShader;
+				TriggerPulse();
+			}
+		}  
+		if(rockNoise.isgrounded)
+		{
+			print ("Is Grounded");
+			rockLocation = rock.transform.position;
+			EchoMaterial.SetVector("_Position", rockLocation);
+			TriggerPulse();
+		}
 	}
 	
 	// Called to update the echo front edge
@@ -148,7 +189,7 @@ public class EchoSphere : MonoBehaviour {
 			fade += Time.deltaTime * FadeRate;
 		
 		// Update our shader properties (requires Echo.shader)
-		EchoMaterial.SetVector("_Position",pingLocation);
+		//EchoMaterial.SetVector("_Position",pingLocation);
 		EchoMaterial.SetFloat("_Radius",radius);
 		EchoMaterial.SetFloat("_MaxRadius",maxRadius);
 		EchoMaterial.SetFloat("_Fade",fade);
