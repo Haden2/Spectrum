@@ -9998,6 +9998,7 @@ MonoBehaviour:
   target: {fileID: 0}
   lights: []
   closest: {fileID: 0}
+  targetLight: {fileID: 0}
   distance: 0
 --- !u!1 &1862810078
 GameObject:
