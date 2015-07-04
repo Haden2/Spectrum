@@ -1,77 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+//using System.Linq;
 
-public class LightsOut : MonoBehaviour {
-
-	//public GameObject[] lights;
-	//public GameObject Target;
-	public GameObject closest;
+public class LightsOut : MonoBehaviour 
+{
+	public GameObject target;
 	public GameObject[] lights;
+	public GameObject closest;
+	public Light targetLight;
 	public float distance;
-	public Vector3 position;
 
-
-	void Start () 
+	void Awake()
 	{
-		lights = GameObject.FindGameObjectsWithTag ("Light");
-
-		for(int l = 0; l < lights.Length; l++)
-		{
-			print(lights.Length);
-			//GetClosestLight(l);
-		}
-		distance = Mathf.Infinity;
-		position = transform.position;
+		InvokeRepeating("FindClosestPlayer", 0.5f,0.5f);
 	}
-	
-	void Update () 
+
+	void Update()
 	{
+		if(target != null)
+		{
+			targetLight = target.gameObject.GetComponent<Light> ();
+		}
+		//targetLight.intensity = 7;
+	} 
+
+	GameObject FindClosestPlayer() 
+	{
+		lights = GameObject.FindGameObjectsWithTag("Light");
+		distance = Mathf.Infinity;
 		foreach (GameObject go in lights) 
 		{
-			print (closest.name);
-			Vector3 diff = go.transform.position - position;
-			float curDistance = diff.sqrMagnitude;
-			if (curDistance < distance) 
-			{
-				closest = go;
-				distance = curDistance;
-			}
-			print(diff);
-			closest = go;
-		//	Target.transform.position = closest.transform;
-			//return closest;
-		}
-
-
-	}
-
-	/*Transform GetClosestLight (Transform[] lights)
-	{
-		Transform bestTarget = null;
-		float closestDistanceSqr = Mathf.Infinity;
-		Vector3 currentPosition = transform.position;
-		foreach(Transform potentialTarget in lights)
-		{
-			Vector3 directionToTarget = potentialTarget.gameObject.transform.position - currentPosition;
-			float dSqrToTarget = directionToTarget.sqrMagnitude;
-			if(dSqrToTarget < closestDistanceSqr)
-			{
-				closestDistanceSqr = dSqrToTarget;
-				bestTarget = potentialTarget;
-			}
-		}
-		print (bestTarget);
-		return bestTarget;
-	}
-	GameObject FindClosestLight() 
-	{
-		GameObject[] lights;
-		lights = GameObject.FindGameObjectsWithTag("Light");
-		GameObject closest;
-		float distance = Mathf.Infinity;
-		Vector3 position = transform.position;
-		foreach (GameObject go in lights) {
-			Vector3 diff = go.transform.position - position;
+			Vector3 diff = go.transform.position - transform.position;
 			float curDistance = diff.sqrMagnitude;
 			if (curDistance < distance) 
 			{
@@ -79,7 +39,7 @@ public class LightsOut : MonoBehaviour {
 				distance = curDistance;
 			}
 		}
+		target = closest.gameObject;
 		return closest;
-		print (closest.name);
-	}*/
+	}
 }
