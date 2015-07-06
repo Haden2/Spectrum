@@ -44,6 +44,7 @@ public class EnemyDamage : MonoBehaviour
 	public bool behindOnly;
 	public CharacterMotorC motor;
 	public Rigidbody rigid;
+	//public GameObject halo;
 
 
 
@@ -77,6 +78,8 @@ public class EnemyDamage : MonoBehaviour
 		rigid = gameObject.GetComponent<Rigidbody> ();
 		leftPoint = 1000;
 		rightPoint = 1000;
+		//halo = GameObject.Find ("Halo");
+		//halo.SetActive (false);
 	}
 
 	void OnTriggerEnter (Collider other) 
@@ -121,6 +124,11 @@ public class EnemyDamage : MonoBehaviour
 		collide.radius = 1.2f;
 		yield return new WaitForSeconds (startingTalk);
 		seek = true;
+	}
+
+	void OnParticleCollision(GameObject other)
+	{
+		//halo.SetActive (true);
 	}
 
 	IEnumerator TurnAround()

@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour {
 	public Transform tr;
 	public float dist;
 
+
 	void Start()
 	{
 		eyesHere = GameObject.FindGameObjectWithTag ("EyesHere");
@@ -61,7 +62,7 @@ public class PlayerController : MonoBehaviour {
 
 	void OnTriggerEnter (Collider other)
 	{
-		if(other.gameObject.name == "Elevator")
+		if(other.gameObject.name == "Little Door")
 		{
 			elevatorDoor = true;
 		}
@@ -69,15 +70,29 @@ public class PlayerController : MonoBehaviour {
 		{
 			canActive = true;
 		}
+		if(other.gameObject.name == "Elevator")
+		{
+			inElevator = true;
+		}
 	}
 	void OnTriggerExit(Collider other)
 	{
+		if(other.gameObject.name == "Little Door")
+		{
+			elevatorDoor = false;
+		}
 		if(other.gameObject.name == "Elevator")
 		{
-		elevatorDoor = false;
+			inElevator = false;
 		}
 	}
 
+	void OnParticleCollision(GameObject other)
+	{
+		print (gameObject.name);
+		//gameObject.SetActive (false);
+	}
+	
 	void Update()
 	{
 		//print (chMotor.movement.velocity);
@@ -142,11 +157,11 @@ public class PlayerController : MonoBehaviour {
 			littleDoor.GetComponent<Animation>().Play("SmallElevatorDoor");
 			bigDoor.GetComponent<Animation>().Play("ElevatorDoor");
 		}
-		if(isDown == true && isUp == false && isMoving == false && canActive == true && Input.GetKeyDown ("1"))
+		if(isDown == true && isUp == false && isMoving == false && canActive == true && inElevator && Input.GetKeyDown ("1"))
 		{
 			StartCoroutine(MoveUp (elevator.transform, downPosition, upPosition, 5));
 		}
-		if(isDown == false && isUp == true && isMoving == false && canActive == true && Input.GetKeyDown ("1"))
+		if(isDown == false && isUp == true && isMoving == false && canActive == true && inElevator && Input.GetKeyDown ("1"))
 		{
 			StartCoroutine(MoveDown (elevator.transform, upPosition, downPosition, 5));
 		}
