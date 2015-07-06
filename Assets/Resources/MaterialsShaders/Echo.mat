@@ -65,7 +65,7 @@ Material:
       data:
         first:
           name: _Position
-        second: {r: -.224771023, g: .0766307712, b: 8.82012081, a: 0}
+        second: {r: .883103073, g: 30.7118759, b: -9.85000038, a: 0}
       data:
         first:
           name: _SpherePosition

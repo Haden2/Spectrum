@@ -87,6 +87,7 @@ public class TestingNightVision : MonoBehaviour
 			{
 				lights[l].SetActive(false);
 			}
+			sonarLight.SetActive(true);
 			//rend.material.shader = echo;
 		}
 		/*if(DoF.isActiveAndEnabled)
