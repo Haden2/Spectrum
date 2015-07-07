@@ -25,7 +25,7 @@ Shader "Custom/Echo/MultipleUsingProperty" {
 		LOD 200
 		
 		CGPROGRAM
-		#pragma target 3.0
+		//#pragma target 3.0
 		#pragma surface surf NoLighting
 		#include "UnityCG.cginc"
 		
@@ -86,8 +86,9 @@ Shader "Custom/Echo/MultipleUsingProperty" {
 			}
 		}
 		// Custom surfacer that mimics an echo effect
-		void surf (Input IN, inout SurfaceOutput o) {
-			float c1;
+		void surf (Input IN, inout SurfaceOutput o) 
+		{
+			float2 c1;
 
 			// manually add more echos here.
 			c1 += ApplyFade(IN,_Position0,_Radius0,_Fade0);
@@ -95,8 +96,10 @@ Shader "Custom/Echo/MultipleUsingProperty" {
 			c1 += ApplyFade(IN,_Position2,_Radius2,_Fade2);
 			c1 /= 3.0;  
 
-			float c2 = 1.0 - c1;
-			o.Albedo = _MainColor.rgb * c2 + tex2D (_MainTex, IN.uv_MainTex).rgb * c1 ;		
+			//float3 c2 = 1.0 - c1;
+			o.Albedo = ApplyFade(IN,_Position0,_Radius0,_Fade0);			
+
+			//o.Albedo = _MainColor.rgb * c2 + tex2D (_MainTex, IN.uv_MainTex).rgb * c1 ;		
 		}
 		ENDCG
 	} 

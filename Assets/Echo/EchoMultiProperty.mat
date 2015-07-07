@@ -18,7 +18,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: ab5bb3eb247a4492fa9900f6ac0db050, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -31,12 +31,20 @@ Material:
     m_Floats:
       data:
         first:
+          name: _Radius
+        second: 5
+      data:
+        first:
           name: _MaxRadius
-        second: 10
+        second: 40
+      data:
+        first:
+          name: _EchoFade
+        second: 0
       data:
         first:
           name: _MaxFade
-        second: 10
+        second: 40
       data:
         first:
           name: _DistanceFade
@@ -44,7 +52,7 @@ Material:
       data:
         first:
           name: _Radius0
-        second: 1.46587646
+        second: 1.94089663
       data:
         first:
           name: _Radius1
@@ -56,7 +64,7 @@ Material:
       data:
         first:
           name: _Fade0
-        second: 1.46587646
+        second: 1.93539631
       data:
         first:
           name: _Fade1
@@ -269,16 +277,20 @@ Material:
       data:
         first:
           name: _MainColor
-        second: {r: .529850721, g: .529850721, b: .529850721, a: 1}
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _Position
+        second: {r: -1.69198704, g: .961179316, b: -2.90305042, a: 0}
       data:
         first:
           name: _Position0
-        second: {r: 3.80540085, g: 1.08690095, b: 3.14586329, a: 0}
+        second: {r: 0, g: 0, b: 0, a: 0}
       data:
         first:
           name: _Position1
-        second: {r: -29.989975, g: 4.86291122, b: -2.64886904, a: 0}
+        second: {r: 0, g: 0, b: 0, a: 0}
       data:
         first:
           name: _Position2
-        second: {r: -20.1135941, g: 38.8869553, b: -19.6821079, a: 0}
+        second: {r: 0, g: 0, b: 0, a: 0}

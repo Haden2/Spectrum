@@ -1,114 +1,201 @@
-using UnityEngine;
-using System;
+using UnityEngine;  
+using System;  
 using System.Collections;
-using System.Collections.Generic;
 
-
-public class EchoSphere2 : MonoBehaviour
-{
-	public enum ShaderPackingMode { Texture, Property };
-	public ShaderPackingMode CurrentPackingMode = ShaderPackingMode.Texture;
-	
-	public Texture2D EchoTexture;
-	public Material EchoMaterial = null;
-	public Vector3 Position;
-	public int SphereIndex = 0;
-	
+public class EchoSphere2 : MonoBehaviour {  
 	// Echo sphere Properties
-	public float SphereMaxRadius = 10.0f;		//Final size of the echo sphere.
-	private float sphereCurrentRadius = 0.0f;	//Current size of the echo sphere
+	public Material EchoMaterial = null;
+	public Texture EchoTexture = null;
+	//public Shader EchoShader = null;
 	
-	public float FadeDelay = 0.0f;			//Time to delay before triggering fade.
-	public float FadeRate = 1.0f;			//Speed of the fade away
-	public float echoSpeed = 1.0f;			//Speed of the sphere growth.
-	public bool is_manual = false;			//Is pulse manual.  if true, pulse triggered by left-mouse click
+	public float SphereMaxRadius = 10.0f;     //Final size of the echo sphere.
+	public float CurrentRadius = 0.0f;  //Current size of the echo sphere
 	
-	private bool is_animated = false;		//If true, pulse is currently running.
+	public float FadeDelay = 0.0f;          //Time to delay before triggering fade.
+	public float FadeRate = 1.0f;           //Speed of the fade away
+	public float EchoSpeed = 1.0f;          //Speed of the sphere growth.
 	
-	public float pulse_frequency = 5.0f;
+	public int SphereCount = 1;
+	public int CurrentSphere = 0;
+	
+	private bool isAnimated = false;    
 	private float deltaTime = 0.0f;
-	private float fade = 0.0f;
 	
-	public EchoSphere2(){}
+	public float fade = 0.0f;
+	public bool isTexturedScene = true;
+	public Vector3 pingLocation;
+	public Vector3 rockLocation;
+	public TestingNightVision appControl;
+	public bool isGrounded;
+	public RockNoise rockNoise;
+	public GameObject rock;
 	
+	// Use this for initialization
+	void Start () 
+	{	
+		SetupSimpleScene1();
+		appControl = GetComponent<TestingNightVision> ();
+	}
+	
+	/// 
+	/// Scenario1: Monocolor echo. 
+	/// 
+	void SetupSimpleScene1()
+	{
+		SphereMaxRadius = 40.0f;
+		CurrentRadius = 0.0f;
+		FadeDelay = 0.0f;
+		FadeRate = 1f;
+		EchoSpeed = 9.0f;
+		EchoMaterial.mainTexture = null;
+		//EchoShader = Shader.Find ("GlowOutline");
+		//rend = GetComponent<Renderer> ();
+		
+		EchoMaterial.SetFloat("_DistanceFade",1.0f);
+		isTexturedScene = false;
+	}
+	
+	/// 
+	/// Scenario2: Diffuse texture echo
+	/// 
+	void SetupSimpleScene2()
+	{
+		SphereMaxRadius = 40.0f;
+		CurrentRadius = 0.0f;
+		FadeDelay = 0.0f;
+		FadeRate = 1.0f;
+		EchoSpeed = 9.0f;
+		EchoMaterial.mainTexture = EchoTexture;
+		
+		EchoMaterial.SetFloat("_DistanceFade",0.0f);
+		isTexturedScene = true;
+	}
+	
+	/*	void OnGUI () {
+		// Make a background box
+		GUI.Box(new Rect(10,10,100,90), "Scenarios");
+		
+		GUI.enabled = isTexturedScene;
+		
+		// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
+		if(GUI.Button(new Rect(20,40,80,20), "No Texture")) {
+			SetupSimpleScene1();
+		}
+		GUI.enabled = true;
+		
+		GUI.enabled = !isTexturedScene;
+		// Make the second button.
+		if(GUI.Button(new Rect(20,70,80,20), "Textured")) {
+			SetupSimpleScene2();
+		}
+		GUI.enabled = true;
+	}*/
 	// Update is called once per frame
-	public void Update () {
-		if(EchoMaterial == null)return;
-		
-		// If manual selection is disabled, automatically trigger a pulse at the given freq.
+	void Update () 
+	{
+		if(isGrounded)
+		{
+			rockNoise = GameObject.Find("ThrownRock(Clone)").GetComponent<RockNoise>();
+			rock = GameObject.Find("ThrownRock(Clone)");
+		}
+		if(isGrounded == false)
+		{
+			//rockNoise = null;
+			//rock = null;
+		}
 		deltaTime += Time.deltaTime;
-		UpdateEcho();
 		
-		if(CurrentPackingMode == ShaderPackingMode.Texture)UpdateTexture();
-		if(CurrentPackingMode == ShaderPackingMode.Property)UpdateProperties();
+		UpdateRayCast();
+		UpdateEcho();
+		UpdateShader();
 	}
 	
 	// Called to trigger an echo pulse
-	public void TriggerPulse(){
+	void TriggerPulse(){
 		deltaTime = 0.0f;
-		sphereCurrentRadius = 0.0f;
+		CurrentRadius = 0.0f;
 		fade = 0.0f;
-		is_animated = true;
+		isAnimated = true;
+		if(rockNoise.isgrounded)
+		{
+			rockNoise.isgrounded = false;
+		}
 	}
 	
 	// Called to halt an echo pulse.
-	void HaltPulse(){
-		Debug.Log("HaltPulse reached");
-		is_animated = false;	
+	void HaltPulse()
+	{
+		isAnimated = false; 
 	}
 	
-	void ClearPulse(){
+	void ClearPulse()
+	{
 		fade = 0.0f;
-		sphereCurrentRadius = 0.0f;
-		is_animated = false;
+		CurrentRadius = 0.0f;
+		isAnimated = false;
 	}
 	
-	void UpdateProperties(){
-		if(!is_animated)return;
-		float maxRadius = SphereMaxRadius;
-		float maxFade = SphereMaxRadius / echoSpeed;
-		
-		Debug.Log("Updating _Position"+SphereIndex.ToString());
-		EchoMaterial.SetVector("_Position"+SphereIndex.ToString(),Position);
-		EchoMaterial.SetFloat("_Radius"+SphereIndex.ToString(),sphereCurrentRadius);
-		EchoMaterial.SetFloat("_Fade"+SphereIndex.ToString(),fade);
-
-		EchoMaterial.SetFloat("_MaxRadius",maxRadius);
-		EchoMaterial.SetFloat("_MaxFade",maxFade);
+	// Called to manually place echo pulse
+	void UpdateRayCast() 
+	{
+		//rockNoise = GameObject.Find ("ThrownRock").GetComponent<RockNoise> ();
+		if (Input.GetButtonDown("Fire1") && appControl.isSonar){
+			Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+			RaycastHit hit;
+			if (Physics.Raycast(ray,out hit, Mathf.Infinity)) 
+			{
+				pingLocation = gameObject.transform.position;
+				EchoMaterial.SetVector("_Position", hit.point);
+				//rend.material.shader = EchoShader;
+				TriggerPulse();
+			}
+		}  
+		if (Input.GetButtonDown("Fire2") && appControl.isSonar){
+			Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+			RaycastHit hit;
+			if (Physics.Raycast(ray,out hit, Mathf.Infinity)) 
+			{
+				pingLocation = gameObject.transform.position;
+				EchoMaterial.SetVector("_Position", pingLocation);
+				//rend.material.shader = EchoShader;
+				TriggerPulse();
+			}
+		}  
+		if(rockNoise.isgrounded)
+		{
+			print ("Is Grounded");
+			rockLocation = rock.transform.position;
+			EchoMaterial.SetVector("_Position", rockLocation);
+			TriggerPulse();
+		}
 	}
 	
-	void UpdateTexture(){	
-		if(!is_animated)return;
-		float maxRadius = SphereMaxRadius;
-		float maxFade = SphereMaxRadius / echoSpeed;
-		
-		EchoTexture.SetPixel(SphereIndex,0,FloatPacking.ToColor(Position.x));
-		EchoTexture.SetPixel(SphereIndex,1,FloatPacking.ToColor(Position.y));
-		EchoTexture.SetPixel(SphereIndex,2,FloatPacking.ToColor(Position.z));
-		EchoTexture.SetPixel(SphereIndex,3,FloatPacking.ToColor(sphereCurrentRadius));
-		EchoTexture.SetPixel(SphereIndex,4,FloatPacking.ToColor(fade));
-		EchoTexture.Apply();	
-		
-		EchoMaterial.SetFloat("_MaxRadius",maxRadius);
-		EchoMaterial.SetFloat("_MaxFade",maxFade);
-	}
 	// Called to update the echo front edge
 	void UpdateEcho(){
-		if(!is_animated)return;
-		if(sphereCurrentRadius >= SphereMaxRadius){
+		if(!isAnimated)return;
+		
+		if(CurrentRadius >= SphereMaxRadius){
 			HaltPulse();
 		} else {
-			sphereCurrentRadius += Time.deltaTime * echoSpeed;  
+			CurrentRadius += Time.deltaTime * EchoSpeed;  
 		}
-		
-		float radius = sphereCurrentRadius;
+	}
+	
+	// Called to update the actual shader values (some of which only change once but are included here
+	// for illustrative purposes)
+	void UpdateShader(){
+		float radius = CurrentRadius;
 		float maxRadius = SphereMaxRadius;
-		float maxFade = SphereMaxRadius / echoSpeed;
-		if(fade > maxFade){
-			return;
-		}
+		float maxFade = SphereMaxRadius / EchoSpeed;
 		
 		if(deltaTime > FadeDelay)
 			fade += Time.deltaTime * FadeRate;
+		
+		// Update our shader properties (requires Echo.shader)
+		//EchoMaterial.SetVector("_Position",pingLocation);
+		EchoMaterial.SetFloat("_Radius",radius);
+		EchoMaterial.SetFloat("_MaxRadius",maxRadius);
+		EchoMaterial.SetFloat("_Fade",fade);
+		EchoMaterial.SetFloat("_MaxFade",maxFade);
 	}
 }

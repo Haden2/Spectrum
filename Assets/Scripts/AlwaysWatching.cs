@@ -3,7 +3,7 @@ using System.Collections;
 
 public class AlwaysWatching : MonoBehaviour {
 
-	public Transform player;
+	/*public Transform player;
 	public float speed = 1f;
 	// Use this for initialization
 	void Start () {
@@ -18,5 +18,5 @@ public class AlwaysWatching : MonoBehaviour {
 		Vector3 newDir = Vector3.RotateTowards (transform.forward, endPivotDir, 1,10);
 		Debug.DrawRay(transform.position, newDir, Color.red);
 		transform.rotation = Quaternion.LookRotation(newDir);
-	}
+	}*/
 }

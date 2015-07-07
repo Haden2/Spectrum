@@ -32,7 +32,7 @@ Material:
       data:
         first:
           name: _Radius
-        second: 0
+        second: 14.2355385
       data:
         first:
           name: _MaxRadius
@@ -57,6 +57,30 @@ Material:
         first:
           name: _SphereFalloff
         second: 1
+      data:
+        first:
+          name: _Radius0
+        second: 3.17256141
+      data:
+        first:
+          name: _Radius1
+        second: 0
+      data:
+        first:
+          name: _Radius2
+        second: 0
+      data:
+        first:
+          name: _Fade0
+        second: 3.16861033
+      data:
+        first:
+          name: _Fade1
+        second: 0
+      data:
+        first:
+          name: _Fade2
+        second: 0
     m_Colors:
       data:
         first:
@@ -65,7 +89,7 @@ Material:
       data:
         first:
           name: _Position
-        second: {r: .883103073, g: 30.7118759, b: -9.85000038, a: 0}
+        second: {r: -6.54654026, g: 5.58158109e-18, b: -1.25686038, a: 0}
       data:
         first:
           name: _SpherePosition
@@ -78,6 +102,18 @@ Material:
         first:
           name: _BaseColor
         second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _Position0
+        second: {r: 0, g: 0, b: 0, a: 0}
+      data:
+        first:
+          name: _Position1
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _Position2
+        second: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1002 &2100001
 EditorExtensionImpl:
   serializedVersion: 6

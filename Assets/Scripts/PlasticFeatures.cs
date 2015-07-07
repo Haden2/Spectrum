@@ -4,23 +4,32 @@ using System.Collections;
 public class PlasticFeatures : MonoBehaviour {
 
 	//GameObject plastic;
-	public Inventory inventory;
+	public GameObject player;
+	Inventory inventory;
 	GameObject anatomy;
+	GameObject eye;
 	float deathSequence;
+
 
 
 	// Use this for initialization
 	void Start () 
 	{
 		inventory = GameObject.FindGameObjectWithTag ("Player").GetComponent<Inventory>();
+		player = GameObject.Find ("First Person Controller");
 		anatomy = GameObject.FindGameObjectWithTag ("Anatomy");
+		eye = GameObject.Find ("Eye");
 		deathSequence = 3;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-
+		Vector3 endPivotDir = player.transform.position - eye.transform.position;
+		//float step = speed * Time.deltaTime;
+		Vector3 newDir = Vector3.RotateTowards (eye.transform.forward, endPivotDir, 1,10);
+		Debug.DrawRay(eye.transform.position, newDir, Color.red);
+		eye.transform.rotation = Quaternion.LookRotation(newDir);
 	}
 
 	void OnTriggerEnter (Collider other) 

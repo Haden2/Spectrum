@@ -27,16 +27,22 @@ public class TestingNightVision : MonoBehaviour
 	//public bool ready;
 	public GameObject[] environ;
 	public Shader echo;
+	public Shader multiEcho;
 	public Renderer[] rend;
 	public Material EchoMaterial = null;
+	public Material multiMaterial;
 	public Material Default;
 	public Renderer Floor;
 	public Material FloorMat;
 	public GameObject[] lights;
+	public EchoSphere echoSphere;
+	public EchoSphere2 echoSphere2;
 	
 
 	void Start()
 	{
+		echoSphere = GetComponent<EchoSphere> ();
+		echoSphere2 = GetComponent<EchoSphere2> ();
 		NightVisionLight = GameObject.FindGameObjectWithTag ("NightVisionLight");
 		enemyDamage = GameObject.FindGameObjectWithTag ("Enemy").GetComponent <EnemyDamage> ();
 		blueLight = GameObject.FindGameObjectWithTag ("BlueLight");
@@ -77,17 +83,34 @@ public class TestingNightVision : MonoBehaviour
 			isFlashLight = false;
 			isSonar = true;
 			//DoF.enabled = true;
-			for(int i = 0 ; i < environ.Length ; i++)
+			if(echoSphere.isActiveAndEnabled)
 			{
-				rend[i] = environ[i].GetComponent<Renderer>();
-				rend[i].material.shader = echo;
-				rend[i].material = EchoMaterial;
+				for(int i = 0 ; i < environ.Length ; i++)
+				{
+					rend[i] = environ[i].GetComponent<Renderer>();
+					rend[i].material.shader = multiEcho;
+					rend[i].material = multiMaterial;
+				}
+				for(int l = 0; l < lights.Length; l++)
+				{
+					lights[l].SetActive(false);
+				}
+				sonarLight.SetActive(true);
 			}
-			for(int l = 0; l < lights.Length; l++)
+			if(echoSphere2.isActiveAndEnabled)
 			{
-				lights[l].SetActive(false);
+				for(int i = 0 ; i < environ.Length ; i++)
+				{
+					rend[i] = environ[i].GetComponent<Renderer>();
+					rend[i].material.shader = echo;
+					rend[i].material = EchoMaterial;
+				}
+				for(int l = 0; l < lights.Length; l++)
+				{
+					lights[l].SetActive(false);
+				}
+				sonarLight.SetActive(true);
 			}
-			sonarLight.SetActive(true);
 			//rend.material.shader = echo;
 		}
 		/*if(DoF.isActiveAndEnabled)
