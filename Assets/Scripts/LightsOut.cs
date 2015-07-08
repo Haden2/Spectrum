@@ -44,7 +44,7 @@ public class LightsOut : MonoBehaviour
 		
 				if(Physics.Raycast(ray, out hit, targetRange)) //if the raycast hit something within range. targetRange matches range of spotlight.
 				{
-					print (rayDirection); //the distance from light to light monster in this case is 9. This is the Adjacent leg of the triangle. I will get more into that in github
+				//	print (rayDirection); //the distance from light to light monster in this case is 9. This is the Adjacent leg of the triangle. I will get more into that in github
 					//print (hit.transform);   says what I hit
 					if(hit.transform.name == "LightMonster") //did the middle ray hit the monster?
 					{
@@ -60,8 +60,8 @@ public class LightsOut : MonoBehaviour
 				{
 					if(rightHit.transform.name == "LightMonster") //if it hits the monster
 					{
-						print (rightHit.transform.position); // the global position of the light monster
-						print (hit.transform.position); // the global position of the wall behind the light monster
+					//	print (rightHit.transform.position); // the global position of the light monster
+						//print (hit.transform.position); // the global position of the wall behind the light monster
 						//rightAngle = rightHit.transform.position - hit.transform.position;   All this did was say that the wall is at this position, and the enemy is at this position. Doesn't give a good value.
 					}
 				}

@@ -321,20 +321,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd19181c6711064499518778e266eb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Spheres: 
-  EchoMaterial: {fileID: 2100000, guid: 8c5941023908b87459799704c2c4cddd, type: 2}
+  EchoMaterial: {fileID: 2100000, guid: 1783746642733ee4f90f773b00dd7781, type: 2}
   EchoTexture: {fileID: 0}
   SphereMaxRadius: 40
-  SphereCurrentRadius: 0
+  CurrentRadius: 0
   FadeDelay: 0
   FadeRate: 1
-  EchoSpeed: 1
+  EchoSpeed: 9
   SphereCount: 1
   CurrentSphere: 0
-  SphereIndex: 0
   fade: 0
   isTexturedScene: 1
-  Position: {x: 0, y: 0, z: 0}
   pingLocation: {x: 0, y: 0, z: 0}
   rockLocation: {x: 0, y: 0, z: 0}
   appControl: {fileID: 0}
@@ -347,22 +344,25 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 50584740}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47b8147f8db30834ba2a4660500861f7, type: 3}
+  m_Script: {fileID: 11500000, guid: af00f53f80eee684caa65fadf5daf169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EchoMaterial: {fileID: 2100000, guid: 1783746642733ee4f90f773b00dd7781, type: 2}
-  EchoTexture: {fileID: 2800000, guid: b6b5fff526ef4425c9125c971195c041, type: 3}
-  SphereMaxRadius: 10
-  CurrentRadius: 0
+  Spheres: 
+  EchoMaterial: {fileID: 2100000, guid: 8c5941023908b87459799704c2c4cddd, type: 2}
+  EchoTexture: {fileID: 0}
+  SphereMaxRadius: 40
+  SphereCurrentRadius: 0
   FadeDelay: 0
   FadeRate: 1
-  EchoSpeed: 1
+  EchoSpeed: 9
   SphereCount: 1
   CurrentSphere: 0
+  SphereIndex: 0
   fade: 0
   isTexturedScene: 1
+  Position: {x: 0, y: 0, z: 0}
   pingLocation: {x: 0, y: 0, z: 0}
   rockLocation: {x: 0, y: 0, z: 0}
   appControl: {fileID: 0}
@@ -478,7 +478,8 @@ MonoBehaviour:
   FloorMat: {fileID: 2100000, guid: 9447935ca27fed54c9c28112b77d5908, type: 2}
   lights: []
   echoSphere: {fileID: 0}
-  echoSphere2: {fileID: 0}
+  echoSpheres: {fileID: 0}
+  echoSpherez: {fileID: 0}
 --- !u!114 &50584749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,6 +668,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a18aecd463f8a4f8416b7f2b099a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &50584754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 50584740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b8147f8db30834ba2a4660500861f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentPackingMode: 1
+  EchoTexture: {fileID: 0}
+  EchoMaterial: {fileID: 2100000, guid: 8c5941023908b87459799704c2c4cddd, type: 2}
+  SphereCount: 5
+  CurrentSphere: 0
+  SphereMaxRadius: 40
+  FadeDelay: 0
+  FadeRate: 1
+  echoSpeed: 9
+  Spheres: []
 --- !u!1 &51881591
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,7 +32,7 @@ Material:
       data:
         first:
           name: _Radius
-        second: 5
+        second: 15.7657881
       data:
         first:
           name: _MaxRadius
@@ -44,7 +44,7 @@ Material:
       data:
         first:
           name: _MaxFade
-        second: 40
+        second: 4.44444466
       data:
         first:
           name: _DistanceFade
@@ -52,35 +52,35 @@ Material:
       data:
         first:
           name: _Radius0
-        second: 1.94089663
+        second: 40.0221024
       data:
         first:
           name: _Radius1
-        second: 6.07316399
+        second: 35.6254845
       data:
         first:
           name: _Radius2
-        second: 10.9182491
+        second: 40.0625687
       data:
         first:
           name: _Fade0
-        second: 1.93539631
+        second: 4.44690323
       data:
         first:
           name: _Fade1
-        second: 6.07316399
+        second: 3.95838761
       data:
         first:
           name: _Fade2
-        second: 1.21313858
+        second: 4.4513979
       data:
         first:
           name: _Fade3
-        second: 0
+        second: 4.45876312
       data:
         first:
           name: _Fade4
-        second: 0
+        second: 4.45344305
       data:
         first:
           name: _Fade5
@@ -281,16 +281,16 @@ Material:
       data:
         first:
           name: _Position
-        second: {r: -1.69198704, g: .961179316, b: -2.90305042, a: 0}
+        second: {r: -2.8821075, g: 3.13086075e-17, b: -7.05007124, a: 0}
       data:
         first:
           name: _Position0
-        second: {r: 0, g: 0, b: 0, a: 0}
+        second: {r: -14.6780319, g: 1.3347863, b: -15.7229319, a: 0}
       data:
         first:
           name: _Position1
-        second: {r: 0, g: 0, b: 0, a: 0}
+        second: {r: -18.9208565, g: 1.66454959, b: -18.1913509, a: 0}
       data:
         first:
           name: _Position2
-        second: {r: 0, g: 0, b: 0, a: 0}
+        second: {r: -7.47085667, g: 1.01223254, b: -21.3643856, a: 0}

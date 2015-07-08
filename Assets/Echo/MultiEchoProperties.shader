@@ -25,7 +25,7 @@ Shader "Custom/Echo/MultipleUsingProperty" {
 		LOD 200
 		
 		CGPROGRAM
-		//#pragma target 3.0
+		#pragma target 3.0
 		#pragma surface surf NoLighting
 		#include "UnityCG.cginc"
 		
@@ -45,14 +45,20 @@ Shader "Custom/Echo/MultipleUsingProperty" {
 		float3 _Position0;
 		float3 _Position1;
 		float3 _Position2;
+		float3 _Position3;
+		float3 _Position4;
 		
 		float _Radius0;
 		float _Radius1;
 		float _Radius2;
+		float _Radius3;
+		float _Radius4;
 		
 		float _Fade0;
 		float _Fade1;
 		float _Fade2;
+		float _Fade3;
+		float _Fade4;
 
 
 		// Custom light model that ignores actual lighting. 
@@ -88,18 +94,23 @@ Shader "Custom/Echo/MultipleUsingProperty" {
 		// Custom surfacer that mimics an echo effect
 		void surf (Input IN, inout SurfaceOutput o) 
 		{
-			float2 c1;
+			float c1;
 
 			// manually add more echos here.
-			c1 += ApplyFade(IN,_Position0,_Radius0,_Fade0);
+			c1 = ApplyFade(IN,_Position0,_Radius0,_Fade0);
 			c1 += ApplyFade(IN,_Position1,_Radius1,_Fade1);
 			c1 += ApplyFade(IN,_Position2,_Radius2,_Fade2);
-			c1 /= 3.0;  
+			c1 += ApplyFade(IN,_Position3,_Radius3,_Fade3);
+			c1 += ApplyFade(IN,_Position4,_Radius4,_Fade4);
 
-			//float3 c2 = 1.0 - c1;
-			o.Albedo = ApplyFade(IN,_Position0,_Radius0,_Fade0);			
+			c1 /= 5.0;  
 
-			//o.Albedo = _MainColor.rgb * c2 + tex2D (_MainTex, IN.uv_MainTex).rgb * c1 ;		
+			float c2 = 1.0 - c1;
+			//o.Albedo = ApplyFade(IN,_Position0,_Radius0,_Fade0);	
+						
+		
+
+			o.Albedo = _MainColor.rgb * c2 + tex2D (_MainTex, IN.uv_MainTex).rgb * c1;		
 		}
 		ENDCG
 	} 
