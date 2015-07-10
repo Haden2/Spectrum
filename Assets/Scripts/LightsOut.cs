@@ -26,7 +26,7 @@ public class LightsOut : MonoBehaviour
 		if(target != null) //If the target variable isn't blank. Putting things outside of this if statement creates issues because it takes a couple seconds for the game to find all of the lights.
 		{
 			targetLight = target.gameObject.GetComponent<Light> (); //grabbed the gameobjects light component.
-			if(targetLight.name == ("Spotlight")) //if that closest light is called spotlight
+			if(targetLight.name == ("LMspotlight")) //if that closest light is called spotlight
 			{
 				targetLight.transform.Rotate(Vector3.up*Time.deltaTime*50); //spin the light around. *50 is the speed. Increase to make it go faster
 			}

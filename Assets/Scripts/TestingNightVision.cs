@@ -35,15 +35,13 @@ public class TestingNightVision : MonoBehaviour
 	public Renderer Floor;
 	public Material FloorMat;
 	public GameObject[] lights;
-	public EchoSphere echoSphere;
-	public EchoSpheres echoSpheres;
+	//public EchoSphere echoSphere;
 	public EchoSpherez echoSpherez;
 	
 
 	void Start()
 	{
-		echoSphere = GetComponent<EchoSphere> ();
-		echoSpheres = GetComponent<EchoSpheres> ();
+		//echoSphere = GetComponent<EchoSphere> ();
 		echoSpherez = GetComponent<EchoSpherez> ();
 		NightVisionLight = GameObject.FindGameObjectWithTag ("NightVisionLight");
 		enemyDamage = GameObject.FindGameObjectWithTag ("Enemy").GetComponent <EnemyDamage> ();
@@ -67,6 +65,7 @@ public class TestingNightVision : MonoBehaviour
 	
 	void Update()
 	{
+		print (Floor.material);
 		if (Input.GetKeyDown("2"))
 		{
 			isNightVision = true;
@@ -85,7 +84,7 @@ public class TestingNightVision : MonoBehaviour
 			isFlashLight = false;
 			isSonar = true;
 			//DoF.enabled = true;
-			if(echoSphere.isActiveAndEnabled)
+		/*	if(echoSphere.isActiveAndEnabled)
 			{
 				for(int i = 0 ; i < environ.Length ; i++)
 				{
@@ -98,21 +97,7 @@ public class TestingNightVision : MonoBehaviour
 					lights[l].SetActive(false);
 				}
 				sonarLight.SetActive(true);
-			}
-			if(echoSpheres.isActiveAndEnabled)
-			{
-				for(int i = 0 ; i < environ.Length ; i++)
-				{
-					rend[i] = environ[i].GetComponent<Renderer>();
-					rend[i].material.shader = multiEcho;
-					rend[i].material = multiMaterial;
-				}
-				for(int l = 0; l < lights.Length; l++)
-				{
-					lights[l].SetActive(false);
-				}
-				sonarLight.SetActive(true);
-			}
+			}*/
 			if(echoSpherez.isActiveAndEnabled)
 			{
 				for(int i = 0 ; i < environ.Length ; i++)
@@ -174,8 +159,7 @@ public class TestingNightVision : MonoBehaviour
 			{
 				///Need floor to be different tag.
 				rend[t] = environ[t].GetComponent<Renderer>();
-				//rend[i].material.shader = echo;
-				rend[t].material = Default;
+				//rend[t].material = Default;
 			}
 			Floor.material = FloorMat;
 			for(int l = 0; l < lights.Length; l++)

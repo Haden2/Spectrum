@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class EchoSpherez : MonoBehaviour {
 	public EchoSphere2.ShaderPackingMode CurrentPackingMode = EchoSphere2.ShaderPackingMode.Texture;
+	//GameObject floor;
 	public Texture2D EchoTexture;
 	public Material EchoMaterial = null;
 	
@@ -21,7 +22,10 @@ public class EchoSpherez : MonoBehaviour {
 	public List<EchoSphere2> Spheres = new List<EchoSphere2>();
 	
 	// Use this for initialization
-	void Start () {		
+	void Start () 
+	{
+		//floor = GameObject.Find ("Floor").GetComponent<Renderer> ();
+
 		CreateEchoTexture();
 		InitializeSpheres();
 	}
@@ -57,7 +61,6 @@ public class EchoSpherez : MonoBehaviour {
 		if(EchoMaterial == null)return;	
 		foreach (EchoSphere2 es in Spheres)
 		{
-			print (Spheres.Count);
 			es.Update();
 		}
 		UpdateRayCast();
@@ -69,7 +72,7 @@ public class EchoSpherez : MonoBehaviour {
 			Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 			RaycastHit hit;
 			if (Physics.Raycast(ray,out hit, 10000)) {
-				Debug.Log("Triggering pulse["+CurrentSphere.ToString()+"]");
+				//Debug.Log("Triggering pulse["+CurrentSphere.ToString()+"]");
 				Spheres[CurrentSphere].TriggerPulse();
 				Spheres[CurrentSphere].Position = hit.point;
 				print (CurrentSphere);
@@ -128,7 +131,6 @@ public class EchoSphere2 {
 	
 	// Called to halt an echo pulse.
 	void HaltPulse(){
-		Debug.Log("HaltPulse reached");
 		is_animated = false;	
 	}
 	
@@ -143,7 +145,7 @@ public class EchoSphere2 {
 		float maxRadius = SphereMaxRadius;
 		float maxFade = SphereMaxRadius / echoSpeed;
 		
-		Debug.Log("Updating _Position"+SphereIndex.ToString());
+		//Debug.Log("Updating _Position"+SphereIndex.ToString());
 		EchoMaterial.SetVector("_Position"+SphereIndex.ToString(),Position);
 		EchoMaterial.SetFloat("_Radius"+SphereIndex.ToString(),sphereCurrentRadius);
 		EchoMaterial.SetFloat("_Fade"+SphereIndex.ToString(),fade);

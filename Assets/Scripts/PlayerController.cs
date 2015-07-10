@@ -3,8 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
-
-	GameObject elevator;
+	
 	GameObject oldMan;
 	GameObject hG;
 	GameObject eyesHere;
@@ -12,20 +11,9 @@ public class PlayerController : MonoBehaviour {
 	public EnemyDamage enemyDamage;
 	Wander wander;
 	public Inventory inventory;
-	GameObject bigDoor;
-	GameObject littleDoor;
-	public bool elevatorDoor;
-	public bool inElevator;
-	public bool doorIsClosed;
-	public bool canActive;
-	public bool isDown;
-	public bool isUp;
-	public bool isMoving;
 	public bool oldManSeen;
 	public bool peripheral;
 	public bool hGInsight;
-	public Vector3 downPosition;
-	public Vector3 upPosition;
 	float power;
 	float hGViewAngle = 135;
 	float oldManViewAngle = 60;
@@ -43,15 +31,7 @@ public class PlayerController : MonoBehaviour {
 		hG = GameObject.FindGameObjectWithTag ("Enemy");
 		enemyDamage = GameObject.FindGameObjectWithTag ("Enemy").GetComponent<EnemyDamage> ();
 		wander = GameObject.FindGameObjectWithTag ("OldMan").GetComponent<Wander> ();
-		elevator = GameObject.FindGameObjectWithTag ("Elevator");
 		inventory = GetComponent<Inventory> ();
-		bigDoor = GameObject.FindGameObjectWithTag ("BigDoor");
-		littleDoor = GameObject.FindGameObjectWithTag ("LittleDoor");
-		downPosition = new Vector3(13, 1, -5);
-		upPosition = new Vector3 (13, 15, -5);
-		isDown = true;
-		isUp = false;
-		isMoving = false;
 		oldMan = GameObject.FindGameObjectWithTag ("OldMan");
 		cam = GameObject.FindGameObjectWithTag ("MainCamera");
 		chMotor =  GetComponent<CharacterMotorC>();
@@ -62,35 +42,16 @@ public class PlayerController : MonoBehaviour {
 
 	void OnTriggerEnter (Collider other)
 	{
-		if(other.gameObject.name == "Little Door")
-		{
-			elevatorDoor = true;
-		}
-		if(elevatorDoor && inventory.activeElevatorKey)
-		{
-			canActive = true;
-		}
-		if(other.gameObject.name == "Elevator")
-		{
-			inElevator = true;
-		}
+
 	}
 	void OnTriggerExit(Collider other)
 	{
-		if(other.gameObject.name == "Little Door")
-		{
-			elevatorDoor = false;
-		}
-		if(other.gameObject.name == "Elevator")
-		{
-			inElevator = false;
-		}
+
 	}
 
 	void OnParticleCollision(GameObject other)
 	{
-		print (gameObject.name);
-		//gameObject.SetActive (false);
+		//print (gameObject.name);
 	}
 	
 	void Update()
@@ -152,28 +113,7 @@ public class PlayerController : MonoBehaviour {
 		{
 			oldManSeen = false;
 		}
-		if(elevatorDoor && inventory.activeElevatorKey && canActive == true && Input.GetKeyDown("e"))
-		{
-			littleDoor.GetComponent<Animation>().Play("SmallElevatorDoor");
-			bigDoor.GetComponent<Animation>().Play("ElevatorDoor");
-		}
-		if(isDown == true && isUp == false && isMoving == false && canActive == true && inElevator && Input.GetKeyDown ("1"))
-		{
-			StartCoroutine(MoveUp (elevator.transform, downPosition, upPosition, 5));
-		}
-		if(isDown == false && isUp == true && isMoving == false && canActive == true && inElevator && Input.GetKeyDown ("1"))
-		{
-			StartCoroutine(MoveDown (elevator.transform, upPosition, downPosition, 5));
-		}
-		if(bigDoor.GetComponent<Animation>().isPlaying)
-		{
-			canActive = false;
-		}
-		else
-		{
-			canActive = true;
-		}
-	
+
 		{
 			RaycastHit hit;
 			Vector3 rayDirection = oldMan.transform.position - transform.position;
@@ -217,54 +157,6 @@ public class PlayerController : MonoBehaviour {
 			{
 				hGInsight = false;
 			}
-		}
-	}
-	IEnumerator CanMoveUp()
-	{
-		if (isMoving == true) 
-		{
-			yield return new WaitForSeconds (5);
-			isDown = true;
-			isUp = false;
-			isMoving = false;
-		}
-	}
-	IEnumerator CanMoveDown()
-	{
-		if (isMoving == true) 
-		{
-			yield return new WaitForSeconds (5);
-			isDown = false;
-			isUp = true;
-			isMoving = false;
-		}
-	}
-
-	IEnumerator MoveUp(Transform thisTransform, Vector3 startPos, Vector3 endPos, float time)
-	{
-		isMoving = true;
-		StartCoroutine(CanMoveDown());
-		float i = 0.0f;
-		float rate = 1.0f / time;
-		while(i < 1.0f) 
-		{
-			i += Time.deltaTime * rate;
-			thisTransform.position = Vector3.Lerp (startPos, endPos, i);
-			yield return null;
-		}
-	}
-
-	IEnumerator MoveDown(Transform thisTransform, Vector3 endPos, Vector3 startPos, float time)
-	{
-		isMoving = true;
-		StartCoroutine(CanMoveUp());
-		float i = 0.0f;
-		float rate = 1.0f / time;
-		while(i < 1.0f) 
-		{
-			i += Time.deltaTime * rate;
-			thisTransform.position = Vector3.Lerp (endPos, startPos, i);
-			yield return null;
 		}
 	}
 }
