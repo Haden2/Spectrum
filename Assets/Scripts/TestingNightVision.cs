@@ -84,35 +84,6 @@ public class TestingNightVision : MonoBehaviour
 			isFlashLight = false;
 			isSonar = true;
 			//DoF.enabled = true;
-		/*	if(echoSphere.isActiveAndEnabled)
-			{
-				for(int i = 0 ; i < environ.Length ; i++)
-				{
-					rend[i] = environ[i].GetComponent<Renderer>();
-					rend[i].material.shader = echo;
-					rend[i].material = EchoMaterial;
-				}
-				for(int l = 0; l < lights.Length; l++)
-				{
-					lights[l].SetActive(false);
-				}
-				sonarLight.SetActive(true);
-			}*/
-			if(echoSpherez.isActiveAndEnabled)
-			{
-				for(int i = 0 ; i < environ.Length ; i++)
-				{
-					rend[i] = environ[i].GetComponent<Renderer>();
-					rend[i].material.shader = multiEcho;
-					rend[i].material = multiMaterial;
-				}
-				for(int l = 0; l < lights.Length; l++)
-				{
-					lights[l].SetActive(false);
-				}
-				sonarLight.SetActive(true);
-			}
-			//rend.material.shader = echo;
 		}
 		/*if(DoF.isActiveAndEnabled)
 		{
@@ -148,6 +119,17 @@ public class TestingNightVision : MonoBehaviour
 		}
 		if(isSonar)
 		{
+			for(int i = 0 ; i < environ.Length ; i++)
+			{
+				rend[i] = environ[i].GetComponent<Renderer>();
+				rend[i].material.shader = multiEcho;
+				rend[i].material = multiMaterial;
+			}
+			for(int l = 0; l < lights.Length; l++)
+			{
+				lights[l].SetActive(false);
+			}
+			sonarLight.SetActive(true);
 			if(Input.GetKeyDown("2") || Input.GetKeyDown("1"))
 			{
 				isSonar = false;
@@ -159,13 +141,14 @@ public class TestingNightVision : MonoBehaviour
 			{
 				///Need floor to be different tag.
 				rend[t] = environ[t].GetComponent<Renderer>();
-				//rend[t].material = Default;
+				rend[t].material = Default;
 			}
 			Floor.material = FloorMat;
 			for(int l = 0; l < lights.Length; l++)
 			{
 				lights[l].SetActive(true);
 			}
+			sonarLight.SetActive(false);
 		}
 	}
 	

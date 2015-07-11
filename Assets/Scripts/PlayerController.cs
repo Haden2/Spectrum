@@ -8,9 +8,12 @@ public class PlayerController : MonoBehaviour {
 	GameObject hG;
 	GameObject eyesHere;
 	GameObject cam;
-	public EnemyDamage enemyDamage;
+	GameObject activationSwitch;
+	EnemyDamage enemyDamage;
 	Wander wander;
-	public Inventory inventory;
+	Inventory inventory;
+	Environmental environment;
+	CollectItem collect;
 	public bool oldManSeen;
 	public bool peripheral;
 	public bool hGInsight;
@@ -28,10 +31,13 @@ public class PlayerController : MonoBehaviour {
 	void Start()
 	{
 		eyesHere = GameObject.FindGameObjectWithTag ("EyesHere");
+		activationSwitch = GameObject.Find ("Activation Switch");
 		hG = GameObject.FindGameObjectWithTag ("Enemy");
 		enemyDamage = GameObject.FindGameObjectWithTag ("Enemy").GetComponent<EnemyDamage> ();
 		wander = GameObject.FindGameObjectWithTag ("OldMan").GetComponent<Wander> ();
 		inventory = GetComponent<Inventory> ();
+		environment = GameObject.Find ("Environment").GetComponent<Environmental>();
+		collect = GameObject.Find ("First Person Controller").GetComponent<CollectItem> ();
 		oldMan = GameObject.FindGameObjectWithTag ("OldMan");
 		cam = GameObject.FindGameObjectWithTag ("MainCamera");
 		chMotor =  GetComponent<CharacterMotorC>();
@@ -42,11 +48,50 @@ public class PlayerController : MonoBehaviour {
 
 	void OnTriggerEnter (Collider other)
 	{
+		if(other.gameObject.name == "Little Door")
+		{
+			environment.elevatorDoor = true;
+		}
+		if(environment.elevatorDoor && inventory.activeElevatorKey)
+		{
+			environment.canActive = true;
+		}
+		if(other.gameObject.name == "Elevator")
+		{
+			environment.inElevator = true;
+		}
 
+		if(other.gameObject == activationSwitch)
+		{
+			if(inventory.activeKey)
+			{
+				StartCoroutine (environment.WantToOpenDoor());
+			}
+			if(collect.keyIsGot)
+			{
+				environment.awaitingKey = true;
+			}
+		}
+		if(other.gameObject == activationSwitch && environment.haveKey == false)
+		{
+			StartCoroutine (environment.CantOpenDoor());
+		}
 	}
 	void OnTriggerExit(Collider other)
 	{
+		if(other.gameObject.name == "Little Door")
+		{
+			environment.elevatorDoor = false;
+		}
+		if(other.gameObject.name == "Elevator")
+		{
+			environment.inElevator = false;
+		}
 
+		if(other.gameObject == activationSwitch)
+		{
+			StartCoroutine (environment.DoNothing());
+		}
 	}
 
 	void OnParticleCollision(GameObject other)

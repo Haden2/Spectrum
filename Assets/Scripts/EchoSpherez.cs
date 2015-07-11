@@ -75,7 +75,6 @@ public class EchoSpherez : MonoBehaviour {
 				//Debug.Log("Triggering pulse["+CurrentSphere.ToString()+"]");
 				Spheres[CurrentSphere].TriggerPulse();
 				Spheres[CurrentSphere].Position = hit.point;
-				print (CurrentSphere);
 				CurrentSphere += 1;
 				if(CurrentSphere >= Spheres.Count)CurrentSphere = 0;
 			}

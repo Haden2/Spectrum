@@ -52,35 +52,35 @@ Material:
       data:
         first:
           name: _Radius0
-        second: 40.0597496
+        second: 40.0889893
       data:
         first:
           name: _Radius1
-        second: 40.0012436
+        second: 40.0109634
       data:
         first:
           name: _Radius2
-        second: 40.0329094
+        second: 40.0683556
       data:
         first:
           name: _Fade0
-        second: 4.45107841
+        second: 4.45433426
       data:
         first:
           name: _Fade1
-        second: 4.44458246
+        second: 4.44566488
       data:
         first:
           name: _Fade2
-        second: 4.44810486
+        second: 4.4520421
       data:
         first:
           name: _Fade3
-        second: 4.45064259
+        second: 4.4520421
       data:
         first:
           name: _Fade4
-        second: 4.44654989
+        second: 4.45433426
       data:
         first:
           name: _Fade5
@@ -285,12 +285,12 @@ Material:
       data:
         first:
           name: _Position0
-        second: {r: -5.57719803, g: -3.57217253e-17, b: 8.04381657, a: 0}
+        second: {r: 9.93928719, g: .534411788, b: -4.28904152, a: 0}
       data:
         first:
           name: _Position1
-        second: {r: -5.32568455, g: -3.67538415e-17, b: 8.2762289, a: 0}
+        second: {r: 20.7358837, g: 1.32436204, b: -15.6750002, a: 0}
       data:
         first:
           name: _Position2
-        second: {r: -5.32568455, g: -3.67538415e-17, b: 8.2762289, a: 0}
+        second: {r: 18.5430431, g: 1.95190215, b: -12.7359991, a: 0}

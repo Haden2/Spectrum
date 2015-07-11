@@ -23,6 +23,7 @@ public class CollectItem : MonoBehaviour {
 
 	public Inventory inventory;
 	public OpenDoor openDoor;
+	public Environmental environment;
 
 	public bool onItem;
 	public bool onKey;
@@ -56,6 +57,7 @@ public class CollectItem : MonoBehaviour {
 
 	void Awake () 
 	{
+		environment = GameObject.Find ("Environment").GetComponent<Environmental> ();
 		inventory = GetComponent<Inventory>();
 		openDoor = GameObject.FindGameObjectWithTag ("Door").GetComponent<OpenDoor> ();
 		Key = GameObject.FindGameObjectWithTag ("PickUpKey");
@@ -193,7 +195,7 @@ public class CollectItem : MonoBehaviour {
 			holdStill = false;
 		}
 		//RETURNING THE ITEM IF YOU DIDN'T USE IT PROPERLY AND YOU ARE NOT STANDING ON AN ITEM
-		if(inventory.activeKey == true && Input.GetKeyDown("e") && onItem == false && openDoor.haveKey == false)
+		if(inventory.activeKey == true && Input.GetKeyDown("e") && onItem == false && environment.haveKey == false)
 		{
 			//print("Return Key");
 			inventory.holdingKey.gameObject.SetActive(false);

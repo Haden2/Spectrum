@@ -3,7 +3,7 @@ using System.Collections;
 
 public class OpenDoor : MonoBehaviour {
 
-	public GameObject key;
+	/*public GameObject key;
 	GameObject player;
 	public Transform doorR;
 	public Transform doorL;
@@ -33,22 +33,12 @@ public class OpenDoor : MonoBehaviour {
 
 	void OnTriggerEnter (Collider other)
 	{
-		if(other.gameObject == key)
-		{
-			StartCoroutine (WantToOpenDoor());
-		}
-		if(other.gameObject == player && haveKey == false)
-		{
-			StartCoroutine (CantOpenDoor());
-		}
+
 	}
 
 	void OnTriggerExit (Collider other)
 	{
-		if(other.gameObject == key)
-		{
-			StartCoroutine (DoNothing());
-		}
+
 	}
 
 	IEnumerator WantToOpenDoor()
@@ -86,7 +76,7 @@ public class OpenDoor : MonoBehaviour {
 
 	void Update () 
 	{
-		if(closed == true && haveKey == true && nothing == false && Input.GetKeyDown ("e")/*Event.current.button == 0 && Event.current.type == EventType.mouseUp*/)
+		if(closed == true && haveKey == true && nothing == false && Input.GetKeyDown ("e")
 		{
 			StartCoroutine(DoorOpens());
 		}
@@ -148,5 +138,5 @@ public class OpenDoor : MonoBehaviour {
 				rotating = false;
 			}
 		}
-		}
+	}*/
 }
