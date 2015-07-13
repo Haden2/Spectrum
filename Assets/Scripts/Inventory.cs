@@ -4,14 +4,12 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour 
 {
-	public int slotsX, slotsY; //5, 2
+	public string tooltip;
 	public GUISkin skin;
 	public List<Item> inventory = new List<Item>();
 	public List<Item> slots = new List<Item> ();
-	public Texture2D backgroundScreen;
-	public float fAlpha;
-	public float tapSpeed = .25f;
-
+	//public Texture2D backgroundScreen;
+	
 	public GameObject holdingKey;
 	public GameObject holdingGun;
 	public GameObject holdingRock;
@@ -23,7 +21,6 @@ public class Inventory : MonoBehaviour
 
 	public bool pause;
 	public bool unPause;
-
 	public bool activeKey;
 	public bool activeGun;
 	public bool activeRock;
@@ -32,7 +29,6 @@ public class Inventory : MonoBehaviour
 	public bool activeAnatomy;
 	public bool activeTicket;
 	public bool activeElevatorKey;
-
 	public bool keySwap;
 	public bool gunSwap;
 	public bool rockSwap;
@@ -41,17 +37,7 @@ public class Inventory : MonoBehaviour
 	public bool ticketSwap;
 	public bool glovesSwap;
 	public bool elevatorkeySwap;
-
-	private MouseLook playerLook;
-	private MouseLook playerCameraLook;
-	public float lastTapTime = 0;
-	public bool showInventory;
-	private ItemDatabase database;
-	public CollectItem collect;
-	public EnemyDamage enemyDamage;
-	private bool showTooltip;
-	private string tooltip;
-	private bool draggingItem;
+	public bool draggingItem;
 	public bool draggingLung;
 	public bool draggingHeart;
 	public bool draggingBrain;
@@ -64,8 +50,21 @@ public class Inventory : MonoBehaviour
 	public bool draggingElevatorKey;
 	public bool firstShot;
 	public bool firstThrow;
-	private Item draggedItem;
-	private int prevIndex;
+	public bool showTooltip;
+	public bool showInventory;
+
+	public int slotsX, slotsY; //5, 2
+	public int prevIndex;
+	public float lastTapTime = 0;
+	public float fAlpha;
+	public float tapSpeed;
+
+	public MouseLook playerLook;
+	public MouseLook playerCameraLook;
+	public ItemDatabase database;
+	public CollectItem collect;
+	public HospitalGirl enemyDamage;
+	public Item draggedItem;
 
 	void Start () 
 	{
@@ -74,24 +73,15 @@ public class Inventory : MonoBehaviour
 			slots.Add(new Item());
 			inventory.Add (new Item());
 		}
-		database = GameObject.FindGameObjectWithTag ("Item Database").GetComponent<ItemDatabase> (); //Grab the ItemDatabase script
-		playerLook = (MouseLook)GameObject.Find ("First Person Controller").GetComponent ("MouseLook");
-		collect = GetComponent<CollectItem>();
-		holdingKey = GameObject.FindGameObjectWithTag ("Key");
-		holdingGun = GameObject.FindGameObjectWithTag ("Gun");
+		holdingKey = GameObject.Find ("HoldingKey");
+		holdingGun = GameObject.Find ("HoldingGun");
 		holdingGloves = GameObject.FindGameObjectsWithTag ("Gloves");
-		holdingRock = GameObject.FindGameObjectWithTag ("Rock");
-		holdingPoisonHead = GameObject.FindGameObjectWithTag ("PoisonHead");
-		holdingAnatomy = GameObject.FindGameObjectWithTag ("Anatomy");
-		holdingTicket = GameObject.FindGameObjectWithTag ("Ticket");
-		holdingElevatorKey = GameObject.FindGameObjectWithTag ("ElevatorKey");
-		enemyDamage = GameObject.FindGameObjectWithTag ("Enemy").GetComponent<EnemyDamage> (); 
+		holdingRock = GameObject.Find ("HoldingRock");
+		holdingPoisonHead = GameObject.Find ("HoldingPoisonHead");
+		holdingAnatomy = GameObject.Find ("HoldingAnatomy");
+		holdingTicket = GameObject.Find ("HoldingTicket");
+		holdingElevatorKey = GameObject.Find ("HoldingElevatorKey");
 
-		playerCameraLook = (MouseLook)GameObject.Find ("Main Camera").GetComponent ("MouseLook");
-		//AddItem (0);
-		//RemoveItem (0);
-		lastTapTime = 0;
-		tapSpeed = .25f;
 		holdingKey.SetActive (false);
 		holdingGun.SetActive (false);
 		holdingRock.SetActive (false);
@@ -104,13 +94,21 @@ public class Inventory : MonoBehaviour
 		holdingTicket.SetActive (false);
 		holdingElevatorKey.SetActive (false);
 
-		pause = false;
 		unPause = true;
-		activeKey = false;
-		activeGun = false;
-		
 
-	//	print (InventoryContains(1)); //How many items are in the inventory?
+		slotsX = 6;
+		slotsY = 2;
+		lastTapTime = 0;
+		tapSpeed = .25f;
+
+		playerLook = (MouseLook)GameObject.Find ("First Person Controller").GetComponent ("MouseLook");
+		playerCameraLook = (MouseLook)GameObject.Find ("Main Camera").GetComponent ("MouseLook");
+		database = GameObject.Find ("Item Database").GetComponent<ItemDatabase> ();
+		collect = GetComponent<CollectItem>();
+		enemyDamage = GameObject.Find ("HospitalGirl").GetComponent<HospitalGirl> (); 	
+		//AddItem (0);
+		//RemoveItem (0);
+		//print (InventoryContains(1)); //How many items are in the inventory?
 	}
 
 	void Update()
@@ -267,7 +265,7 @@ public class Inventory : MonoBehaviour
 							if(item.itemType == Item.ItemType.Combine)
 							{
 								draggingCombine = true;
-								print ("Dragging Combine");
+								//print ("Dragging Combine");
 								if(item.itemID == 4)
 								{
 									draggingHead = true;
@@ -403,25 +401,25 @@ public class Inventory : MonoBehaviour
 									RemoveItem(9);
 									AddItem(11);
 									collect.poisonheadIsGot = true;
-									print ("Combine");
+									//print ("Combine");
 								}
 								if(draggingCombine && (draggingLung || draggingHeart) && (item.itemID ==  6 || item.itemID == 5))
 								{
-									print ("Combined Heart and Lung");
+									//print ("Combined Heart and Lung");
 									RemoveItem(6);
 									RemoveItem(5);
 									AddItem(15);
 								}
 								if(draggingCombine && (draggingLung || draggingBrain) && (item.itemID ==  7 || item.itemID == 5))
 								{
-									print ("Combined Lung and Brain");
+									//print ("Combined Lung and Brain");
 									RemoveItem(7);
 									RemoveItem(5);
 									AddItem(14);
 								}
 								if(draggingCombine && (draggingHeart || draggingBrain) && (item.itemID ==  7 || item.itemID == 6))
 								{
-									print ("Combined Brain and Heart");
+									//print ("Combined Brain and Heart");
 									RemoveItem(7);
 									RemoveItem(6);
 									AddItem(13);

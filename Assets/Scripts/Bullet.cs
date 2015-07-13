@@ -6,17 +6,19 @@ public class Bullet : MonoBehaviour {
 	public Rigidbody projectile; //Prefab bullet
 	public Transform bulletLocation;
 	public GameObject bulletHole;
-	public CollectItem collect;
-	public Inventory inventory;
+
 	public int shootingPower;
 	public bool oldManShot;
+
+	public CollectItem collect;
+	public Inventory inventory;
 	
 	void Start () 
 	{
 		projectile = projectile.GetComponent<Rigidbody> ();
 		shootingPower = 150;
-		inventory = GameObject.FindGameObjectWithTag ("Player").GetComponent<Inventory>();
-		collect = GameObject.FindGameObjectWithTag ("Player").GetComponent<CollectItem> ();
+		collect = GameObject.Find ("First Person Controller").GetComponent<CollectItem> ();
+		inventory = GameObject.Find ("First Person Controller").GetComponent<Inventory>();
 	}
 
 	void Update () 
@@ -32,7 +34,7 @@ public class Bullet : MonoBehaviour {
 			{
 				GameObject targetGameObject = hit.collider.gameObject; // What's the GameObject?
 				print (targetGameObject);
-				if(hit.transform.tag == "OldMan")
+				if(hit.transform.name == "OldMan")
 				{
 					oldManShot = true;
 				}

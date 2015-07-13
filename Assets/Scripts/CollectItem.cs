@@ -6,7 +6,6 @@ public class CollectItem : MonoBehaviour {
 
 	public Text pressE;
 	public Color pickupText = new Color(1f, 0f, 0f, 1f);
-	//public float flashSpeed = 5f;
 	public Color blank = new Color (0f, 0f, 0f, 0f);
 
 	public GameObject Key;
@@ -20,9 +19,6 @@ public class CollectItem : MonoBehaviour {
 	public GameObject Ticket;
 	public GameObject Poison;
 	public GameObject ElevatorKey;
-
-	public Inventory inventory;
-	public OpenDoor openDoor;
 
 	public bool onItem;
 	public bool onKey;
@@ -52,74 +48,74 @@ public class CollectItem : MonoBehaviour {
 	public bool anatomyIsGot;
 	public bool elevatorkeyIsGot;
 
-
+	public Inventory inventory;
+	public Environmental environment;
 
 	void Awake () 
 	{
+		Key = GameObject.Find ("Key");
+		Gun = GameObject.Find ("Gun");
+		Gloves = GameObject.Find ("Gloves");
+		Rock = GameObject.Find ("Rock");
+		Head = GameObject.Find ("Head");
+		Lung = GameObject.Find ("Lung");
+		Heart = GameObject.Find ("Heart");
+		Brain = GameObject.Find ("Brain");
+		Ticket = GameObject.Find ("Ticket");
+		Poison = GameObject.Find ("Poison");
+		ElevatorKey = GameObject.Find ("ElevatorKey");
+
+		environment = GameObject.Find ("Environment").GetComponent<Environmental> ();
 		inventory = GetComponent<Inventory>();
-		openDoor = GameObject.FindGameObjectWithTag ("Door").GetComponent<OpenDoor> ();
-		Key = GameObject.FindGameObjectWithTag ("PickUpKey");
-		Gun = GameObject.FindGameObjectWithTag ("PickUpGun");
-		Gloves = GameObject.FindGameObjectWithTag ("PickUpGloves");
-		Rock = GameObject.FindGameObjectWithTag ("PickUpRock");
-		Head = GameObject.FindGameObjectWithTag ("PickUpHead");
-		Lung = GameObject.FindGameObjectWithTag ("PickUpLung");
-		Heart = GameObject.FindGameObjectWithTag ("PickUpHeart");
-		Brain = GameObject.FindGameObjectWithTag ("PickUpBrain");
-		Ticket = GameObject.FindGameObjectWithTag ("PickUpTicket");
-		Poison = GameObject.FindGameObjectWithTag ("PickUpPoison");
-		ElevatorKey = GameObject.FindGameObjectWithTag ("PickUpElevatorKey");
 	}
 	//WHEN YOU STEP ONTO THE OBJECT
 	void OnTriggerEnter(Collider other) 
 	{
-		if (other.gameObject.tag == "PickUpKey" || other.gameObject.tag == "PickUpGun" || other.gameObject.tag == "PickUpGloves" || other.gameObject.tag == "PickUpRock"
-		    || other.gameObject.tag == "PickUpHead" || other.gameObject.tag == "PickUpLung" || other.gameObject.tag == "PickUpHeart" || other.gameObject.tag == "PickUpBrain"
-		    || other.gameObject.tag == "PickUpTicket" || other.gameObject.tag == "PickUpPoison" || other.gameObject.tag == "PickUpElevatorKey") 
+		if (other.gameObject.tag == "Item") 
 		{
 			pressE.color = pickupText;
 			onItem = true;
-			if(other.gameObject.tag == "PickUpRock")
+			if(other.gameObject.name == "Rock")
 			{
 				onRock = true;
 			}
-			if(other.gameObject.tag == "PickUpKey")
+			if(other.gameObject.name == "Key")
 			{
 				onKey = true;
 			}
-			if(other.gameObject.tag == "PickUpGun")
+			if(other.gameObject.name == "Gun")
 			{
 				onGun = true;
 			}
-			if(other.gameObject.tag == "PickUpGloves")
+			if(other.gameObject.name == "Gloves")
 			{
 				onGloves = true;
 			}
-			if(other.gameObject.tag == "PickUpHead")
+			if(other.gameObject.name == "Head")
 			{
 				onHead = true;
 			}
-			if(other.gameObject.tag == "PickUpLung")
+			if(other.gameObject.name == "Lung")
 			{
 				onLung = true;
 			}
-			if(other.gameObject.tag == "PickUpHeart")
+			if(other.gameObject.name == "Heart")
 			{
 				onHeart = true;
 			}
-			if(other.gameObject.tag == "PickUpBrain")
+			if(other.gameObject.name == "Brain")
 			{
 				onBrain = true;
 			}
-			if(other.gameObject.tag == "PickUpTicket")
+			if(other.gameObject.name == "Ticket")
 			{
 				onTicket = true;
 			}
-			if(other.gameObject.tag == "PickUpPoison")
+			if(other.gameObject.name == "Poison")
 			{
 				onPoison = true;
 			}
-			if(other.gameObject.tag == "PickUpElevatorKey")
+			if(other.gameObject.name == "ElevatorKey")
 			{
 				onElevatorKey = true;
 			}
@@ -128,53 +124,51 @@ public class CollectItem : MonoBehaviour {
 	//WHEN YOU LEAVE THAT OBJECT ON THE GROUND
 	void OnTriggerExit (Collider other)
 	{
-		if (other.gameObject.tag == "PickUpKey" || other.gameObject.tag == "PickUpGun" || other.gameObject.tag == "PickUpGloves" || other.gameObject.tag == "PickUpRock"
-		    || other.gameObject.tag == "PickUpHead" || other.gameObject.tag == "PickUpLung" || other.gameObject.tag == "PickUpHeart" || other.gameObject.tag == "PickUpBrain"
-		    || other.gameObject.tag == "PickUpTicket" || other.gameObject.tag == "PickUpPoison" || other.gameObject.tag == "PickUpElevatorKey") 
+		if (other.gameObject.tag == "Item") 
 		{
 			pressE.color = blank;
 			onItem = false;
-			if(other.gameObject.tag == "PickUpRock")
+			if(other.gameObject.name == "Rock")
 			{
 				onRock = false;
 			}
-			if(other.gameObject.tag == "PickUpKey")
+			if(other.gameObject.name == "Key")
 			{
 				onKey = false;
 			}
-			if(other.gameObject.tag == "PickUpGun")
+			if(other.gameObject.name == "Gun")
 			{
 				onGun = false;
 			}
-			if(other.gameObject.tag == "PickUpGloves")
+			if(other.gameObject.name == "Gloves")
 			{
 				onGloves = false;
 			}
-			if(other.gameObject.tag == "PickUpHead")
+			if(other.gameObject.name == "Head")
 			{
 				onHead = false;
 			}
-			if(other.gameObject.tag == "PickUpLung")
+			if(other.gameObject.name == "Lung")
 			{
 				onLung = false;
 			}
-			if(other.gameObject.tag == "PickUpHeart")
+			if(other.gameObject.name == "Heart")
 			{
 				onHeart = false;
 			}
-			if(other.gameObject.tag == "PickUpBrain")
+			if(other.gameObject.name == "Brain")
 			{
 				onBrain = false;
 			}
-			if(other.gameObject.tag == "PickUpTicket")
+			if(other.gameObject.name == "Ticket")
 			{
 				onTicket = false;
 			}
-			if(other.gameObject.tag == "PickUpPoison")
+			if(other.gameObject.name == "Poison")
 			{
 				onPoison = false;
 			}
-			if(other.gameObject.tag == "PickUpElevatorKey")
+			if(other.gameObject.name == "ElevatorKey")
 			{
 				onElevatorKey = false;
 			}
@@ -193,7 +187,7 @@ public class CollectItem : MonoBehaviour {
 			holdStill = false;
 		}
 		//RETURNING THE ITEM IF YOU DIDN'T USE IT PROPERLY AND YOU ARE NOT STANDING ON AN ITEM
-		if(inventory.activeKey == true && Input.GetKeyDown("e") && onItem == false && openDoor.haveKey == false)
+		if(inventory.activeKey == true && Input.GetKeyDown("e") && onItem == false && environment.haveKey == false)
 		{
 			//print("Return Key");
 			inventory.holdingKey.gameObject.SetActive(false);
@@ -201,6 +195,12 @@ public class CollectItem : MonoBehaviour {
 			inventory.activeKey = false;
 			inventory.keySwap = false;
 			inventory.gunSwap = false;
+			inventory.rockSwap = false;
+			inventory.poisonheadSwap = false;
+			inventory.anatomySwap = false;
+			inventory.ticketSwap = false;
+			inventory.glovesSwap = false;
+			inventory.elevatorkeySwap = false;
 		}
 	
 		//GRABBING THE ITEMS

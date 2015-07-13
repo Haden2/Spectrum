@@ -3,20 +3,23 @@ using System.Collections;
 
 public class FlickeringLight : MonoBehaviour {
 
-	public Inventory inventory;
 	public Light lightBulb;
 	public Light smallFlicker;
+
 	public float randomNumber;
 	public float randomNumber1;
 	public float randomNumber2;
 	public float randomNumber3;
 
+	public Inventory inventory;
+
 	// Use this for initialization
 	void Start () 
 	{
 		lightBulb = GetComponent<Light> ();
-		inventory = GameObject.FindGameObjectWithTag ("Player").GetComponent<Inventory>();
 		smallFlicker = GameObject.Find ("SmallFlicker").GetComponent <Light>();
+
+		inventory = GameObject.Find ("First Person Controller").GetComponent<Inventory>();
 	}
 	
 	// Update is called once per frame

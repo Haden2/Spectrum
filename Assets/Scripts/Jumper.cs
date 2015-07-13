@@ -3,30 +3,36 @@ using System.Collections;
 
 public class Jumper : MonoBehaviour {
 
+	public GameObject gloves;
+	public GameObject Player;
+
+	public float deathSequence;
+	public float jumpZ;
+	public float jumpX;
+	public float randomZ;
+	public float randomX;
+	public float lookingAngle;
+
+	public Vector3 worldDeltaPosition;
+	
 	public Inventory inventory;
-	CharacterMotorC playerMovement;
-	NavMeshAgent nav;
-	Vector3 worldDeltaPosition;
-	GameObject gloves;
-	GameObject Player;
-	float deathSequence;
-	float jumpZ;
-	float jumpX;
-	float randomZ;
-	float randomX;
-	float lookingAngle;
+	public CharacterMotorC playerMovement;
+	public NavMeshAgent nav;
 
 	
 	// Use this for initialization
 	void Start () 
 	{
-		playerMovement = GameObject.FindGameObjectWithTag ("Player").GetComponent<CharacterMotorC> ();
-		inventory = GameObject.FindGameObjectWithTag ("Player").GetComponent<Inventory>();
-		gloves = GameObject.FindGameObjectWithTag ("Gloves");
-		Player = GameObject.FindGameObjectWithTag ("Player");
+		gloves = GameObject.Find ("Gloves");
+		Player = GameObject.Find ("First Person Controller");
+
 		deathSequence = 3;
+
+		inventory = GameObject.Find ("First Person Controller").GetComponent<Inventory>();
+		playerMovement = GameObject.Find ("First Person Controller").GetComponent<CharacterMotorC> ();
 		nav = GetComponent<NavMeshAgent> ();
 		nav.speed = 0;
+
 		StartCoroutine(JumpForward());
 	}
 	
@@ -46,7 +52,7 @@ public class Jumper : MonoBehaviour {
 	{
 		if(other.gameObject == gloves)
 		{
-			print ("collided with gloves");
+			//print ("collided with gloves");
 			StartCoroutine (DeathSequence());
 		}
 		if(other.gameObject == Player)
@@ -58,7 +64,6 @@ public class Jumper : MonoBehaviour {
 	IEnumerator JumpForward()
 	{
 		//print (worldDeltaPosition);
-
 		//In the X plane going left or right
 		if(lookingAngle > 225 && lookingAngle < 315 || lookingAngle > 45 && lookingAngle < 135)
 		{
@@ -105,7 +110,7 @@ public class Jumper : MonoBehaviour {
 		}
 		if(worldDeltaPosition.z >= 15 || worldDeltaPosition.z <= -15 || worldDeltaPosition.x >= 15 || worldDeltaPosition.x <= -15)
 		{
-			print ("Fast Mode");
+			//print ("Fast Mode");
 			randomZ = Random.Range (.1f,.5f);
 		}
 		if((worldDeltaPosition.z < 15 && worldDeltaPosition.z > -15) && (worldDeltaPosition.x < 15 && worldDeltaPosition.x > -15))
@@ -117,6 +122,10 @@ public class Jumper : MonoBehaviour {
 	}
 	IEnumerator TeleportPlayer()
 	{
+		if(inventory.activeGloves)
+		{
+			StartCoroutine (DeathSequence());
+		}
 		playerMovement.canControl = false;
 		//playerMovement.inputMoveDirection = Vector3.zero;
 		yield return null;
@@ -125,12 +134,13 @@ public class Jumper : MonoBehaviour {
 	IEnumerator DeathSequence()
 	{
 		inventory.activeGloves = false;
+		inventory.glovesSwap = false;
+		yield return new WaitForSeconds (deathSequence);
 		foreach(GameObject _obj in inventory.holdingGloves)
 		{
 			_obj.SetActive(false);
 		}
-		inventory.glovesSwap = false;
-		yield return new WaitForSeconds (deathSequence);
+		playerMovement.canControl = true;
 		gameObject.SetActive (false);
 	}
 }

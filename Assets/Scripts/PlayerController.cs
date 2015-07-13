@@ -3,60 +3,50 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
-
-	GameObject elevator;
-	GameObject oldMan;
-	GameObject hG;
-	GameObject eyesHere;
-	GameObject cam;
-	public EnemyDamage enemyDamage;
-	Wander wander;
-	public Inventory inventory;
-	GameObject bigDoor;
-	GameObject littleDoor;
-	public bool elevatorDoor;
-	public bool inElevator;
-	public bool doorIsClosed;
-	public bool canActive;
-	public bool isDown;
-	public bool isUp;
-	public bool isMoving;
+	
+	public GameObject oldMan;
+	public GameObject hG;
+	public GameObject eyesHere;
+	public GameObject cam;
+	public GameObject activationSwitch;
+	
 	public bool oldManSeen;
 	public bool peripheral;
 	public bool hGInsight;
-	public Vector3 downPosition;
-	public Vector3 upPosition;
-	float power;
-	float hGViewAngle = 135;
-	float oldManViewAngle = 60;
+
+	public float hGViewAngle = 135;
+	public float oldManViewAngle = 60;
 	public float walkSpeed = 6;
 	public float crouchSpeed = 3;
 	public float runSpeed = 15;
-	public CharacterMotorC chMotor;
-	public Transform tr;
 	public float dist;
+
+	public Transform tr;
+	public HospitalGirl enemyDamage;
+	public Wander wander;
+	public Inventory inventory;
+	public Environmental environment;
+	public CollectItem collect;
+	public CharacterMotorC chMotor;
+	public CharacterController ch;
 
 
 	void Start()
 	{
-		eyesHere = GameObject.FindGameObjectWithTag ("EyesHere");
-		hG = GameObject.FindGameObjectWithTag ("Enemy");
-		enemyDamage = GameObject.FindGameObjectWithTag ("Enemy").GetComponent<EnemyDamage> ();
-		wander = GameObject.FindGameObjectWithTag ("OldMan").GetComponent<Wander> ();
-		elevator = GameObject.FindGameObjectWithTag ("Elevator");
-		inventory = GetComponent<Inventory> ();
-		bigDoor = GameObject.FindGameObjectWithTag ("BigDoor");
-		littleDoor = GameObject.FindGameObjectWithTag ("LittleDoor");
-		downPosition = new Vector3(13, 1, -5);
-		upPosition = new Vector3 (13, 15, -5);
-		isDown = true;
-		isUp = false;
-		isMoving = false;
-		oldMan = GameObject.FindGameObjectWithTag ("OldMan");
-		cam = GameObject.FindGameObjectWithTag ("MainCamera");
-		chMotor =  GetComponent<CharacterMotorC>();
+		oldMan = GameObject.Find ("OldMan");
+		hG = GameObject.Find("HospitalGirl");
+		eyesHere = GameObject.Find("EyesHere");
+		cam = GameObject.Find("Main Camera");
+		activationSwitch = GameObject.Find ("Activation Switch");
+
 		tr = transform;
-		CharacterController ch = GetComponent<CharacterController>();
+		enemyDamage = GameObject.Find ("HospitalGirl").GetComponent<HospitalGirl> ();
+		wander = GameObject.Find ("OldMan").GetComponent<Wander> ();
+		inventory = GetComponent<Inventory> ();
+		environment = GameObject.Find ("Environment").GetComponent<Environmental>();
+		collect = GameObject.Find ("First Person Controller").GetComponent<CollectItem> ();
+		chMotor =  GetComponent<CharacterMotorC>();
+		ch = GetComponent<CharacterController>();
 		dist = ch.height/2; // calculate distance to ground
 	}
 
@@ -64,33 +54,53 @@ public class PlayerController : MonoBehaviour {
 	{
 		if(other.gameObject.name == "Little Door")
 		{
-			elevatorDoor = true;
+			environment.elevatorDoor = true;
 		}
-		if(elevatorDoor && inventory.activeElevatorKey)
+		if(environment.elevatorDoor && inventory.activeElevatorKey)
 		{
-			canActive = true;
+			environment.canActive = true;
 		}
 		if(other.gameObject.name == "Elevator")
 		{
-			inElevator = true;
+			environment.inElevator = true;
+		}
+
+		if(other.gameObject == activationSwitch)
+		{
+			if(inventory.activeKey)
+			{
+				StartCoroutine (environment.WantToOpenDoor());
+			}
+			if(collect.keyIsGot)
+			{
+				environment.awaitingKey = true;
+			}
+		}
+		if(other.gameObject == activationSwitch && environment.haveKey == false)
+		{
+			StartCoroutine (environment.CantOpenDoor());
 		}
 	}
 	void OnTriggerExit(Collider other)
 	{
 		if(other.gameObject.name == "Little Door")
 		{
-			elevatorDoor = false;
+			environment.elevatorDoor = false;
 		}
 		if(other.gameObject.name == "Elevator")
 		{
-			inElevator = false;
+			environment.inElevator = false;
+		}
+
+		if(other.gameObject == activationSwitch)
+		{
+			StartCoroutine (environment.DoNothing());
 		}
 	}
 
 	void OnParticleCollision(GameObject other)
 	{
-		print (gameObject.name);
-		//gameObject.SetActive (false);
+		//print (gameObject.name);
 	}
 	
 	void Update()
@@ -114,8 +124,8 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 		
-		if (Input.GetKey("c"))
-		{ // press C to crouch
+		if (Input.GetKey("c"))// press C to crouch
+		{ 
 			vScale = 0.5f;
 			speed = crouchSpeed; // slow down when crouching
 		}
@@ -136,14 +146,6 @@ public class PlayerController : MonoBehaviour {
 
 		if(enemyDamage.dontMove)
 		{
-			/*Vector3 targetDir = eyesHere.transform.position - transform.position;
-			float timeSpeed = speed * Time.deltaTime;
-			Vector3 newDir = Vector3.RotateTowards (cam.transform.LookAt(eyesHere.transform.position), targetDir, timeSpeed, 0.0F);
-			Debug.DrawRay(cam.transform.position, newDir, Color.red); //To the Eyes.
-			Debug.DrawRay(transform.position, newDir, Color.green); // The bodys position to the eyes.
-			transform.rotation = Quaternion.LookRotation(newDir);*/
-
-			//cam.transform.LookAt(eyesHere.transform.position);
 				Vector3 targetPoint = new Vector3(eyesHere.transform.position.x, cam.transform.position.y, eyesHere.transform.position.z) - cam.transform.position;
 				Quaternion targetRotation = Quaternion.LookRotation (targetPoint, Vector3.up);
 				cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, targetRotation, Time.deltaTime * 4.0f);
@@ -152,28 +154,7 @@ public class PlayerController : MonoBehaviour {
 		{
 			oldManSeen = false;
 		}
-		if(elevatorDoor && inventory.activeElevatorKey && canActive == true && Input.GetKeyDown("e"))
-		{
-			littleDoor.GetComponent<Animation>().Play("SmallElevatorDoor");
-			bigDoor.GetComponent<Animation>().Play("ElevatorDoor");
-		}
-		if(isDown == true && isUp == false && isMoving == false && canActive == true && inElevator && Input.GetKeyDown ("1"))
-		{
-			StartCoroutine(MoveUp (elevator.transform, downPosition, upPosition, 5));
-		}
-		if(isDown == false && isUp == true && isMoving == false && canActive == true && inElevator && Input.GetKeyDown ("1"))
-		{
-			StartCoroutine(MoveDown (elevator.transform, upPosition, downPosition, 5));
-		}
-		if(bigDoor.GetComponent<Animation>().isPlaying)
-		{
-			canActive = false;
-		}
-		else
-		{
-			canActive = true;
-		}
-	
+
 		{
 			RaycastHit hit;
 			Vector3 rayDirection = oldMan.transform.position - transform.position;
@@ -181,7 +162,7 @@ public class PlayerController : MonoBehaviour {
 			Ray ray = Camera.main.ViewportPointToRay(new Vector3(.5F, 0.5F, 0));
 			if(Physics.Raycast(ray, out hit, 20))
 			{
-				if(hit.transform.tag == "OldMan")
+				if(hit.transform.name == "OldMan")
 				{
 					oldManSeen = true;
 				}
@@ -217,54 +198,6 @@ public class PlayerController : MonoBehaviour {
 			{
 				hGInsight = false;
 			}
-		}
-	}
-	IEnumerator CanMoveUp()
-	{
-		if (isMoving == true) 
-		{
-			yield return new WaitForSeconds (5);
-			isDown = true;
-			isUp = false;
-			isMoving = false;
-		}
-	}
-	IEnumerator CanMoveDown()
-	{
-		if (isMoving == true) 
-		{
-			yield return new WaitForSeconds (5);
-			isDown = false;
-			isUp = true;
-			isMoving = false;
-		}
-	}
-
-	IEnumerator MoveUp(Transform thisTransform, Vector3 startPos, Vector3 endPos, float time)
-	{
-		isMoving = true;
-		StartCoroutine(CanMoveDown());
-		float i = 0.0f;
-		float rate = 1.0f / time;
-		while(i < 1.0f) 
-		{
-			i += Time.deltaTime * rate;
-			thisTransform.position = Vector3.Lerp (startPos, endPos, i);
-			yield return null;
-		}
-	}
-
-	IEnumerator MoveDown(Transform thisTransform, Vector3 endPos, Vector3 startPos, float time)
-	{
-		isMoving = true;
-		StartCoroutine(CanMoveUp());
-		float i = 0.0f;
-		float rate = 1.0f / time;
-		while(i < 1.0f) 
-		{
-			i += Time.deltaTime * rate;
-			thisTransform.position = Vector3.Lerp (endPos, startPos, i);
-			yield return null;
 		}
 	}
 }

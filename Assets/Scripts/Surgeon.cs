@@ -3,44 +3,45 @@ using System.Collections;
 
 public class Surgeon : MonoBehaviour {
 
-	//GameObject plastic;
-	public Inventory inventory;
-	//Rigidbody surgeonBody;
-	NavMeshAgent bodyBuilding;
-	GameObject poisonhead;
-	float deathSequence;
-	float surgery;
+	public GameObject Torso;
+	public GameObject LeftArm;
+	public GameObject RightLeg;
+	public GameObject LeftLeg;
+	public GameObject AdditionalPart;
+	public GameObject Player;
+	public GameObject poisonhead;
+
 	public bool torso;
 	public bool leftArm;
 	public bool rightLeg;
 	public bool leftLeg;
 	public bool additionalPart;
 	public bool kill;
-	GameObject Torso;
-	GameObject LeftArm;
-	GameObject RightLeg;
-	GameObject LeftLeg;
-	GameObject AdditionalPart;
-	GameObject Player;
 
+	public float deathSequence;
+	public float surgery;
+
+	public Inventory inventory;
+	public NavMeshAgent bodyBuilding;
 
 	
 	// Use this for initialization
 	void Start () 
 	{
-		inventory = GameObject.FindGameObjectWithTag ("Player").GetComponent<Inventory>();
-		poisonhead = GameObject.FindGameObjectWithTag ("PoisonHead");
-		//surgeonBody = GameObject.FindGameObjectWithTag ("Surgeon").GetComponent<Rigidbody> ();
+		Torso = GameObject.Find ("Torso");
+		LeftArm = GameObject.Find ("LeftArm");
+		RightLeg = GameObject.Find ("RightLeg");
+		LeftLeg = GameObject.Find ("LeftLeg");
+		AdditionalPart = GameObject.Find ("AdditionalParts");
+		Player = GameObject.Find ("First Person Controller");
+		poisonhead = GameObject.Find ("HoldingPoisonHead");
+
+		torso = true;
 		deathSequence = 3;
 		surgery = 2; //12
+
 		bodyBuilding = GetComponent<NavMeshAgent>();
-		Torso = GameObject.FindGameObjectWithTag ("Torso");
-		LeftArm = GameObject.FindGameObjectWithTag ("LeftArm");
-		RightLeg = GameObject.FindGameObjectWithTag ("RightLeg");
-		LeftLeg = GameObject.FindGameObjectWithTag ("LeftLeg");
-		AdditionalPart = GameObject.FindGameObjectWithTag ("Extra");
-		Player = GameObject.FindGameObjectWithTag ("Player");
-		torso = true;
+		inventory = GameObject.Find ("First Person Controller").GetComponent<Inventory>();
 	}
 	
 	// Update is called once per frame
@@ -82,7 +83,7 @@ public class Surgeon : MonoBehaviour {
 	{
 		if(other.gameObject == poisonhead)
 		{
-			print ("collided with poisonhead");
+			//print ("collided with poisonhead");
 			StartCoroutine (DeathSequence());
 		}
 

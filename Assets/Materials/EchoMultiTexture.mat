@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Echo
-  m_Shader: {fileID: 4800000, guid: 198de934d3844d2409a89de1acb02352, type: 3}
+  m_Name: EchoMultiTexture
+  m_Shader: {fileID: 4800000, guid: 1edd28e4d5441964d9a8beea7365cb94, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -18,7 +18,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: ab5bb3eb247a4492fa9900f6ac0db050, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -32,88 +32,81 @@ Material:
       data:
         first:
           name: _Radius
-        second: 27.8094215
+        second: 1.04765761
       data:
         first:
           name: _MaxRadius
-        second: 40
+        second: 10
       data:
         first:
           name: _EchoFade
-        second: -1
+        second: 0
       data:
         first:
           name: _MaxFade
-        second: 4.44444466
+        second: 10
       data:
         first:
           name: _DistanceFade
         second: 1
       data:
         first:
-          name: _SphereRadius
-        second: 10.0228376
-      data:
-        first:
-          name: _SphereFalloff
+          name: _DistanceFade1
         second: 1
       data:
         first:
-          name: _Radius0
-        second: 3.17256141
+          name: _DistanceFade2
+        second: 1
       data:
         first:
-          name: _Radius1
-        second: 0
+          name: _DistanceFade3
+        second: 1
       data:
         first:
-          name: _Radius2
-        second: 0
+          name: _DistanceFade4
+        second: 1
       data:
         first:
-          name: _Fade0
-        second: 3.16861033
+          name: _DistanceFade5
+        second: 1
       data:
         first:
-          name: _Fade1
-        second: 0
+          name: _DistanceFade6
+        second: 1
       data:
         first:
-          name: _Fade2
-        second: 0
+          name: _DistanceFade7
+        second: 1
+      data:
+        first:
+          name: _DistanceFade8
+        second: 1
+      data:
+        first:
+          name: _DistanceFade9
+        second: 1
+      data:
+        first:
+          name: _DistanceFade00
+        second: 1
+      data:
+        first:
+          name: _DistanceFade000
+        second: 1
+      data:
+        first:
+          name: _DistanceFade0000
+        second: 1
     m_Colors:
       data:
         first:
+          name: _Color
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
           name: _MainColor
-        second: {r: 0, g: 0, b: 0, a: 1}
+        second: {r: .574626863, g: .574626863, b: .574626863, a: 0}
       data:
         first:
           name: _Position
-        second: {r: -3.85322642, g: 2.25000048, b: -1.91049552, a: 0}
-      data:
-        first:
-          name: _SpherePosition
-        second: {r: 5.45548105, g: 1.04893601, b: -4.46881485, a: 0}
-      data:
-        first:
-          name: _OtherColor
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _BaseColor
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _Position0
-        second: {r: 0, g: 0, b: 0, a: 0}
-      data:
-        first:
-          name: _Position1
-        second: {r: 0, g: 0, b: 0, a: 1}
-      data:
-        first:
-          name: _Position2
-        second: {r: 0, g: 0, b: 0, a: 1}
---- !u!1002 &2100001
-EditorExtensionImpl:
-  serializedVersion: 6
+        second: {r: -45.8756371, g: 42.4952469, b: -33.890152, a: 0}

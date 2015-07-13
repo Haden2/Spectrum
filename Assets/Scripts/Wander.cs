@@ -3,33 +3,35 @@ using System.Collections;
 
 public class Wander : MonoBehaviour
 {
+	public Transform zero;
+	public Transform one;
+	public Transform two;
+	public Transform three;
+	public Transform four;
+	public Transform five;
+	public Transform six;
+	public Transform seven;
+	public Transform eight;
+	public Transform nine;
+	public GameObject main;
+
+	public bool attack;
+	public bool newDestination;
+
 	public float randomNumber;
 	public float speed = 1;
 	public float directionChangeInterval = 10;
 	public float thatDirectionY;
-	PlayerController player;
-	GameObject main;
-	public bool attack;
-	public bool newDestination;
-	NavMeshAgent wander;
-	Transform zero;
-	Transform one;
-	Transform two;
-	Transform three;
-	Transform four;
-	Transform five;
-	Transform six;
-	Transform seven;
-	Transform eight;
-	Transform nine;
+	public float heading;
 
-	float heading;
-	Vector3 targetRotation;
+	public Vector3 targetRotation;
+
+	public NavMeshAgent wander;
+	public PlayerController player;
+
 	
 	void Awake ()
 	{
-		main = GameObject.FindGameObjectWithTag ("Player");
-		wander = GetComponent<NavMeshAgent> ();
 		zero = GameObject.Find ("Zero").transform;
 		one = GameObject.Find ("One").transform;
 		two = GameObject.Find ("Two").transform;
@@ -40,8 +42,11 @@ public class Wander : MonoBehaviour
 		seven = GameObject.Find ("Seven").transform;
 		eight = GameObject.Find ("Eight").transform;
 		nine = GameObject.Find ("Nine").transform;
+		main = GameObject.Find ("First Person Controller");
+
+		wander = GetComponent<NavMeshAgent> ();
+		player = GameObject.Find ("First Person Controller").GetComponent<PlayerController> ();
 		wander.speed = 1f;
-		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController> ();
 		//wander.autoBraking=false;
 		StartCoroutine(NewHeading());
 	}
