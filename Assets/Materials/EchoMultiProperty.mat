@@ -52,35 +52,35 @@ Material:
       data:
         first:
           name: _Radius0
-        second: 40.0889893
+        second: 0
       data:
         first:
           name: _Radius1
-        second: 40.0109634
+        second: 0
       data:
         first:
           name: _Radius2
-        second: 40.0683556
+        second: 0
       data:
         first:
           name: _Fade0
-        second: 4.45433426
+        second: 4.51439095
       data:
         first:
           name: _Fade1
-        second: 4.44566488
+        second: 4.4567008
       data:
         first:
           name: _Fade2
-        second: 4.4520421
+        second: 4.47262049
       data:
         first:
           name: _Fade3
-        second: 4.4520421
+        second: 4.45982599
       data:
         first:
           name: _Fade4
-        second: 4.45433426
+        second: 4.47609329
       data:
         first:
           name: _Fade5
@@ -269,6 +269,14 @@ Material:
         first:
           name: _Fade49
         second: 0
+      data:
+        first:
+          name: _Radius3
+        second: 0
+      data:
+        first:
+          name: _Radius4
+        second: 0
     m_Colors:
       data:
         first:
@@ -285,12 +293,20 @@ Material:
       data:
         first:
           name: _Position0
-        second: {r: 9.93928719, g: .534411788, b: -4.28904152, a: 0}
+        second: {r: 11.075902, g: .0635320023, b: 20.9256668, a: 0}
       data:
         first:
           name: _Position1
-        second: {r: 20.7358837, g: 1.32436204, b: -15.6750002, a: 0}
+        second: {r: 11.0656767, g: 1.05000007, b: 22.4265079, a: 0}
       data:
         first:
           name: _Position2
-        second: {r: 18.5430431, g: 1.95190215, b: -12.7359991, a: 0}
+        second: {r: 16.1642227, g: 2.84690142, b: 24.7967262, a: 0}
+      data:
+        first:
+          name: _Position3
+        second: {r: 13.8875465, g: .118003815, b: 23.0658436, a: 0}
+      data:
+        first:
+          name: _Position4
+        second: {r: 11.8566914, g: .0621510744, b: 21.5218506, a: 0}

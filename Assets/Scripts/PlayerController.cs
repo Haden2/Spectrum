@@ -4,45 +4,49 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 	
-	GameObject oldMan;
-	GameObject hG;
-	GameObject eyesHere;
-	GameObject cam;
-	GameObject activationSwitch;
-	EnemyDamage enemyDamage;
-	Wander wander;
-	Inventory inventory;
-	Environmental environment;
-	CollectItem collect;
+	public GameObject oldMan;
+	public GameObject hG;
+	public GameObject eyesHere;
+	public GameObject cam;
+	public GameObject activationSwitch;
+	
 	public bool oldManSeen;
 	public bool peripheral;
 	public bool hGInsight;
-	float power;
-	float hGViewAngle = 135;
-	float oldManViewAngle = 60;
+
+	public float hGViewAngle = 135;
+	public float oldManViewAngle = 60;
 	public float walkSpeed = 6;
 	public float crouchSpeed = 3;
 	public float runSpeed = 15;
-	public CharacterMotorC chMotor;
-	public Transform tr;
 	public float dist;
+
+	public Transform tr;
+	public HospitalGirl enemyDamage;
+	public Wander wander;
+	public Inventory inventory;
+	public Environmental environment;
+	public CollectItem collect;
+	public CharacterMotorC chMotor;
+	public CharacterController ch;
 
 
 	void Start()
 	{
-		eyesHere = GameObject.FindGameObjectWithTag ("EyesHere");
+		oldMan = GameObject.Find ("OldMan");
+		hG = GameObject.Find("HospitalGirl");
+		eyesHere = GameObject.Find("EyesHere");
+		cam = GameObject.Find("Main Camera");
 		activationSwitch = GameObject.Find ("Activation Switch");
-		hG = GameObject.FindGameObjectWithTag ("Enemy");
-		enemyDamage = GameObject.FindGameObjectWithTag ("Enemy").GetComponent<EnemyDamage> ();
-		wander = GameObject.FindGameObjectWithTag ("OldMan").GetComponent<Wander> ();
+
+		tr = transform;
+		enemyDamage = GameObject.Find ("HospitalGirl").GetComponent<HospitalGirl> ();
+		wander = GameObject.Find ("OldMan").GetComponent<Wander> ();
 		inventory = GetComponent<Inventory> ();
 		environment = GameObject.Find ("Environment").GetComponent<Environmental>();
 		collect = GameObject.Find ("First Person Controller").GetComponent<CollectItem> ();
-		oldMan = GameObject.FindGameObjectWithTag ("OldMan");
-		cam = GameObject.FindGameObjectWithTag ("MainCamera");
 		chMotor =  GetComponent<CharacterMotorC>();
-		tr = transform;
-		CharacterController ch = GetComponent<CharacterController>();
+		ch = GetComponent<CharacterController>();
 		dist = ch.height/2; // calculate distance to ground
 	}
 
@@ -120,8 +124,8 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 		
-		if (Input.GetKey("c"))
-		{ // press C to crouch
+		if (Input.GetKey("c"))// press C to crouch
+		{ 
 			vScale = 0.5f;
 			speed = crouchSpeed; // slow down when crouching
 		}
@@ -142,14 +146,6 @@ public class PlayerController : MonoBehaviour {
 
 		if(enemyDamage.dontMove)
 		{
-			/*Vector3 targetDir = eyesHere.transform.position - transform.position;
-			float timeSpeed = speed * Time.deltaTime;
-			Vector3 newDir = Vector3.RotateTowards (cam.transform.LookAt(eyesHere.transform.position), targetDir, timeSpeed, 0.0F);
-			Debug.DrawRay(cam.transform.position, newDir, Color.red); //To the Eyes.
-			Debug.DrawRay(transform.position, newDir, Color.green); // The bodys position to the eyes.
-			transform.rotation = Quaternion.LookRotation(newDir);*/
-
-			//cam.transform.LookAt(eyesHere.transform.position);
 				Vector3 targetPoint = new Vector3(eyesHere.transform.position.x, cam.transform.position.y, eyesHere.transform.position.z) - cam.transform.position;
 				Quaternion targetRotation = Quaternion.LookRotation (targetPoint, Vector3.up);
 				cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, targetRotation, Time.deltaTime * 4.0f);
@@ -166,7 +162,7 @@ public class PlayerController : MonoBehaviour {
 			Ray ray = Camera.main.ViewportPointToRay(new Vector3(.5F, 0.5F, 0));
 			if(Physics.Raycast(ray, out hit, 20))
 			{
-				if(hit.transform.tag == "OldMan")
+				if(hit.transform.name == "OldMan")
 				{
 					oldManSeen = true;
 				}

@@ -3,8 +3,9 @@ using System.Collections;
 
 public class CeilingClimber : MonoBehaviour {
 
-	GameObject player;
-	GameObject extra;
+	public GameObject player;
+	public GameObject extra;
+
 	public bool foundPlayer;
 	public bool onPlayer;
 	public bool leftTurn;
@@ -13,23 +14,31 @@ public class CeilingClimber : MonoBehaviour {
 	public bool thirdLeft;
 	public bool hold;
 	public bool thrownOff;
-	bool restart;
-	bool hunt;
+	public bool restart;
+	public bool hunt;
+
 	public float shakeTime;
 	public float timeLimit;
 	public float endShakeTime;
-	NavMeshAgent nav;
-	float zombieViewAngle = 100;
+	public float zombieViewAngle = 100;
+
+	public Vector3 contactPosition; 
+
+	public NavMeshAgent nav;
+
 	// Use this for initialization
 	void Start () 
 	{
-		player = GameObject.FindGameObjectWithTag ("Player");
-		nav = GetComponent<NavMeshAgent> ();
-		nav.speed = 1;
+		player = GameObject.Find("First Person Controller");
+		extra = GameObject.Find("AdditionalParts");
+
 		hold = true;
+
 		shakeTime = 0;
 		timeLimit = .5f;
-		extra = GameObject.FindGameObjectWithTag ("Extra");
+
+		nav = GetComponent<NavMeshAgent> ();
+		nav.speed = 1;
 	}
 	
 	// Update is called once per frame
@@ -43,7 +52,6 @@ public class CeilingClimber : MonoBehaviour {
 		if ((Vector3.Angle(rayDirection, transform.forward)) <= zombieViewAngle * 0.5f)
 		{
 			foundPlayer = true;
-			print ("Found You");
 		}
 		if(foundPlayer)
 		{
@@ -51,6 +59,9 @@ public class CeilingClimber : MonoBehaviour {
 		}
 		if(onPlayer)
 		{
+			//contactPosition = gameObject.transform.position;
+			//gameObject.transform.position = playerPosition;
+			
 			if(Input.GetAxis("Mouse X")<-5)
 			{
 				//print (Input.GetAxis("Mouse X"));

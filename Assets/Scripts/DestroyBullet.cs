@@ -13,6 +13,11 @@ public class DestroyBullet : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		Destroy (gameObject, 3.0f);
+		//Destroy (gameObject, 3.0f); Bounces off game object.
+	}
+
+	void OnCollisionEnter()
+	{
+		Destroy (gameObject); // destroys on contact with collider.
 	}
 }

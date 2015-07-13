@@ -2,35 +2,19 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class EnemyDamage : MonoBehaviour 
+public class HospitalGirl : MonoBehaviour 
 {
+	public Rigidbody rigid;
+	public GameObject escapeDestination;
 	public GameObject BlueFlashlight;
 	public GameObject NightVision;
-	public float wait;
-	public float readyOrNot;
-	public float startingTalk;
-	public float endingSequence;
-	public float radius;
-	GameObject main; 
-	GameObject mother;
-	GameObject BehindPlayer;
-	GameObject leftOfPlayer;
-	GameObject rightOfPlayer;
-	GameObject cam;
-	TestingNightVision testingNight;
-	Transform escapeDestination;
-	NavMeshAgent nav;
-	NavMeshAgent turnUp;
-	PlayerController player;
-	public SphereCollider collide;
-	public float setPoint;
-	public float behindPoint;
-	public float rightPoint;
-	public float leftPoint;
-	public float playerAngle;
-	public float playerAngleReturn;
-	MouseLook mouseLook;
-	MouseLook playerLook;
+	public GameObject main; 
+	public GameObject mother;
+	public GameObject BehindPlayer;
+	public GameObject leftOfPlayer;
+	public GameObject rightOfPlayer;
+	public GameObject cam;
+
 	public bool escape;
 	public bool run;
 	public bool seek;
@@ -42,44 +26,64 @@ public class EnemyDamage : MonoBehaviour
 	public bool wasLooking;
 	public bool notBehindMe;
 	public bool behindOnly;
-	public CharacterMotorC motor;
-	public Rigidbody rigid;
-	//public GameObject halo;
 
+	public float wait;
+	public float readyOrNot;
+	public float startingTalk;
+	public float endingSequence;
+	public float radius;
+	public float setPoint;
+	public float behindPoint;
+	public float rightPoint;
+	public float leftPoint;
+	public float playerAngle;
+	public float playerAngleReturn;
+
+	public NavMeshAgent nav;
+	public NavMeshAgent turnUp;
+	public SphereCollider collide;
+	public MouseLook mouseLook;
+	public MouseLook playerLook;
+	public CharacterMotorC motor;
+	public SpectrumController spectrum;
+	public PlayerController playerController;
+	public EchoSpherez echoSpherez;
 
 
 	void Awake()
 	{
-		BlueFlashlight = GameObject.FindGameObjectWithTag ("BlueLight");
-		NightVision = GameObject.FindGameObjectWithTag ("NightVisionLight");
-		collide = GetComponent<SphereCollider> ();
-		main = GameObject.FindGameObjectWithTag ("Player");
-		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController>();
-		escapeDestination = GameObject.FindGameObjectWithTag ("Respawn").transform;
-		mother = GameObject.FindGameObjectWithTag ("Mother");
-		nav = GetComponent<NavMeshAgent>();
-		turnUp = GetComponent <NavMeshAgent>();
-		startingTalk = 2f; //15
-		wait = 3;
-		readyOrNot = 11;
-		endingSequence = 2;
-		radius = 8;
-		start = true;
-		seek = false;
-		flash = true;
-		testingNight = GameObject.FindGameObjectWithTag("Player").GetComponent<TestingNightVision> ();
+		rigid = gameObject.GetComponent<Rigidbody> ();
+		escapeDestination = GameObject.Find ("WallR");
+		BlueFlashlight = GameObject.Find ("BlueFlashlight");
+		NightVision = GameObject.Find ("NightVision");
+		main = GameObject.Find ("First Person Controller");
+		mother = GameObject.Find("Mother");
 		BehindPlayer = GameObject.Find ("BehindPlayer");
 		leftOfPlayer = GameObject.Find("LeftPlayer");
 		rightOfPlayer = GameObject.Find("RightPlayer");
-		cam = GameObject.FindGameObjectWithTag ("MainCamera");
+		cam = GameObject.Find ("Main Camera");
+
+		seek = false;
+		flash = true;
+		start = true;
+	
+		wait = 3;
+		readyOrNot = 11;
+		startingTalk = 2f; //15
+		endingSequence = 2;
+		radius = 8;
+		rightPoint = 1000;
+		leftPoint = 1000;
+
+		nav = GetComponent<NavMeshAgent>();
+		turnUp = GetComponent <NavMeshAgent>();
+		collide = GetComponent<SphereCollider> ();
 		mouseLook = (MouseLook)GameObject.Find ("Main Camera").GetComponent ("MouseLook");
 		playerLook = (MouseLook)GameObject.Find ("First Person Controller").GetComponent ("MouseLook");
-		motor = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMotorC>();
-		rigid = gameObject.GetComponent<Rigidbody> ();
-		leftPoint = 1000;
-		rightPoint = 1000;
-		//halo = GameObject.Find ("Halo");
-		//halo.SetActive (false);
+		motor = GameObject.Find("First Person Controller").GetComponent<CharacterMotorC>();
+		spectrum = GameObject.Find("First Person Controller").GetComponent<SpectrumController> ();
+		playerController = GameObject.Find ("First Person Controller").GetComponent<PlayerController>();
+		echoSpherez = GameObject.Find ("First Person Controller").GetComponent<EchoSpherez>();
 	}
 
 	void OnTriggerEnter (Collider other) 
@@ -90,12 +94,12 @@ public class EnemyDamage : MonoBehaviour
 		}
 		if(other.gameObject == main && seek == true && start == false)
 		{
-			if(player.hGInsight == true)
+			if(playerController.hGInsight == true)
 			{
 				wasLooking = true;
 				wasntLooking = false;
 			}
-			if(player.hGInsight == false)
+			if(playerController.hGInsight == false)
 			{
 				wasntLooking = true;
 				wasLooking = false;
@@ -140,8 +144,6 @@ public class EnemyDamage : MonoBehaviour
 		if(wasntLooking && dontMove == false)
 		{
 			behindPoint = BehindPlayer.transform.eulerAngles.y;
-			//notBehindMe = false;
-			//Possible issue here
 			behindOnly = true;
 			toBehindPlayer = true;
 		}
@@ -154,7 +156,6 @@ public class EnemyDamage : MonoBehaviour
 	}
 	IEnumerator WaitForLight()
 	{
-		//newCamAngle = cam.transform.eulerAngles.x;
 		//print (camAngle);
 		yield return new WaitForSeconds (2);
 		dontMove = false;
@@ -191,7 +192,7 @@ public class EnemyDamage : MonoBehaviour
 		escape = false;
 		run = false;
 		turnUp.speed = 0; 
-		print ("Found Mother");
+		//print ("Found Mother");
 		yield return new WaitForSeconds (endingSequence);
 		gameObject.SetActive (false);
 	}
@@ -246,7 +247,7 @@ public class EnemyDamage : MonoBehaviour
 
 		if(run)
 		{
-			nav.SetDestination(escapeDestination.position);
+			nav.SetDestination(escapeDestination.transform.position);
 			turnUp.speed = 10; //10
 		}
 		if(seek)
@@ -257,11 +258,13 @@ public class EnemyDamage : MonoBehaviour
 		if(flash == true)
 		{
 			BlueFlashlight.gameObject.SetActive(true);
+			echoSpherez.enabled = true;
 		}
 		if (flash == false)
 		{
 			BlueFlashlight.gameObject.SetActive(false);
 			NightVision.gameObject.SetActive(false);
+			echoSpherez.enabled = false;
 		}
 		if(start == true)
 		{
@@ -272,12 +275,12 @@ public class EnemyDamage : MonoBehaviour
 		{
 			transform.position = BehindPlayer.transform.position;
 		}
-		if(testingNight.isFlashLight == false && start == false && seek == true && run == false)
+		if(spectrum.isFlashLight == false && start == false && seek == true && run == false)
 		{
 			print ("Speed increase");
 			turnUp.speed = 2;
 		}
-		if(testingNight.isFlashLight == true && start == false && seek == true && run == false)
+		if(spectrum.isFlashLight == true && start == false && seek == true && run == false)
 		{
 			turnUp.speed = 1; //1
 		}

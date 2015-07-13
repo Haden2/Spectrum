@@ -1,20 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-//using System.Linq;
 
 public class LightsOut : MonoBehaviour 
 {
+	public Light targetLight;
 	public GameObject target;
 	public GameObject[] lights;
 	public GameObject closest;
-	public Vector3 rightAngle;
-	public float targetRange;
-	public float targetAngle;
+
 	public bool lightMonsterSeen;
 	public bool inLight;
-	public Light targetLight;
+	
+	public float targetRange;
+	public float targetAngle;
 	public float distance;
+
+	public Vector3 rightAngle;
 
 	void Awake()
 	{

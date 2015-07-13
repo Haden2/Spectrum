@@ -5,19 +5,29 @@ using System.Collections.Generic;
 
 public class EchoSpherez : MonoBehaviour {
 	public EchoSphere2.ShaderPackingMode CurrentPackingMode = EchoSphere2.ShaderPackingMode.Texture;
-	//GameObject floor;
 	public Texture2D EchoTexture;
 	public Material EchoMaterial = null;
-	
+
+	public GameObject rock;
+
+	public bool isGrounded;
+
 	public int SphereCount = 5;
 	public int CurrentSphere = 0;
 	
-	// Echo sphere Properties
 	public float SphereMaxRadius = 40.0f;		//Final size of the echo sphere.
-	
 	public float FadeDelay = 0.0f;			//Time to delay before triggering fade.
 	public float FadeRate = 1.0f;			//Speed of the fade away
 	public float echoSpeed = 9.0f;			//Speed of the sphere growth.
+
+
+	public Vector3 pingLocation;
+	public Vector3 rockLocation;
+
+	public Inventory inventory;
+	public SpectrumController spectrum;
+	public RockNoise rockNoise;
+
 	
 	public List<EchoSphere2> Spheres = new List<EchoSphere2>();
 	
@@ -25,7 +35,8 @@ public class EchoSpherez : MonoBehaviour {
 	void Start () 
 	{
 		//floor = GameObject.Find ("Floor").GetComponent<Renderer> ();
-
+		inventory = GetComponent<Inventory> ();
+		spectrum = GetComponent<SpectrumController> ();
 		CreateEchoTexture();
 		InitializeSpheres();
 	}
@@ -57,7 +68,11 @@ public class EchoSpherez : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-
+		if(isGrounded)
+		{
+			rockNoise = GameObject.Find("ThrownRock(Clone)").GetComponent<RockNoise>();
+			rock = GameObject.Find("ThrownRock(Clone)");
+		}
 		if(EchoMaterial == null)return;	
 		foreach (EchoSphere2 es in Spheres)
 		{
@@ -67,17 +82,31 @@ public class EchoSpherez : MonoBehaviour {
 	}
 	
 	// Called to manually place echo pulse
-	void UpdateRayCast() {
-		if (Input.GetButtonDown("Fire1")){
+	void UpdateRayCast() 
+	{
+		if (Input.GetButtonDown("Fire2") && spectrum.isSonar && inventory.showInventory == false)
+		{
 			Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 			RaycastHit hit;
-			if (Physics.Raycast(ray,out hit, 10000)) {
-				//Debug.Log("Triggering pulse["+CurrentSphere.ToString()+"]");
+			if (Physics.Raycast(ray,out hit, Mathf.Infinity)) 
+			{
+				pingLocation = gameObject.transform.position;
 				Spheres[CurrentSphere].TriggerPulse();
-				Spheres[CurrentSphere].Position = hit.point;
+				Spheres[CurrentSphere].Position = pingLocation;
 				CurrentSphere += 1;
 				if(CurrentSphere >= Spheres.Count)CurrentSphere = 0;
 			}
+		}  
+		if(rockNoise.isgrounded)
+		{
+			print ("Is Grounded");
+			isGrounded = true;
+			rockLocation = rock.transform.position;
+			Spheres[CurrentSphere].TriggerPulse();
+			Spheres[CurrentSphere].Position = rockLocation;
+			CurrentSphere += 1;
+			if(CurrentSphere >= Spheres.Count)CurrentSphere = 0;
+			rockNoise.isgrounded = false;
 		}
 	}
 }
@@ -90,10 +119,9 @@ public class EchoSphere2 {
 	public Material EchoMaterial = null;
 	public Vector3 Position;
 	public int SphereIndex = 0;
-	
-	// Echo sphere Properties
+
 	public float SphereMaxRadius = 10.0f;		//Final size of the echo sphere.
-	private float sphereCurrentRadius = 0.0f;	//Current size of the echo sphere
+	public float sphereCurrentRadius = 0.0f;	//Current size of the echo sphere
 	
 	public float FadeDelay = 0.0f;			//Time to delay before triggering fade.
 	public float FadeRate = 1.0f;			//Speed of the fade away
@@ -102,26 +130,37 @@ public class EchoSphere2 {
 	
 	public bool is_animated = false;		//If true, pulse is currently running.
 	
-	//public float pulse_frequency = 5.0f;
 	private float deltaTime = 0.0f;
 	private float fade = 0.0f;
-	
+
+
 	public EchoSphere2(){}
-	
-	// Update is called once per frame
-	public void Update () {
+
+	public void Start()
+	{
+		sphereCurrentRadius = 0;
+		fade = 0;
+		EchoMaterial.SetFloat("_Radius"+SphereIndex.ToString(),sphereCurrentRadius);
+
+	}
+
+	public void Update () 
+	{
+		EchoMaterial.SetFloat("_Radius"+SphereIndex.ToString(),sphereCurrentRadius);
+
 		if(EchoMaterial == null)return;
 		
 		// If manual selection is disabled, automatically trigger a pulse at the given freq.
 		deltaTime += Time.deltaTime;
 		UpdateEcho();
 		
-		if(CurrentPackingMode == ShaderPackingMode.Texture)UpdateTexture();
+	//	if(CurrentPackingMode == ShaderPackingMode.Texture)UpdateTexture();
 		if(CurrentPackingMode == ShaderPackingMode.Property)UpdateProperties();
 	}
 	
 	// Called to trigger an echo pulse
-	public void TriggerPulse(){
+	public void TriggerPulse()
+	{
 		deltaTime = 0.0f;
 		sphereCurrentRadius = 0.0f;
 		fade = 0.0f;
@@ -129,17 +168,20 @@ public class EchoSphere2 {
 	}
 	
 	// Called to halt an echo pulse.
-	void HaltPulse(){
+	void HaltPulse()
+	{
 		is_animated = false;	
 	}
 	
-	void ClearPulse(){
+	void ClearPulse()
+	{
 		fade = 0.0f;
 		sphereCurrentRadius = 0.0f;
 		is_animated = false;
 	}
 	
-	void UpdateProperties(){
+	void UpdateProperties()
+	{
 		if(!is_animated)return;
 		float maxRadius = SphereMaxRadius;
 		float maxFade = SphereMaxRadius / echoSpeed;
@@ -147,13 +189,13 @@ public class EchoSphere2 {
 		//Debug.Log("Updating _Position"+SphereIndex.ToString());
 		EchoMaterial.SetVector("_Position"+SphereIndex.ToString(),Position);
 		EchoMaterial.SetFloat("_Radius"+SphereIndex.ToString(),sphereCurrentRadius);
-		EchoMaterial.SetFloat("_Fade"+SphereIndex.ToString(),fade);
-		
+		EchoMaterial.SetFloat("_Fade"+SphereIndex.ToString(),fade);	
 		EchoMaterial.SetFloat("_MaxRadius",maxRadius);
 		EchoMaterial.SetFloat("_MaxFade",maxFade);
 	}
 	
-	void UpdateTexture(){	
+/*	void UpdateTexture()
+	{	
 		if(!is_animated)return;
 		float maxRadius = SphereMaxRadius;
 		float maxFade = SphereMaxRadius / echoSpeed;
@@ -167,11 +209,13 @@ public class EchoSphere2 {
 		
 		EchoMaterial.SetFloat("_MaxRadius",maxRadius);
 		EchoMaterial.SetFloat("_MaxFade",maxFade);
-	}
+	}*/
 	// Called to update the echo front edge
-	void UpdateEcho(){
+	void UpdateEcho()
+	{
 		if(!is_animated)return;
-		if(sphereCurrentRadius >= SphereMaxRadius){
+		if(sphereCurrentRadius >= SphereMaxRadius)
+		{
 			HaltPulse();
 		} else {
 			sphereCurrentRadius += Time.deltaTime * echoSpeed;  

@@ -4,10 +4,10 @@ using System.Collections;
 public class Environmental : MonoBehaviour {
 
 	//Elevator
-	public Inventory inventory;
 	public GameObject elevator;
 	public GameObject bigDoor;
 	public GameObject littleDoor;
+
 	public bool elevatorDoor;
 	public bool inElevator;
 	public bool doorIsClosed;
@@ -15,6 +15,7 @@ public class Environmental : MonoBehaviour {
 	public bool isDown;
 	public bool isUp;
 	public bool isMoving;
+
 	public Vector3 downPosition;
 	public Vector3 upPosition;
 
@@ -25,12 +26,7 @@ public class Environmental : MonoBehaviour {
 	public GameObject doorL;
 	public GameObject pivotR;		
 	public GameObject pivotL;
-	/*public Transform doorR;
-	public Transform doorL;
-	public Transform pivotR;
-	public Transform pivotL;*/
-	Vector3 AngleR;
-	Vector3 closingAngleR;
+
 	public bool open;
 	public bool closed;
 	public bool closing;
@@ -39,35 +35,42 @@ public class Environmental : MonoBehaviour {
 	public bool haveKey;
 	public bool awaitingKey;
 
+	public Vector3 AngleR;
+	public Vector3 closingAngleR;
 
+	public Inventory inventory;
 
+	
 
 	// Use this for initialization
 	void Start () 
 	{
-		inventory = GameObject.Find ("First Person Controller").GetComponent<Inventory> ();
 		elevator = GameObject.Find("Elevator");
 		bigDoor = GameObject.Find ("Big Door");
 		littleDoor = GameObject.Find ("Little Door");
-		downPosition = new Vector3(13, 1, -5);
-		upPosition = new Vector3 (13, 15, -5);
+
 		isDown = true;
 		isUp = false;
 		isMoving = false;
 
+		downPosition = new Vector3(13, 1, -5);
+		upPosition = new Vector3 (13, 15, -5);
 
+		key = GameObject.Find ("HoldingKey");
+		player = GameObject.Find ("First Person Controller");
 		doorR = GameObject.Find ("DoorR");
 		doorL = GameObject.Find ("DoorL");
 		pivotR = GameObject.Find ("PivotR");
 		pivotL = GameObject.Find ("PivotL");
+
+		open = false;
 		closed = true;
 		closing = false;
-		open = false;
-		haveKey = false;
 		rotating = false; 
 		nothing = true;
-		key = GameObject.FindGameObjectWithTag ("Key");
-		player = GameObject.FindGameObjectWithTag ("Player");
+		haveKey = false;
+
+		inventory = GameObject.Find ("First Person Controller").GetComponent<Inventory> ();
 	}
 	
 
@@ -220,14 +223,18 @@ public class Environmental : MonoBehaviour {
 
 	public IEnumerator WantToOpenDoor()
 	{
-		print ("Open Door?");
+		//print ("Open Door?");
 		nothing = false;
 		haveKey = true;
-		yield return new WaitForSeconds (0);
+		yield return null;
 	}
 	
 	public IEnumerator DoorOpens ()
 	{
+		inventory.holdingKey.gameObject.SetActive(false);
+		inventory.AddItem(1);
+		inventory.activeKey = false;
+		inventory.keySwap = false;
 		rotating = true;
 		open = true;
 		yield return new WaitForSeconds (5);
@@ -238,18 +245,18 @@ public class Environmental : MonoBehaviour {
 	
 	public IEnumerator DoNothing()
 	{
-		print ("Nope");
+		//print ("Nope");
 		nothing = true;
 		haveKey = false;
 		awaitingKey = false;
-		yield return new WaitForSeconds (0);
+		yield return null;
 	}
 	
 	public IEnumerator CantOpenDoor()
 	{
 		haveKey = false;
-		print ("Need Key First");
-		yield return new WaitForSeconds (0);
+		//print ("Need Key First");
+		yield return null;
 	}
 
 }

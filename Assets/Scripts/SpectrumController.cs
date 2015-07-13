@@ -5,84 +5,98 @@ using UnityStandardAssets.ImageEffects;
 
 [RequireComponent(typeof(Light))]
 
-public class TestingNightVision : MonoBehaviour
+public class SpectrumController : MonoBehaviour
 {
-	public Texture2D greenStatic;
-	public bool isNightVision = false;
-	public float fAlpha = 0.35F;
-	public GameObject NightVisionLight;
+	public Shader echo;
+	public Shader multiEcho;
+	public Renderer[] rend;
+	public Renderer Floor;
+	public Material EchoMaterial = null;
+	public Material multiMaterial;
+	public Material Default;
+	public Material FloorMat;
+	//public Texture2D greenStatic;
 	public GameObject blueLight;
 	public GameObject top;
 	public GameObject secondTop;
 	public GameObject middle;
 	public GameObject secondLowest;
 	public GameObject lowest;
-	public GameObject hospitalGirl;
+	public GameObject NightVisionLight;
 	public GameObject sonarLight;
-	public EnemyDamage enemyDamage;
+	public GameObject hospitalGirl;
+	public GameObject[] lights;
+	public GameObject[] environ;
+	public GameObject[] enemies;
+	public GameObject[] misc;
+	public GameObject[] items;
+
 	public bool isFlashLight = true;
+	public bool isNightVision = false;
 	public bool isSonar;
-	//public DepthOfField DoF;
 	//public bool pulse;
 	//public bool ready;
-	public GameObject[] environ;
-	public Shader echo;
-	public Shader multiEcho;
-	public Renderer[] rend;
-	public Material EchoMaterial = null;
-	public Material multiMaterial;
-	public Material Default;
-	public Renderer Floor;
-	public Material FloorMat;
-	public GameObject[] lights;
-	//public EchoSphere echoSphere;
+	//public float fAlpha = 0.35F;
+	public Flashlight flashLight;
+	public NoiseAndGrain grain;
 	public EchoSpherez echoSpherez;
-	
+	public HospitalGirl enemyDamage;
+	//public DepthOfField DoF;
 
 	void Start()
 	{
-		//echoSphere = GetComponent<EchoSphere> ();
-		echoSpherez = GetComponent<EchoSpherez> ();
-		NightVisionLight = GameObject.FindGameObjectWithTag ("NightVisionLight");
-		enemyDamage = GameObject.FindGameObjectWithTag ("Enemy").GetComponent <EnemyDamage> ();
-		blueLight = GameObject.FindGameObjectWithTag ("BlueLight");
-		top = GameObject.FindGameObjectWithTag ("Flare1");
-		secondTop = GameObject.FindGameObjectWithTag ("Flare2");
-		middle = GameObject.FindGameObjectWithTag ("Flare3");
-		secondLowest = GameObject.FindGameObjectWithTag ("Flare4");
-		lowest = GameObject.FindGameObjectWithTag ("Flare5");
-		hospitalGirl = GameObject.FindGameObjectWithTag ("Enemy");
-		NightVisionLight.SetActive(false);
+		Floor = GameObject.Find ("Floor").GetComponent<Renderer>();
+
+		blueLight = GameObject.Find ("BlueFlashlight");
 		blueLight.GetComponent<Light>().intensity = 2;
-		//DoF = Camera.main.GetComponent<DepthOfField>();
+		top = GameObject.Find("Flare1");
+		secondTop = GameObject.Find ("Flare2");
+		middle = GameObject.Find ("Flare3");
+		secondLowest = GameObject.Find ("Flare4");
+		lowest = GameObject.Find ("Flare5");
+		NightVisionLight = GameObject.Find ("NightVision");
+		NightVisionLight.SetActive(false);
 		sonarLight = GameObject.Find ("SonarLight");
 		sonarLight.SetActive (false);
-		environ = GameObject.FindGameObjectsWithTag ("Environment");
-		rend = new Renderer[environ.Length];
+		hospitalGirl = GameObject.Find ("HospitalGirl");
 		lights = GameObject.FindGameObjectsWithTag ("Light");
-		Floor = GameObject.Find ("Floor").GetComponent<Renderer>();
+		environ = GameObject.FindGameObjectsWithTag ("Environment");
+		enemies = GameObject.FindGameObjectsWithTag ("Enemy");
+		misc = GameObject.FindGameObjectsWithTag ("Other");
+		items = GameObject.FindGameObjectsWithTag ("Item");
+
+		flashLight = GetComponent<Flashlight> ();
+		grain = GameObject.Find ("Main Camera").GetComponent<NoiseAndGrain> ();
+		grain.enabled = false;
+		echoSpherez = GetComponent<EchoSpherez> ();
+		enemyDamage = GameObject.Find ("HospitalGirl").GetComponent <HospitalGirl> ();
+		//DoF = Camera.main.GetComponent<DepthOfField>();
+		rend = new Renderer[environ.Length];
 	}
 	
 	void Update()
 	{
-		print (Floor.material);
+		//print (Floor.material);
+		if (Input.GetKeyDown("1"))
+		{
+			isNightVision = false;
+			isFlashLight = true;
+			isSonar = false;
+			grain.enabled = false;
+		}
 		if (Input.GetKeyDown("2"))
 		{
 			isNightVision = true;
 			isFlashLight = false;
 			isSonar = false;
+			grain.enabled = true;
 		}
-		else if (Input.GetKeyDown("1"))
-		{
-			isNightVision = false;
-			isFlashLight = true;
-			isSonar = false;
-		}
-		if(Input.GetKeyDown("3"))
+		if(Input.GetKeyDown("3") && enemyDamage.flash)
 		{
 			isNightVision = false;
 			isFlashLight = false;
 			isSonar = true;
+			grain.enabled = false;
 			//DoF.enabled = true;
 		}
 		/*if(DoF.isActiveAndEnabled)
@@ -106,6 +120,7 @@ public class TestingNightVision : MonoBehaviour
 		if(isFlashLight)
 		{
 			NightVisionLight.SetActive(false);
+			flashLight.enabled = true;
 			blueLight.GetComponent<Light>().intensity = 2;
 		}
 		if(isFlashLight == false)
@@ -129,6 +144,25 @@ public class TestingNightVision : MonoBehaviour
 			{
 				lights[l].SetActive(false);
 			}
+			for(int i = 0 ; i < enemies.Length ; i++)
+			{
+				rend[i] = enemies[i].GetComponent<Renderer>();
+				rend[i].material.shader = multiEcho;
+				rend[i].material = multiMaterial;
+			}
+			for(int i = 0 ; i < misc.Length ; i++)
+			{
+				rend[i] = misc[i].GetComponent<Renderer>();
+				rend[i].material.shader = multiEcho;
+				rend[i].material = multiMaterial;
+			}
+			for(int i = 0 ; i < items.Length ; i++)
+			{
+				rend[i] = items[i].GetComponent<Renderer>();
+				rend[i].material.shader = multiEcho;
+				rend[i].material = multiMaterial;
+			}
+
 			sonarLight.SetActive(true);
 			if(Input.GetKeyDown("2") || Input.GetKeyDown("1"))
 			{
@@ -163,10 +197,11 @@ public class TestingNightVision : MonoBehaviour
 			secondLowest.SetActive(false);
 			lowest.SetActive(false);
 			NightVisionLight.SetActive(true);
+			flashLight.enabled = false;
 
-			var colPreviousGUIColor = GUI.color;
-			GUI.color = new Color(colPreviousGUIColor.r, colPreviousGUIColor.g, colPreviousGUIColor.b, fAlpha);
-			GUI.DrawTexture(new Rect(0.0F, 0.0F, Screen.width, Screen.height), greenStatic); 
+			//var colPreviousGUIColor = GUI.color;
+			//GUI.color = new Color(colPreviousGUIColor.r, colPreviousGUIColor.g, colPreviousGUIColor.b, fAlpha);
+			//GUI.DrawTexture(new Rect(0.0F, 0.0F, Screen.width, Screen.height), greenStatic); 
 		}
 		if (isNightVision == false)
 		{

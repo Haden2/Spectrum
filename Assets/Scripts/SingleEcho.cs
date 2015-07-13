@@ -7,39 +7,36 @@ public class EchoSphere : MonoBehaviour {
 	public Material EchoMaterial = null;
 	public Texture EchoTexture = null;
 	//public Shader EchoShader = null;
-	
+	public GameObject rock;
+
+	public bool isAnimated = false;    
+	public bool isTexturedScene = true;
+	public bool isGrounded;
+
 	public float SphereMaxRadius = 10.0f;     //Final size of the echo sphere.
-	public float CurrentRadius = 0.0f;  //Current size of the echo sphere
-	
+	public float CurrentRadius = 0.0f;  //Current size of the echo sphere	
 	public float FadeDelay = 0.0f;          //Time to delay before triggering fade.
 	public float FadeRate = 1.0f;           //Speed of the fade away
 	public float EchoSpeed = 1.0f;          //Speed of the sphere growth.
-	
+	public float deltaTime = 0.0f;
+	public float fade = 0.0f;
+
 	public int SphereCount = 1;
 	public int CurrentSphere = 0;
 	
-	private bool isAnimated = false;    
-	private float deltaTime = 0.0f;
-	
-	public float fade = 0.0f;
-	public bool isTexturedScene = true;
 	public Vector3 pingLocation;
 	public Vector3 rockLocation;
-	public TestingNightVision appControl;
-	public bool isGrounded;
+
+	public SpectrumController spectrum;
 	public RockNoise rockNoise;
-	public GameObject rock;
-	
-	// Use this for initialization
+
 	void Start () 
 	{	
 		SetupSimpleScene1();
-		appControl = GetComponent<TestingNightVision> ();
+		spectrum = GetComponent<SpectrumController> ();
 	}
-	
-	/// 
+
 	/// Scenario1: Monocolor echo. 
-	/// 
 	void SetupSimpleScene1()
 	{
 		SphereMaxRadius = 40.0f;
@@ -54,10 +51,8 @@ public class EchoSphere : MonoBehaviour {
 		EchoMaterial.SetFloat("_DistanceFade",1.0f);
 		isTexturedScene = false;
 	}
-	
-	/// 
+
 	/// Scenario2: Diffuse texture echo
-	/// 
 	void SetupSimpleScene2()
 	{
 		SphereMaxRadius = 40.0f;
@@ -98,11 +93,6 @@ public class EchoSphere : MonoBehaviour {
 			rockNoise = GameObject.Find("ThrownRock(Clone)").GetComponent<RockNoise>();
 			rock = GameObject.Find("ThrownRock(Clone)");
 		}
-		if(isGrounded == false)
-		{
-			//rockNoise = null;
-			//rock = null;
-		}
 		deltaTime += Time.deltaTime;
 		
 		UpdateRayCast();
@@ -139,7 +129,7 @@ public class EchoSphere : MonoBehaviour {
 	void UpdateRayCast() 
 	{
 		//rockNoise = GameObject.Find ("ThrownRock").GetComponent<RockNoise> ();
-		if (Input.GetButtonDown("Fire1") && appControl.isSonar){
+		if (Input.GetButtonDown("Fire1") && spectrum.isSonar){
 			Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 			RaycastHit hit;
 			if (Physics.Raycast(ray,out hit, Mathf.Infinity)) 
@@ -150,7 +140,7 @@ public class EchoSphere : MonoBehaviour {
 				TriggerPulse();
 			}
 		}  
-		if (Input.GetButtonDown("Fire2") && appControl.isSonar){
+		if (Input.GetButtonDown("Fire2") && spectrum.isSonar){
 			Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 			RaycastHit hit;
 			if (Physics.Raycast(ray,out hit, Mathf.Infinity)) 

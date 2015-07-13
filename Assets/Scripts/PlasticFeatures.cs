@@ -5,21 +5,24 @@ public class PlasticFeatures : MonoBehaviour {
 
 	//GameObject plastic;
 	public GameObject player;
-	Inventory inventory;
-	GameObject anatomy;
-	GameObject eye;
-	float deathSequence;
+	public GameObject anatomy;
+	public GameObject eye;
 
+	public float deathSequence;
+	
+	public Inventory inventory;
 
 
 	// Use this for initialization
 	void Start () 
 	{
-		inventory = GameObject.FindGameObjectWithTag ("Player").GetComponent<Inventory>();
 		player = GameObject.Find ("First Person Controller");
-		anatomy = GameObject.FindGameObjectWithTag ("Anatomy");
+		anatomy = GameObject.Find ("HoldingAnatomy");
 		eye = GameObject.Find ("Eye");
+
 		deathSequence = 3;
+
+		inventory = GameObject.Find ("First Person Controller").GetComponent<Inventory>();
 	}
 	
 	// Update is called once per frame
@@ -36,7 +39,7 @@ public class PlasticFeatures : MonoBehaviour {
 	{
 		if(other.gameObject == anatomy)
 		{
-			print ("collided with anatomy");
+			//print ("collided with anatomy");
 			StartCoroutine (DeathSequence());
 		}
 	}

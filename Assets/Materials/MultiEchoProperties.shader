@@ -10,14 +10,20 @@ Shader "Custom/Echo/MultipleUsingProperty" {
 		_Position0("Position0",Vector) = (0.0,0.0,0.0)
 		_Position1("Position1",Vector) = (0.0,0.0,0.0)
 		_Position2("Position2",Vector) = (0.0,0.0,0.0)
+		_Position3("Position3",Vector) = (0.0,0.0,0.0)
+		_Position4("Position4",Vector) = (0.0,0.0,0.0)
 		
 		_Radius0("Radius0",float) = 0.0	
 		_Radius1("Radius1",float) = 0.0	
 		_Radius2("Radius2",float) = 0.0	
+		_Radius3("Radius3",float) = 0.0	
+		_Radius4("Radius4",float) = 0.0	
 		
 		_Fade0("Fade0",float) = 0.0
 		_Fade1("Fade1",float) = 0.0
 		_Fade2("Fade2",float) = 0.0
+		_Fade3("Fade3",float) = 0.0
+		_Fade4("Fade4",float) = 0.0
 	} 
 	
 	SubShader {
