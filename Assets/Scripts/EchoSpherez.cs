@@ -11,6 +11,7 @@ public class EchoSpherez : MonoBehaviour {
 	public GameObject rock;
 
 	public bool isGrounded;
+	//public bool gunShot;
 
 	public int SphereCount = 5;
 	public int CurrentSphere = 0;
@@ -108,6 +109,15 @@ public class EchoSpherez : MonoBehaviour {
 			if(CurrentSphere >= Spheres.Count)CurrentSphere = 0;
 			rockNoise.isgrounded = false;
 		}
+		if(inventory.activeGun && Input.GetButtonDown("Fire1") && inventory.showInventory == false)
+		{
+		//	gunShot = true;
+			pingLocation = gameObject.transform.position;
+			Spheres[CurrentSphere].TriggerPulse();
+			Spheres[CurrentSphere].Position = pingLocation;
+			CurrentSphere += 1;
+			if(CurrentSphere >= Spheres.Count)CurrentSphere = 0;
+		}
 	}
 }
 [Serializable]
@@ -129,11 +139,12 @@ public class EchoSphere2 {
 	//public bool is_manual = false;			//Is pulse manual.  if true, pulse triggered by left-mouse click
 	
 	public bool is_animated = false;		//If true, pulse is currently running.
-	
-	private float deltaTime = 0.0f;
-	private float fade = 0.0f;
+	public bool gunShot;
 
+	public float deltaTime = 0.0f;
+	public float fade = 0.0f;
 
+	public Inventory inventory;
 	public EchoSphere2(){}
 
 	public void Start()
@@ -141,19 +152,22 @@ public class EchoSphere2 {
 		sphereCurrentRadius = 0;
 		fade = 0;
 		EchoMaterial.SetFloat("_Radius"+SphereIndex.ToString(),sphereCurrentRadius);
-
 	}
 
 	public void Update () 
 	{
+		inventory = GameObject.Find("First Person Controller").GetComponent<Inventory> ();
 		EchoMaterial.SetFloat("_Radius"+SphereIndex.ToString(),sphereCurrentRadius);
-
 		if(EchoMaterial == null)return;
 		
 		// If manual selection is disabled, automatically trigger a pulse at the given freq.
 		deltaTime += Time.deltaTime;
 		UpdateEcho();
-		
+
+		if(inventory.activeGun && Input.GetButtonDown("Fire1") && inventory.showInventory == false)
+		{
+			gunShot = true;
+		}
 	//	if(CurrentPackingMode == ShaderPackingMode.Texture)UpdateTexture();
 		if(CurrentPackingMode == ShaderPackingMode.Property)UpdateProperties();
 	}
@@ -187,11 +201,25 @@ public class EchoSphere2 {
 		float maxFade = SphereMaxRadius / echoSpeed;
 		
 		//Debug.Log("Updating _Position"+SphereIndex.ToString());
-		EchoMaterial.SetVector("_Position"+SphereIndex.ToString(),Position);
-		EchoMaterial.SetFloat("_Radius"+SphereIndex.ToString(),sphereCurrentRadius);
-		EchoMaterial.SetFloat("_Fade"+SphereIndex.ToString(),fade);	
-		EchoMaterial.SetFloat("_MaxRadius",maxRadius);
-		EchoMaterial.SetFloat("_MaxFade",maxFade);
+		if(gunShot == false)
+		{
+			EchoMaterial.SetVector("_Position"+SphereIndex.ToString(),Position);
+			EchoMaterial.SetFloat("_Radius"+SphereIndex.ToString(),sphereCurrentRadius);
+			EchoMaterial.SetFloat("_Fade"+SphereIndex.ToString(),fade);	
+			EchoMaterial.SetFloat("_MaxRadius",maxRadius);
+			EchoMaterial.SetFloat("_MaxFade",maxFade);
+		}
+		if(gunShot)
+		{
+			echoSpeed = 200;
+			SphereMaxRadius = 100;
+			//FadeRate = 2f;
+			EchoMaterial.SetVector("_Position"+SphereIndex.ToString(),Position);
+			EchoMaterial.SetFloat("_Radius"+SphereIndex.ToString(),sphereCurrentRadius);
+			EchoMaterial.SetFloat("_Fade"+SphereIndex.ToString(),fade);	
+			EchoMaterial.SetFloat("_MaxRadius",maxRadius);
+			EchoMaterial.SetFloat("_MaxFade",maxFade);
+		}
 	}
 	
 /*	void UpdateTexture()

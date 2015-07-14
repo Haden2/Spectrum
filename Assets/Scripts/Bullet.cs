@@ -38,10 +38,10 @@ public class Bullet : MonoBehaviour {
 				{
 					oldManShot = true;
 				}
-				if(hit.transform.tag == "Environment")
+				/*if(hit.transform.tag == "Environment")
 				{
 					Instantiate(bulletHole, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
-				}
+				}*/
 			}
 			Debug.DrawLine(transform.position, hit.point, Color.green);
 			/*if(Physics.Raycast (rayOrigin, Vector3.forward, out hitInfo))
