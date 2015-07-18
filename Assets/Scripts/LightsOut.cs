@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class LightsOut : MonoBehaviour 
 {
+	public Material lMaterial;
+	public Color color;
 	public Light targetLight;
 	public GameObject target;
 	public GameObject[] lights;
@@ -15,6 +17,7 @@ public class LightsOut : MonoBehaviour
 	public float targetRange;
 	public float targetAngle;
 	public float distance;
+	public float distanceFromLight;
 
 	public Vector3 rightAngle;
 
@@ -62,6 +65,17 @@ public class LightsOut : MonoBehaviour
 				{
 					if(rightHit.transform.name == "LightMonster") //if it hits the monster
 					{
+						distanceFromLight = rightHit.distance;
+						Debug.DrawRay(targetLight.transform.position, rotation * targetLight.transform.forward * targetRange, Color.blue); //show right ray
+						Debug.DrawRay(targetLight.transform.position, rotationL * targetLight.transform.forward * targetRange, Color.blue); //show left ray
+						if(distanceFromLight >5)
+						{
+							gameObject.GetComponent<Renderer>().material.color.a = .6f;
+						}
+						if(distanceFromLight < 5)
+						{
+
+						}
 					//	print (rightHit.transform.position); // the global position of the light monster
 						//print (hit.transform.position); // the global position of the wall behind the light monster
 						//rightAngle = rightHit.transform.position - hit.transform.position;   All this did was say that the wall is at this position, and the enemy is at this position. Doesn't give a good value.
@@ -70,8 +84,6 @@ public class LightsOut : MonoBehaviour
 				if ((Vector3.Angle(rayDirection, -targetLight.transform.forward)) <= targetAngle * 0.5f) // if the enemy is in the spotlight at all
 				{
 					inLight = true; //it is in the light.
-					Debug.DrawRay(targetLight.transform.position, rotation * targetLight.transform.forward * targetRange, Color.blue); //show right ray
-					Debug.DrawRay(targetLight.transform.position, rotationL * targetLight.transform.forward * targetRange, Color.blue); //show left ray
 				}
 				else{
 					inLight =false; //otherwise, dont show it

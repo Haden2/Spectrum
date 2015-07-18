@@ -52,15 +52,15 @@ Material:
       data:
         first:
           name: _Radius0
-        second: 40.0920525
+        second: 0
       data:
         first:
           name: _Radius1
-        second: 40.1347313
+        second: 0
       data:
         first:
           name: _Radius2
-        second: 40.0567169
+        second: 0
       data:
         first:
           name: _Fade0
