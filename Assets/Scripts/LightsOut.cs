@@ -4,8 +4,9 @@ using System.Collections.Generic;
 
 public class LightsOut : MonoBehaviour 
 {
-	public Material lMaterial;
-	public Color color;
+	public Material fadeMaterial;
+	//MeshRenderer rendererer;
+	public Color newColor;
 	public Light targetLight;
 	public GameObject target;
 	public GameObject[] lights;
@@ -18,11 +19,15 @@ public class LightsOut : MonoBehaviour
 	public float targetAngle;
 	public float distance;
 	public float distanceFromLight;
+	public float alpha;
 
 	public Vector3 rightAngle;
 
 	void Awake()
 	{
+		//rendererer = gameObject.GetComponent<MeshRenderer> ();
+		fadeMaterial = gameObject.GetComponent<Renderer>().material;
+		newColor = fadeMaterial.color;
 		InvokeRepeating("FindClosestLight", 0.5f,0.5f); //Calls the function to find the nearest light.
 	}
 
@@ -70,11 +75,13 @@ public class LightsOut : MonoBehaviour
 						Debug.DrawRay(targetLight.transform.position, rotationL * targetLight.transform.forward * targetRange, Color.blue); //show left ray
 						if(distanceFromLight >5)
 						{
-							gameObject.GetComponent<Renderer>().material.color.a = .6f;
+							//print (newColor.a);
+							//newColor.a = alpha;
+							this.GetComponent<MeshRenderer>().material.color = new Color (1,1,1,.5f);
 						}
 						if(distanceFromLight < 5)
 						{
-
+							this.GetComponent<MeshRenderer>().material.color = new Color (1,1,1,.2f);
 						}
 					//	print (rightHit.transform.position); // the global position of the light monster
 						//print (hit.transform.position); // the global position of the wall behind the light monster

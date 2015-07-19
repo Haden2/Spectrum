@@ -9240,7 +9240,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.5
+      value: -5.94000006
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalPosition.y
@@ -9248,7 +9248,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -2.5
+      value: -5.8499999
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalRotation.x
@@ -9256,7 +9256,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -.953716993
+      value: .860119581
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalRotation.z
@@ -9264,7 +9264,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalRotation.w
-      value: .300705701
+      value: .510092556
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_RootOrder
@@ -10346,7 +10346,7 @@ GameObject:
   - 114: {fileID: 1855892920}
   m_Layer: 0
   m_Name: LightMonster
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10434,6 +10434,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da41acd7fd8197246b4ca0050a781cdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeMaterial: {fileID: 0}
+  newColor: {r: 0, g: 0, b: 0, a: 0}
   targetLight: {fileID: 0}
   target: {fileID: 0}
   lights: []
@@ -10444,6 +10446,7 @@ MonoBehaviour:
   targetAngle: 0
   distance: 0
   distanceFromLight: 0
+  alpha: 0
   rightAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &1862810078
 GameObject:
