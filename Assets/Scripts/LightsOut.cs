@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public class LightsOut : MonoBehaviour 
 {
+	//Have 2 float values. 1 is the distance from the light then a new float is the new distance away. That replaces the first float value. So if 1 is greater than 2, then it is getting closer to the source. 
+	//Have a raycast appear inside the bounds of the light that follows the enemy. Figure out the global angles of the raycasts. So once I figure out how to get the global angle of the blue line, then I can subtract the two in order to find the purple angle
+	//and green angle is orange angle minus purple angle
+	//Hypotenuse * sin(alpha) gives the opposite side length which is the spot from the end of the hypotenuse to the center of the circle. 
 	public Material fadeMaterial;
 	//MeshRenderer rendererer;
 	public Color newColor;
@@ -20,6 +24,7 @@ public class LightsOut : MonoBehaviour
 	public float distance;
 	public float distanceFromLight;
 	public float alpha;
+	public float hypotenuseAngle;
 
 	public Vector3 rightAngle;
 
@@ -106,6 +111,7 @@ public class LightsOut : MonoBehaviour
 			}
 			targetRange = targetLight.range;  //the targetRange is how far the light goes. The lights range.
 			targetAngle = targetLight.spotAngle; // the targetAngle is how wide the circle is
+			hypotenuseAngle = targetAngle/2;
 		}
 	} 
 
