@@ -2225,7 +2225,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 395957170}
   m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106709}
-  m_LocalPosition: {x: -.613160908, y: 3, z: -2.77636957}
+  m_LocalPosition: {x: -.610000014, y: 3, z: -4.76999998}
   m_LocalScale: {x: .075000003, y: 6, z: 5}
   m_Children: []
   m_Father: {fileID: 239017101}
@@ -10446,8 +10446,13 @@ MonoBehaviour:
   targetAngle: 0
   distance: 0
   distanceFromLight: 0
-  alpha: 0
-  rightAngle: {x: 0, y: 0, z: 0}
+  hypotenuseAngle: 0
+  globalBlueAngle: 0
+  globalOrangeAngle: 0
+  globalLeftOrangeAngle: 0
+  alphaChangeRate: 0
+  endDirection: {x: 0, y: 0, z: 0}
+  newDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &1862810078
 GameObject:
   m_ObjectHideFlags: 0
