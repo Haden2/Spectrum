@@ -28,6 +28,7 @@ public class LightsOut : MonoBehaviour
 	public float globalOrangeAngle;
 	public float globalLeftOrangeAngle;
 	public float alphaChangeRate;
+	public float intensityAlpha;
 
 	//public Vector3 rightAngle;
 	public Vector3 endDirection;
@@ -45,8 +46,8 @@ public class LightsOut : MonoBehaviour
 	{
 		if(target != null) //If the target variable isn't blank. Putting things outside of this if statement creates issues because it takes a couple seconds for the game to find all of the lights.
 		{
-			alphaChangeRate = (distance/(distance + 5));
 			targetLight = target.gameObject.GetComponent<Light> (); //grabbed the gameobjects light component.
+			intensityAlpha = (targetLight.intensity * .1f) + 1;
 			globalBlueAngle = targetLight.transform.eulerAngles.y;
 			globalOrangeAngle = globalBlueAngle + hypotenuseAngle;
 			globalLeftOrangeAngle = globalBlueAngle - hypotenuseAngle;
@@ -65,9 +66,11 @@ public class LightsOut : MonoBehaviour
 				Ray ray = new Ray(targetLight.transform.position, targetLight.transform.forward); //ray from light to player
 				RaycastHit hit; //dead center spot
 				Debug.DrawRay(targetLight.transform.position, targetLight.transform.forward * targetRange, Color.yellow); //Draw this beam out.
+				this.GetComponent<MeshRenderer>().material.color = new Color (1,1,1, alphaChangeRate);
 
 				if(inLight)
 				{
+					alphaChangeRate = (Mathf.Pow(intensityAlpha,distanceFromLight - targetRange));
 					Quaternion rotation = Quaternion.AngleAxis(targetAngle * .5f, targetLight.transform.up); //this is the right side of the circle.
 					Quaternion rotationL = Quaternion.AngleAxis(-targetAngle * .5f, targetLight.transform.up); //this is the left edge of the circle.
 					RaycastHit rightHit; //the raycast on the right edge
@@ -99,19 +102,16 @@ public class LightsOut : MonoBehaviour
 						{
 							distanceFromLight = blueHit.distance;
 
-							if(distanceFromLight >5)
-							{
-								this.GetComponent<MeshRenderer>().material.color = new Color (1,1,1,.5f);
-							}
-							if(distanceFromLight < 5)
-							{
-								this.GetComponent<MeshRenderer>().material.color = new Color (1,1,1,.2f);
-							}
-							//	print (rightHit.transform.position); // the global position of the light monster
+
+							//print (rightHit.transform.position); // the global position of the light monster
 							//print (hit.transform.position); // the global position of the wall behind the light monster
 							//rightAngle = rightHit.transform.position - hit.transform.position;   All this did was say that the wall is at this position, and the enemy is at this position. Doesn't give a good value.
 						}
 					}
+				}
+				if(inLight == false)
+				{
+					alphaChangeRate = 1;
 				}
 				if ((Vector3.Angle(rayDirection, -targetLight.transform.forward)) <= targetAngle * 0.5f) // if the enemy is in the spotlight at all
 				{

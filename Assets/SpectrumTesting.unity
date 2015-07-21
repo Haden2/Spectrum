@@ -2225,7 +2225,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 395957170}
   m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106709}
-  m_LocalPosition: {x: -.610000014, y: 3, z: -4.76999998}
+  m_LocalPosition: {x: -.610000014, y: 3, z: -2.7750001}
   m_LocalScale: {x: .075000003, y: 6, z: 5}
   m_Children: []
   m_Father: {fileID: 239017101}
@@ -2670,6 +2670,7 @@ Transform:
   - {fileID: 1530513002}
   - {fileID: 1440378359}
   - {fileID: 910146381}
+  - {fileID: 1779769820}
   m_Father: {fileID: 0}
   m_RootOrder: 3
 --- !u!1 &507965257
@@ -5326,7 +5327,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 841462264}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -1.62920685e-07}
-  m_LocalPosition: {x: 0, y: 31, z: 0}
+  m_LocalPosition: {x: 0, y: 31, z: 9.89000034}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 464156553}
@@ -5453,7 +5454,7 @@ Light:
     m_Bias: .0500000007
     m_NormalBias: .400000006
   m_Cookie: {fileID: 0}
-  m_DrawHalo: 1
+  m_DrawHalo: 0
   m_Flare: {fileID: 0}
   m_RenderMode: 0
   m_CullingMask:
@@ -10088,6 +10089,66 @@ MonoBehaviour:
   spectrum: {fileID: 0}
   playerController: {fileID: 0}
   echoSpherez: {fileID: 0}
+--- !u!1 &1779769819
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1779769820}
+  - 108: {fileID: 1779769821}
+  m_Layer: 0
+  m_Name: Point light
+  m_TagString: Light
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1779769820
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1779769819}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 31.0900002, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 464156553}
+  m_RootOrder: 4
+--- !u!108 &1779769821
+Light:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1779769819}
+  m_Enabled: 1
+  serializedVersion: 6
+  m_Type: 2
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 8
+  m_Range: 10
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_Strength: 1
+    m_Bias: .0500000007
+    m_NormalBias: .400000006
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_BounceIntensity: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_AreaSize: {x: 1, y: 1}
 --- !u!1 &1784036089
 GameObject:
   m_ObjectHideFlags: 0
@@ -10415,13 +10476,13 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1855892914}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 150
   m_Drag: 0
   m_AngularDrag: .0500000007
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &1855892920
 MonoBehaviour:
@@ -10451,6 +10512,7 @@ MonoBehaviour:
   globalOrangeAngle: 0
   globalLeftOrangeAngle: 0
   alphaChangeRate: 0
+  intensityAlpha: 0
   endDirection: {x: 0, y: 0, z: 0}
   newDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &1862810078
