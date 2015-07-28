@@ -64,11 +64,11 @@ Material:
       data:
         first:
           name: _Fade0
-        second: 4.45467234
+        second: 4.448277
       data:
         first:
           name: _Fade1
-        second: 4.45941496
+        second: 4.44452047
       data:
         first:
           name: _Fade2
@@ -293,11 +293,11 @@ Material:
       data:
         first:
           name: _Position0
-        second: {r: -3.61669755, g: .109048456, b: 2.18090391, a: 0}
+        second: {r: -5.94000006, g: 30.014061, b: -5.8499999, a: 0}
       data:
         first:
           name: _Position1
-        second: {r: -5.23967886, g: .0478825718, b: 7.92575788, a: 0}
+        second: {r: -5.94000006, g: 25.8939095, b: -5.8499999, a: 0}
       data:
         first:
           name: _Position2
