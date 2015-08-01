@@ -23,10 +23,11 @@ public class LightsOut : MonoBehaviour
 	public float targetAngle;
 	public float distance;
 	public float distanceFromLight;
-	public float hypotenuseAngle;
-	public float globalBlueAngle;
-	public float globalOrangeAngle;
+	public float blueAngle;
+	public float globalMidAngle;
+	public float globalRightAngle;
 	public float globalLeftOrangeAngle;
+	public float globalBlueLineAngle;
 	public float alphaChangeRate;
 	public float intensityAlpha;
 
@@ -48,9 +49,9 @@ public class LightsOut : MonoBehaviour
 		{
 			targetLight = target.gameObject.GetComponent<Light> (); //grabbed the gameobjects light component.
 			intensityAlpha = (targetLight.intensity * .1f) + 1;
-			globalBlueAngle = targetLight.transform.eulerAngles.y;
-			globalOrangeAngle = globalBlueAngle + hypotenuseAngle;
-			globalLeftOrangeAngle = globalBlueAngle - hypotenuseAngle;
+			globalMidAngle = targetLight.transform.eulerAngles.y;
+			globalRightAngle = globalMidAngle + blueAngle;
+			globalLeftOrangeAngle = globalMidAngle - blueAngle;
 			endDirection = gameObject.transform.position - target.transform.position;
 			//float step = speed * Time.deltaTime;
 			newDirection = Vector3.RotateTowards (target.transform.forward, endDirection, 1,10);
@@ -82,6 +83,7 @@ public class LightsOut : MonoBehaviour
 					Debug.DrawRay(targetLight.transform.position, rotation * targetLight.transform.forward * targetRange, Color.yellow); //show right ray
 					Debug.DrawRay(targetLight.transform.position, rotationL * targetLight.transform.forward * targetRange, Color.yellow); //show left ray
 					Debug.DrawRay(target.transform.position, newDirection, Color.blue);
+
 				
 					if(Physics.Raycast(ray, out hit, targetRange)) //if the raycast hit something within range. targetRange matches range of spotlight.
 					{
@@ -101,8 +103,10 @@ public class LightsOut : MonoBehaviour
 						if(blueHit.transform.name == "LightMonster") //if it hits the monster
 						{
 							distanceFromLight = blueHit.distance;
-
-
+							globalBlueLineAngle = blueRay.direction.normalized.y;
+							Quaternion globalBlueAngle = Quaternion.identity;
+							globalBlueAngle.eulerAngles = (transform.eulerAngles);
+							print(globalBlueAngle.eulerAngles.x);
 							//print (rightHit.transform.position); // the global position of the light monster
 							//print (hit.transform.position); // the global position of the wall behind the light monster
 							//rightAngle = rightHit.transform.position - hit.transform.position;   All this did was say that the wall is at this position, and the enemy is at this position. Doesn't give a good value.
@@ -131,7 +135,7 @@ public class LightsOut : MonoBehaviour
 			}
 			targetRange = targetLight.range;  //the targetRange is how far the light goes. The lights range.
 			targetAngle = targetLight.spotAngle; // the targetAngle is how wide the circle is
-			hypotenuseAngle = targetAngle/2;
+			blueAngle = targetAngle/2;
 
 		}
 	} 

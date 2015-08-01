@@ -3580,6 +3580,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100046, guid: 01e42aca5fc931e4caf7eb3bd3eaa9b2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 01e42aca5fc931e4caf7eb3bd3eaa9b2, type: 3}
   m_IsPrefabParent: 0
@@ -6216,7 +6220,7 @@ Light:
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 4
-  m_Range: 22
+  m_Range: 23
   m_SpotAngle: 44
   m_CookieSize: 10
   m_Shadows:
@@ -11802,10 +11806,11 @@ MonoBehaviour:
   targetAngle: 0
   distance: 0
   distanceFromLight: 0
-  hypotenuseAngle: 0
-  globalBlueAngle: 0
-  globalOrangeAngle: 0
+  blueAngle: 0
+  globalMidAngle: 0
+  globalRightAngle: 0
   globalLeftOrangeAngle: 0
+  globalBlueLineAngle: 0
   alphaChangeRate: 0
   intensityAlpha: 0
   endDirection: {x: 0, y: 0, z: 0}
