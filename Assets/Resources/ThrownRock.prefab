@@ -16,7 +16,7 @@ GameObject:
   - 65: {fileID: 6596882}
   m_Layer: 0
   m_Name: ThrownRock
-  m_TagString: Untagged
+  m_TagString: HeldItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,11 +105,11 @@ MonoBehaviour:
   hitobject: 
   isgrounded: 0
   standingOn: 0
-  collect: {fileID: 0}
-  inventory: {fileID: 0}
   realTime: 0
   thrownTime: 0
-  echoSphere: {fileID: 0}
+  collect: {fileID: 0}
+  inventory: {fileID: 0}
+  echoSpherez: {fileID: 0}
 --- !u!135 &13582328
 SphereCollider:
   m_ObjectHideFlags: 1

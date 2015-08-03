@@ -14,6 +14,7 @@ public class SpectrumController : MonoBehaviour
 	public Material EchoMaterial = null;
 	public Material multiMaterial;
 	public Material Default;
+	public Material outLine;
 	public Material FloorMat;
 	//public Texture2D greenStatic;
 	public GameObject blueLight;
@@ -25,11 +26,15 @@ public class SpectrumController : MonoBehaviour
 	public GameObject NightVisionLight;
 	public GameObject sonarLight;
 	public GameObject hospitalGirl;
+	public GameObject dustUp;
+	public GameObject dustDown;
 	public GameObject[] lights;
 	public GameObject[] environ;
 	public GameObject[] enemies;
 	public GameObject[] misc;
 	public GameObject[] items;
+	public GameObject[] gloves;
+	public GameObject[] heldItem;
 
 	public bool isFlashLight = true;
 	public bool isNightVision = false;
@@ -41,6 +46,7 @@ public class SpectrumController : MonoBehaviour
 	public NoiseAndGrain grain;
 	public EchoSpherez echoSpherez;
 	public HospitalGirl enemyDamage;
+	public Inventory inventory;
 	//public DepthOfField DoF;
 
 	void Start()
@@ -59,17 +65,22 @@ public class SpectrumController : MonoBehaviour
 		sonarLight = GameObject.Find ("SonarLight");
 		sonarLight.SetActive (false);
 		hospitalGirl = GameObject.Find ("HospitalGirl");
+		dustUp = GameObject.Find ("DustUp");
+		dustDown = GameObject.Find ("DustDown");
 		lights = GameObject.FindGameObjectsWithTag ("Light");
 		environ = GameObject.FindGameObjectsWithTag ("Environment");
 		enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 		misc = GameObject.FindGameObjectsWithTag ("Other");
 		items = GameObject.FindGameObjectsWithTag ("Item");
+		gloves = GameObject.FindGameObjectsWithTag ("Gloves");
+		heldItem = GameObject.FindGameObjectsWithTag("HeldItem");
 
 		flashLight = GetComponent<Flashlight> ();
 		grain = GameObject.Find ("Main Camera").GetComponent<NoiseAndGrain> ();
 		grain.enabled = false;
 		echoSpherez = GetComponent<EchoSpherez> ();
 		enemyDamage = GameObject.Find ("HospitalGirl").GetComponent <HospitalGirl> ();
+		inventory = GetComponent <Inventory> ();
 		//DoF = Camera.main.GetComponent<DepthOfField>();
 		rend = new Renderer[environ.Length];
 	}
@@ -77,21 +88,21 @@ public class SpectrumController : MonoBehaviour
 	void Update()
 	{
 		//print (Floor.material);
-		if (Input.GetKeyDown("1"))
+		if (Input.GetKeyDown("1") && inventory.showInventory == false)
 		{
 			isNightVision = false;
 			isFlashLight = true;
 			isSonar = false;
 			grain.enabled = false;
 		}
-		if (Input.GetKeyDown("2"))
+		if (Input.GetKeyDown("2") && enemyDamage.flash && inventory.showInventory == false)
 		{
 			isNightVision = true;
 			isFlashLight = false;
 			isSonar = false;
 			grain.enabled = true;
 		}
-		if(Input.GetKeyDown("3") && enemyDamage.flash)
+		if(Input.GetKeyDown("3") && enemyDamage.flash && inventory.showInventory == false)
 		{
 			isNightVision = false;
 			isFlashLight = false;
@@ -134,6 +145,8 @@ public class SpectrumController : MonoBehaviour
 		}
 		if(isSonar)
 		{
+			dustUp.SetActive(false);
+			dustDown.SetActive(false);
 			for(int i = 0 ; i < environ.Length ; i++)
 			{
 				rend[i] = environ[i].GetComponent<Renderer>();
@@ -162,15 +175,30 @@ public class SpectrumController : MonoBehaviour
 				rend[i].material.shader = multiEcho;
 				rend[i].material = multiMaterial;
 			}
+			for(int i = 0 ; i < gloves.Length ; i++)
+			{
+				rend[i] = gloves[i].GetComponent<Renderer>();
+				rend[i].material.shader = multiEcho;
+				rend[i].material = multiMaterial;
+			}
+			for(int i = 0 ; i < heldItem.Length ; i++)
+			{
+				rend[i] = heldItem[i].GetComponent<Renderer>();
+				rend[i].material.shader = multiEcho;
+				rend[i].material = multiMaterial;
+			}
 
 			sonarLight.SetActive(true);
-			if(Input.GetKeyDown("2") || Input.GetKeyDown("1"))
+			if(Input.GetKeyDown("2") || Input.GetKeyDown("1") && inventory.showInventory == false)
 			{
 				isSonar = false;
 			}
 		}
 		if(isSonar == false)
 		{
+			dustUp.SetActive(true);
+			dustDown.SetActive(true);
+
 			for(int t = 0 ; t < environ.Length ; t++)
 			{
 				///Need floor to be different tag.
@@ -181,6 +209,31 @@ public class SpectrumController : MonoBehaviour
 			for(int l = 0; l < lights.Length; l++)
 			{
 				lights[l].SetActive(true);
+			}
+			for(int i = 0 ; i < enemies.Length ; i++)
+			{
+				rend[i] = enemies[i].GetComponent<Renderer>();
+				rend[i].material = Default;
+			}
+			for(int i = 0 ; i < misc.Length ; i++)
+			{
+				rend[i] = misc[i].GetComponent<Renderer>();
+				rend[i].material = Default;
+			}
+			for(int i = 0 ; i < items.Length ; i++)
+			{
+				rend[i] = items[i].GetComponent<Renderer>();
+				rend[i].material = outLine;
+			}
+			for(int i = 0 ; i < gloves.Length ; i++)
+			{
+				rend[i] = gloves[i].GetComponent<Renderer>();
+				rend[i].material = Default;
+			}
+			for(int i = 0 ; i < heldItem.Length ; i++)
+			{
+				rend[i] = heldItem[i].GetComponent<Renderer>();
+				rend[i].material = Default;
 			}
 			sonarLight.SetActive(false);
 		}
